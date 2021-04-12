@@ -23,5 +23,5 @@ V.1.0.1 (4/11/2021):
 # TO-DO LIST:  
 	- A simple hangman game  
 	- A life  
-	- A little RPG game
-	- Something to interact with the real world (Like commanding a robot IRL)
+	- A little RPG game  
+	- Something to interact with the real world (Like commanding a robot IRL)  
