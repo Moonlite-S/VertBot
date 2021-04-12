@@ -9,13 +9,13 @@ class helpVert(commands.Cog):
         self.bot = bot
 
     #Groups up subcommands for easier access and readibility
-    @commands.group(pass_content=True, invoke_without_command=True)
+    @commands.group(name='helpV', aliases=['helpv','help'], pass_content=True, invoke_without_command=True)
     async def helpV(self, ctx):
-        em = discord.Embed(title="Help Section", color = 0x00ff00, description="Use --help <command> for extended information about a command.")
+        em = discord.Embed(title="Help Section", color = 0x00ff00, description="Use --help or --helpV <command> for extended information about a command.")
 
-        em.add_field(name = "General Commands", value = "version, help")
-        em.add_field(name = "Games", value = "8ball (use ball8 for more info), rps")
-        em.add_field(name = "Misc.", value = "hello")
+        em.add_field(name = "General Commands", value = "version, help, gif")
+        em.add_field(name = "Games", value = "8ball, rps")
+        em.add_field(name = "Misc.", value = "hello, reee")
 
         if ctx.invoked_subcommand is None:
             await ctx.channel.send(embed = em)
@@ -32,7 +32,7 @@ class helpVert(commands.Cog):
         em.add_field(name="**Syntax:**", value="--help")
         await ctx.channel.send(embed = em)
     
-    @helpV.group(name="ball8")
+    @helpV.group(name="ball8", aliases=['8ball'])
     async def ball8(self, ctx):
         em = discord.Embed(title = "8Ball", description = "Ask the 8ball a question.", color = 0x00ff00)
         em.add_field(name="**Syntax:**", value="--8ball <question> ?")
@@ -49,6 +49,20 @@ class helpVert(commands.Cog):
         em = discord.Embed(title = "Hello", description = "Say hi to Vert.", color = 0x00ff00)
         em.add_field(name="**Syntax:**", value="--hello")
         await ctx.channel.send(embed = em)
+
+    @helpV.group(name="gif", aliases=['GIF'])
+    async def gif(self, ctx):
+        em = discord.Embed(title = "Gif Finder (by Giphy)", description = "Search up a gif! Also, Giphy sucks balls.", color = 0x00ff00)
+        em.add_field(name="**Syntax:**", value="--gif <keyword>")
+        em.add_field(name="**Keywords**", value="trending, random")
+        await ctx.channel.send(embed = em)
+
+    @helpV.group(name="reee", aliases=['ree','reeee'])
+    async def reee(self, ctx):
+        em = discord.Embed(title = "Hello", description = "Vert reee's.", color = 0x00ff00)
+        em.add_field(name="**Syntax:**", value="--reee")
+        await ctx.channel.send(embed = em)
+
 
 
 #Cog stuff from src that does stuff so I can use stuff

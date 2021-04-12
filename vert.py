@@ -56,10 +56,11 @@ async def on_disconnect():
 async def version(context):   
     #A fun embed
     versionEmbed = discord.Embed(title="About:", description="A fun Vert bot.", color=0x00ff00)
-    versionEmbed.add_field(name="Version Code: ", value="v1.0.0", inline=False)
+    versionEmbed.add_field(name="Version Code: ", value="v1.0.1", inline=False)
     versionEmbed.add_field(name="Date Released:", value="4/11/2021", inline=False)
+    versionEmbed.add_field(name="Latest Updated:", value="4/12/2021", inline=False)
     versionEmbed.set_author(name="Moonlite-S")
-    versionEmbed.set_footer(text="Ara Ara")
+    versionEmbed.set_footer(text="Ara Ara~")
 
     await context.message.channel.send(embed=versionEmbed)
 
@@ -69,7 +70,15 @@ async def hello(context):
     user = str(context.author)
     leng = len(user)
     user = user[:leng - 5]
-    await context.message.channel.send(f"Hello, {user}!")
+
+    hiEmb = discord.Embed(title=f"Hello, {user}!", color=0x00ff00)
+    await context.message.channel.send(embed=hiEmb)
+
+#A reee button? I don't fucking know
+@client.command(name='reee')
+async def reee(ctx):
+    reBed = discord.Embed(title="REEEEEEEEEEEEEEEEEEEEEEEEEEEE", color=0x00ff00)
+    await ctx.message.channel.send(embed=reBed)
 
 #Loads up the env file to pass the token
 load_dotenv()
