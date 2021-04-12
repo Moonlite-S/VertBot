@@ -4,8 +4,24 @@ import asyncio
 from discord.ext import commands
 from dotenv import load_dotenv
 
-client = commands.Bot(command_prefix = 'V!')
+#Usesrs must put this before imputing a command
+client = commands.Bot(command_prefix = '--', help_command=None)
 
+#auto loads all our cogs on startup
+for filename in os.listdir('./cogs'):
+    if filename.endswith('.py'):
+        client.load_extension(f'cogs.{filename[:-3]}')
+
+#functions to load cogs if we need to during operation
+@client.command()
+async def load(ctx, extension):
+    client.load_extension(f'cogs.{extention}')
+     
+@client.command()
+async def unload(ctx, extension):
+    client.unload_extension(f'cogs.{extention}')
+
+#Connects to the server
 @client.event
 async def on_connect():
   #Prints to the console
@@ -17,9 +33,8 @@ async def on_ready():
   #Prints to the console
   print('We have logged in as {0.user}'.format(client))
 
-#Update() function [do shit]
-@client.event
 #Function runs whenever a message is outputted onto the server [it reads shit]
+@client.event
 async def on_message(message):
   global general_channel
 
@@ -28,6 +43,7 @@ async def on_message(message):
     return
 
 #Prevents collision events from both on_message() and commands
+#Without this, commands may not work
   await client.process_commands(message)
 
 #When the bot leaves or dies somehow
@@ -35,8 +51,7 @@ async def on_message(message):
 async def on_disconnect():
     print('It seems that I have disconnected somehow.')
 
-######################      Commands BITCH      #########################
-
+#Tells the version of the bot
 @client.command(name='version')
 async def version(context):   
     #A fun embed
@@ -48,6 +63,13 @@ async def version(context):
 
     await context.message.channel.send(embed=versionEmbed)
 
+#Simply replies hello with the user who said it
+@client.command(name='hello')
+async def hello(context):
+    user = str(context.author)
+    leng = len(user)
+    user = user[:leng - 5]
+    await context.message.channel.send(f"Hello, {user}!")
 
 #Loads up the env file to pass the token
 load_dotenv()

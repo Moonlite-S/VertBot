@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\cogs"
   ],
-  "SelectedNode": "\\vert.py",
+  "SelectedNode": "\\cogs\\helpDesk.py",
   "PreviewInSolutionExplorer": false
 }
