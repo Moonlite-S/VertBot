@@ -16,9 +16,9 @@ V.1.0.1 (4/11/2021):
 	* Added a help cog that show all possible commands  
 	** Added a new cog, helpVert.py, a place of reference for all commands  
 	** Added a new cog, gif.py, a place where all gifs are located
-	* Added a gif finder
-	* Added a reee command for no fucking reason
-	* Added more eye strain. (Reeeeeee)    
+	* Added a gif finder  
+	* Added a reee command for no fucking reason  
+	* Added more eye strain. (Reeeeeee)      
 
 # TO-DO LIST:  
 	- A simple hangman game  
