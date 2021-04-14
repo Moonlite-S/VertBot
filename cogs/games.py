@@ -58,11 +58,15 @@ class games(commands.Cog):
             else:
                 rpsEmbed.description=random.choice(loss_responses)
                 await input.channel.send(embed=rpsEmbed)
+
+        #if the user inputs something else other than rock, paper, or scissors
         else:
              rpsEmbed.description="You must put either rock, paper, or scissors."
              await input.channel.send(embed=rpsEmbed)
 
-
+    @commands.command(name='hangman', aliases=['hm'])
+    async def hangman(ctx, input):
+        pass
 
 #Cog stuff from src that does stuff so I can use stuff
 def setup(client):

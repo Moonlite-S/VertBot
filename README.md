@@ -15,10 +15,18 @@ V.1.0.1 (4/11/2021):
 	** Added a new cog, games.py, where minigames and similar commands live  
 	* Added a help cog that show all possible commands  
 	** Added a new cog, helpVert.py, a place of reference for all commands  
-	** Added a new cog, gif.py, a place where all gifs are located
-	* Added a gif finder  
+	** Added a new cog, gif.py, a place where all gifs are located  
+	* Added a gif finder   
 	* Added a reee command for no fucking reason  
 	* Added more eye strain. (Reeeeeee)      
+
+V.1.0.2 (4/12/2021):  
+	* Revised text to be more clear in helpVert.py  
+	** Added a new cog, e7.py, to showcase my units? (idk what I want to this for tbh)  
+	* Removed env and added a gitignore
+
+V.1.0.3 (4/14/2021):  
+	* Revised code to be more readable
 
 # TO-DO LIST:  
 	- A simple hangman game  

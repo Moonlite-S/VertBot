@@ -16,7 +16,6 @@ class gif(commands.Cog):
     @commands.command(name='gif', aliases=['GIF'])
     async def gif(self, ctx):
         user_input = ctx.message.content[6:]
-        u_len = len(user_input)
 
         #Create an instance of the Giphy API
         api = giphy_client.DefaultApi()
@@ -27,7 +26,7 @@ class gif(commands.Cog):
             }
         
         #If the user puts nothing, guide them how to use it
-        if u_len <= 1:
+        if len(user_input) <= 1:
                emGif = discord.Embed(title="Gif Finder (by Giphy)", color=0x00ff00, description="Use --gif <keyword> to find a gif of something (certain keywords require all lower-case).")
                await ctx.message.channel.send(embed=emGif)
 
@@ -36,10 +35,10 @@ class gif(commands.Cog):
             try:
                 api_response = api.gifs_trending_get(
                     config['api_key'], limit=config['limit'], rating=config['rating'])
-                lst = list(api_response.data)
-                gif = random.choices(lst)
+                gif_lst = list(api_response.data)
+                chosen_gif = random.choices(gif_lst)
 
-                await ctx.message.channel.send(gif[0].url)
+                await ctx.message.channel.send(chosen_gif[0].url)
 
             except ApiException as e:
                 await ctx.message.channel.send("Exception when calling DefaultApi->gifs_trending_get: %s\n" %e)
@@ -47,11 +46,11 @@ class gif(commands.Cog):
         elif user_input == "random":
             try:
                 api_response = api.gifs_random_get(
-                    config['api_key'], limit=config['limit'], rating=config['rating'])
-                lst = list(api_response.data)
-                gif = random.choices(lst)
+                    config['api_key'], rating=config['rating'])
+                gif_lst = list(api_response.data)
+                chosen_gif = random.choices(lst)
 
-                await ctx.message.channel.send(gif[0].url)
+                await ctx.message.channel.send(chosen_gif[0].url)
 
             except ApiException as e:
                 await ctx.message.channel.send("Exception when calling DefaultApi->gifs_trending_get: %s\n" %e)
@@ -73,7 +72,7 @@ class gif(commands.Cog):
             try:
                 api_response = api.gifs_search_get(
                     config['api_key'], user_input, limit=config['limit'], rating=config['rating'])
-                lst = list(api_response.data)
+                gif_lst = list(api_response.data)
 
                 #If there are no searches, just leave
                 if len(lst) == 0:
@@ -81,7 +80,7 @@ class gif(commands.Cog):
                     return await ctx.message.channel.send(embed=gifEm)
 
                 else:
-                    gif = random.choices(lst)
+                    chosen_gif = random.choices(lst)
 
                 await ctx.message.channel.send(gif[0].url)
 
