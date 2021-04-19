@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\cogs"
+    "\\cogs",
+    "\\cogs\\database"
   ],
-  "SelectedNode": "\\cogs\\e7.py",
+  "SelectedNode": "\\cogs\\gif.py",
   "PreviewInSolutionExplorer": false
 }

@@ -3,7 +3,7 @@ import giphy_client
 import os
 import asyncio
 import random
-from discord.ext import commands
+from discord.ext import commands, tasks
 from giphy_client.rest import ApiException
 from pprint import pprint
 
@@ -75,14 +75,14 @@ class gif(commands.Cog):
                 gif_lst = list(api_response.data)
 
                 #If there are no searches, just leave
-                if len(lst) == 0:
+                if len(gif_lst) == 0:
                     gifEm = discord.Embed(title="There are no searches for that!", color=0x00ff00, description="Please try a differnt phrase.")
                     return await ctx.message.channel.send(embed=gifEm)
 
                 else:
-                    chosen_gif = random.choices(lst)
+                    chosen_gif = random.choices(gif_lst)
 
-                await ctx.message.channel.send(gif[0].url)
+                await ctx.message.channel.send(chosen_gif [0].url)
 
             except ApiException as e:
                 return "Exception when calling DefaultApi->gifs_trending_get: %s\n" %e  

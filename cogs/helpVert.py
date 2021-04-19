@@ -1,6 +1,6 @@
 import discord
 import asyncio
-from discord.ext import commands
+from discord.ext import commands, tasks
 
 #Help desk
 class helpVert(commands.Cog):
@@ -14,7 +14,7 @@ class helpVert(commands.Cog):
         emHelp = discord.Embed(title="Help Section", color = 0x00ff00, description="Use --help or --helpV <command> for extended information about a command.")
 
         emHelp.add_field(name = "General Commands", value = "version, help, gif")
-        emHelp.add_field(name = "Games", value = "8ball, rps")
+        emHelp.add_field(name = "Games", value = "8ball, rps, animequiz")
         emHelp.add_field(name = "Misc.", value = "hello, reee")
 
         if ctx.invoked_subcommand is None:
@@ -23,47 +23,41 @@ class helpVert(commands.Cog):
     #Gives more information depending on the command after !help
     @helpV.group(name="version")
     async def version(self, ctx):
-        emHelp = discord.Embed(title = "Version", description = "Show the current version of VertBot.", color = 0x00ff00)
-        emHelp.add_field(name="**Syntax:**", value="--version")
-        await ctx.channel.send(embed = emHelp)
+        await self.createEmbed("Verion", "Show the current version of VertBot.", "--version", ctx)
 
     @helpV.group(name="help")
     async def help(self, ctx):
-        emHelp = discord.Embed(title = "Help", description = "Shows all the possible commands of VertBot.", color = 0x00ff00)
-        emHelp.add_field(name="**Syntax:**", value="--help")
-        await ctx.channel.send(embed = emHelp)
+        await self.createEmbed("Help", "Shows all the possible commands of VertBot", "--help", ctx)
     
     @helpV.group(name="ball8", aliases=['8ball'])
     async def ball8(self, ctx):
-        emHelp = discord.Embed(title = "8Ball", description = "Ask the 8ball a question.", color = 0x00ff00)
-        emHelp.add_field(name="**Syntax:**", value="--8ball <question> ?")
-        await ctx.channel.send(embed = emHelp)
+        await self.createEmbed("8Ball", "Ask the 8ball a question!", "--8ball <question> ?", ctx)
 
     @helpV.group(name="rps")
     async def rps(self, ctx):
-        emHelp = discord.Embed(title = "Rock, Paper, Scissors", description = "Play rock, paper, scissors with Vert.", color = 0x00ff00)
-        emHelp.add_field(name="**Syntax:**", value="--rps <rock \|\| paper \|\| scissors>")
-        await ctx.channel.send(embed = emHelp)
+        await self.createEmbed("Rock, Paper, Scissors", "Play rock, paper, scissors with Vert.", "--rps <rock \|\| paper \|\| scissors>", ctx)
+
+    @helpV.group(name="animequiz", aliases=['aq'])
+    async def animequiz(self, ctx):
+        await self.createEmbed("Anime Quizshow", "Test your anime knowledge with this!", "--animequiz --aq", ctx)
 
     @helpV.group(name="hello")
     async def hello(self, ctx):
-        emHelp = discord.Embed(title = "Hello", description = "Say hi to Vert.", color = 0x00ff00)
-        emHelp.add_field(name="**Syntax:**", value="--hello")
-        await ctx.channel.send(embed = emHelp)
+        await self.createEmbed("Hello", "Say hi to Vert.", "--hello", ctx)
 
     @helpV.group(name="gif", aliases=['GIF'])
     async def gif(self, ctx):
-        emHelp = discord.Embed(title = "Gif Finder (by Giphy)", description = "Search up a random gif based on your input! Also, Giphy sucks balls.", color = 0x00ff00)
-        emHelp.add_field(name="**Syntax:**", value="--gif <keyword or whatever word to look>")
-        emHelp.add_field(name="**Keywords**", value="trending, random")
-        await ctx.channel.send(embed = emHelp)
+        await self.createEmbed("Gif Finder (by Giphy)", "Search up a random gif based on your input! Also, Giphy sucks balls.", "--gif <keywords: trending | random | <custom>", ctx)
 
     @helpV.group(name="reee", aliases=['ree','reeee'])
     async def reee(self, ctx):
-        emHelp = discord.Embed(title = "Hello", description = "Vert reee's.", color = 0x00ff00)
-        emHelp.add_field(name="**Syntax:**", value="--reee")
-        await ctx.channel.send(embed = emHelp)
+        await self.createEmbed("Reee","Vert reee's", "--reee", ctx)
 
+    #   Helper Function for the Embed   #
+    async def createEmbed(self, title, desc, value, ctx):
+        emHelp = discord.Embed(title=title, description=desc, color=0x00ff00)
+        emHelp.add_field(name="**Syntax:**", value=value)
+        await ctx.channel.send(embed=emHelp)
 
 
 #Cog stuff from src that does stuff so I can use stuff
