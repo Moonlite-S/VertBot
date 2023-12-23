@@ -2,8 +2,17 @@
 A Discord bot for things I have no idea what to put there. A bot where I can
 learn the basics of Discord bots using python. [First time using it lol]
 
+# TO-DO LIST:  
+	- Completing the Star Rail Warp Summon Simulator  
+	- Finding more ideas to add onto Vert Bot  
+
 # CHANGELOG:
 
+1.2.8 (12/23/2023):  
+	* Ok so i had to create an entirely new repo because the folder was in a redundant place (VertBot/VertBot/vert.py) and removing the folder removed access to the repo from VSC  
+	* Refactored StarRailData.py (now dictionaries)  
+	* (Star Rail) In the process of creating the Limited Banner warps [in version 1.2]
+	
 1.2.7 (7/18/2023):  
 	* Added Soft Pity for the Stellar Warp  
 	* Added Rarity Colors for Stellar Warp  
@@ -69,7 +78,3 @@ learn the basics of Discord bots using python. [First time using it lol]
 	* Added commands (Only the V!version command so far)  
 	* Added a folder for cogs (Not used yet, but I have an idea of what I can use it for)  
 	* Added more insomnia (Fuck)  
-
-# TO-DO LIST:  
-	- A simple hangman game  
-	- Something to interact with the real world (Like commanding a robot IRL)  

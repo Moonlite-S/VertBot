@@ -19,6 +19,7 @@ class starrail(commands.Cog):
     @commands.command(name="starrailwarp", aliases=["warp"])
     # Warp Function (Standard, Limited, Departure)
     async def SWSummonSim(self, ctx):
+        versionControl = "1.2"
         # Standard Warping
         normalPull = [list(threeStarLightCones.items()), list(fourStarHeroes.items()), list(fourStarLightCones.items()), list(fiveStarHeroes.items()), list(fiveStarLightCones.items())]
         fourStarPity = [list(fourStarHeroes.items()), list(fourStarLightCones.items()), list(fiveStarHeroes.items()), list(fiveStarLightCones.items())]
@@ -124,7 +125,7 @@ class starrail(commands.Cog):
             embedSummon.add_field(name="Total Pulls: ", value=commands.totalPulls)
             embedSummon.set_image(url=chosenPull[1])
         
-        embedSummon.set_footer(text="v:1.1")
+        embedSummon.set_footer(text=versionControl)
         rarity = 3
         await ctx.message.channel.send(embed=embedSummon)
 

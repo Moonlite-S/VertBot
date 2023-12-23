@@ -25,7 +25,7 @@ class hangman(commands.Cog):
     commands.health = 6
 
     # A 5x4 matrix ASCII art
-    # List goes from 6 HP to 0 HP,
+    # List goes from 0 HP to 6 HP,
     # Updating the UI as HP decreases
     commands.hpUI =  ["Γ--| \n|O \n|  -|-\n| / \ ",
                 "Γ--| \n|  O \n|  -| \n| / \ ",
@@ -83,7 +83,7 @@ class hangman(commands.Cog):
     async def hangmanCanvasUpdate(self, ctx, guess):
         hangmanUI = discord.Embed(title="Hangman", color = 0x00ff00)
         hangmanUI.add_field(name="Mr. Hang", value=await self.hangmanHealthUI(self))
-        hangmanUI.add_field(name="Helpful Info", value="Do -hmg to guess a letter!\n(Only one letter per message!)\n(Difficulties will be added later)")
+        hangmanUI.add_field(name="Helpful Info", value="Do --hmg to guess a letter!\n(Only one letter per message!)\n\n(Difficulties will be added later)")
         hangmanUI.add_field(name="Word UI", value=await self.hangmangWordUpdate(self, guess), inline=False)
         
         # Lose Scenario
