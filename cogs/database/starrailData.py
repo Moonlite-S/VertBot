@@ -87,31 +87,124 @@ fiveStarLightCones = {"Time Waits for No One":"https://tinyurl.com/s9vu2zts",
                       "Night on the Milky Way":"https://tinyurl.com/4xnamfep", 
                       "Sleep Like the Dead": "https://tinyurl.com/ad4t3pvm"}
 
-limitedFiveStarHeroes = {"Seele":"https://tinyurl.com/5n87vzhc", 
-                         "Jing Yuan":"https://tinyurl.com/2h7sb9n5",
-                         "Silver Wolf":"https://tinyurl.com/38rffb7x",
-                         "Loucha":"https://tinyurl.com/4hbjy5ee", 
-                         "Blade": "http://tinyurl.com/3w9bxje5", 
-                         "Kafka": "http://tinyurl.com/4vj2mu4v", 
-                         "Imbibitor Lunae": "http://tinyurl.com/bde6vc33", 
-                         "Fu Xuan": "http://tinyurl.com/5bucks62", 
-                         "Topaz and Numby":"http://tinyurl.com/2s3v8en6", 
-                         "Jingliu": "http://tinyurl.com/7evvmsaa", 
-                         "Huohuo": "http://tinyurl.com/y69psnfn", 
-                         "Argenti": "http://tinyurl.com/md432tzx"}
+limitedBanners = {"seele" : 
+                        {"Name": "Butterfly on Swordtip",
+                        "BannerUrl":"http://tinyurl.com/3c9bsmux",
+                        "Icon":"https://tinyurl.com/5n87vzhc", 
+                        "Focus":[("Natasha", fourStarHeroes["Natasha"]), ("Hook", fourStarHeroes["Hook"]), ("Pela", fourStarHeroes["Pela"])], 
+                        "LightConeName":"In the Night",
+                        "LightConeUrl":"https://tinyurl.com/56ht5yfm",
+                        "LightConeThumbnailUrl":"http://tinyurl.com/34j77v8y",
+                        "LightConeFocus":[("The Moles Welcome You", fourStarLightCones["The Moles Welcome You"]), "Good Night and Sleep Well", fourStarLightCones["Good Night and Sleep Well"], ("Post Op Conversation", fourStarLightCones["Post-Op Conversation"])]},
 
-limitedFiveStarLightCones = {"In the Night":"https://tinyurl.com/56ht5yfm", 
-                             "Before Dawn":"https://tinyurl.com/3ckswmzp",
-                             "Incessant Rain":"https://tinyurl.com/2nhf9zdu", 
-                             "Echoes of the Coffin":"https://tinyurl.com/44bnxmpr", 
-                             "The Unreachable Side":"http://tinyurl.com/mh77a6j8", 
-                             "Paitence is All You Need":"http://tinyurl.com/3enka4zw", 
-                             "Brighter than the Sun":"http://tinyurl.com/ywbtces7", 
-                             "She Already Shut Her Eyes":"http://tinyurl.com/4bmv8khc", 
-                             "Worrisome, Blissful":"http://tinyurl.com/y7ecrzuw", 
-                             "I Shall Be My Own Sword":"http://tinyurl.com/ycxfscpd", 
-                             "Night of Fright":"http://tinyurl.com/44ymh23j", 
-                             "An Instant Before A Gaze": "http://tinyurl.com/mr9ve8pn"}
+                  "jingyuan" : 
+                        {"Name":"Swirl of Heavenly Spear",
+                        "BannerUrl": "http://tinyurl.com/2zvpc925",
+                        "Icon":"https://tinyurl.com/2h7sb9n5",
+                        "Focus":[("Sushang", fourStarHeroes["Sushang"]), ("March 7th", fourStarHeroes["March 7th"]), ("Tingyun", fourStarHeroes["Tingyun"])],
+                        "LightConeName":"Before Dawn",
+                        "LightConeUrl":"https://tinyurl.com/3ckswmzp",
+                        "LightConeThumbnailUrl":"http://tinyurl.com/34j77v8y",
+                        "LightConeFocus":[("Planetary Rendezvous", fourStarLightCones["Planetary Rendezous"]), ("Only Silence Remains", fourStarLightCones["Only Silence Remains"]), ("Day One of My New Life", fourStarLightCones["Day One of My New Life"])]},
 
-# Place to store the banner pictures
-limitedBannerThumbnails = {}
+
+                   "silverwolf" : 
+                        {"Name":"Contract Zero",
+                        "BannerUrl": "http://tinyurl.com/2hk2n2hj",
+                        "Icon":"https://tinyurl.com/38rffb7x",
+                        "Focus":[("Dan Heng", fourStarHeroes["Dang Heng"]), ("Asta", fourStarHeroes["Asta"]), ("Serval", fourStarHeroes["Serval"])],
+                        "LightConeName":"Incessant Rain",
+                        "LightConeUrl":"https://tinyurl.com/2nhf9zdu",
+                        "LightConeThumbnailUrl":"http://tinyurl.com/mrnktpua",
+                        "LightConeFocus":[("Subscribe for More!", fourStarLightCones["Subscribe for More!"]), ("Memories of the Past", fourStarLightCones["Memories of the Past"]), ("Make the World Clamor", fourStarLightCones["Make the World Clamor"])]},
+
+                    "loucha" : 
+                        {"Name":"Laic Pursuit",
+                        "BannerUrl": "http://tinyurl.com/2mj2njj3",
+                        "Icon":"https://tinyurl.com/4hbjy5ee",
+                        "Focus":[("Pela", fourStarHeroes["Pela"]), ("Qingque", fourStarHeroes["Qingque"]), ("Yukong", fourStarHeroes["Yukong"])],
+                        "LightConeName":"Echoes of the Coffin",
+                        "LightConeUrl":"https://tinyurl.com/44bnxmpr",
+                        "LightConeThumbnailUrl":"http://tinyurl.com/5n862vsp",
+                        "LightConeFocus":[("Good Night and Sleep Well", fourStarLightCones["Good Night and Sleep Well"]), ("Dance! Dance! Dance!", fourStarLightCones["Dance! Dance! Dance!"]), ("Geniuses' Repose", fourStarLightCones["Geniuses' Repose"])]},
+
+                    "blade" : 
+                        {"Name":"A Lost Soul",
+                        "BannerUrl": "http://tinyurl.com/669nwzpd",
+                        "Icon":"http://tinyurl.com/3w9bxje5",
+                        "Focus":[("Arlan", fourStarHeroes["Arlan"]), ("Sushang", fourStarHeroes["Sushang"]), ("Natasha", fourStarHeroes["Natasha"])],
+                        "LightConeName":"The Unreachable Side",
+                        "LightConeUrl":"http://tinyurl.com/mh77a6j8",
+                        "LightConeThumbnailUrl":"http://tinyurl.com/36wmv8dn",
+                        "LightConeFocus":[("A Secret Vow", fourStarLightCones["A Secret Vow"]),("Shared Feeling", fourStarLightCones["Shared Feeling"]), ("Swordplay", fourStarLightCones["Swordplay"])]},
+
+                    "kafka" : 
+                        {"Name":"Nessun Dorma",
+                        "BannerUrl": "http://tinyurl.com/5cuj8xhc",
+                        "Icon":"http://tinyurl.com/4vj2mu4v",
+                        "Focus":[("Luka", fourStarHeroes["Luka"]), ("Sampo", fourStarHeroes["Shampoo"]), ("Serval", fourStarHeroes["Serval"])],
+                        "LightConeName":"Paitence is All You Need",
+                        "LightConeUrl":"http://tinyurl.com/3enka4zw",
+                        "LightConeThumbnailUrl":"http://tinyurl.com/52kdr2xa",
+                        "LightConeFocus":[("Resolution Shines As Pearls of Sweat", fourStarLightCones["Resolution Shines As Pearls of Sweat"]), ("Eyes of the Prey", fourStarLightCones["Eyes of the Prey"]), ("The Birth of the Self", fourStarLightCones["The Birth of the Self"])]},
+                    
+                    "imbibitorlunae" : 
+                        {"Name":"Epochal Spectrum",
+                        "BannerUrl": "http://tinyurl.com/3m8x398r",
+                        "Icon":"http://tinyurl.com/bde6vc33",
+                        "Focus":[("Yukong", fourStarHeroes["Yukong"]), ("Asta", fourStarHeroes["Asta"]), ("March 7th", fourStarHeroes["March 7th"])],
+                        "LightConeName":"Brighter than the Sun",
+                        "LightConeUrl":"http://tinyurl.com/ywbtces7",
+                        "LightConeThumbnailUrl":"http://tinyurl.com/3jswbayz",
+                        "LightConeFocus":[("Dance! Dance! Dance!", fourStarLightCones["Dance! Dance! Dance!"]), ("Planetary Rendezvous", fourStarLightCones["Planetary Rendezous"]), ("Landau's Choice", fourStarLightCones["Landau's Choice"])]},
+
+                    "fuxuan" : 
+                        {"Name":"Forseen, Foreknown, Foretorld",
+                        "BannerUrl": "http://tinyurl.com/4ajrt8xv",
+                        "Icon":"http://tinyurl.com/5bucks62",
+                        "Focus":[("Lynx", fourStarHeroes["Lynx"]), ("Hook", fourStarHeroes["Hook"]), ("Pela", fourStarHeroes["Pela"])],
+                        "LightConeName":"She Already Shut Her Eyes",
+                        "LightConeUrl":"http://tinyurl.com/4bmv8khc",
+                        "LightConeThumbnailUrl":"http://tinyurl.com/bdz9ecwu",
+                        "LightConeFocus":[("Perfect Timing", fourStarLightCones["Perfect Timing"]), ("Under the Blue Sky", fourStarLightCones["Under the Blue Sky"]), ("Trend of the Universal Market", fourStarLightCones["Trend of the Universal Market"])]},
+
+                    "topaz" : 
+                        {"Name":"",
+                        "BannerUrl": "",
+                        "Icon":"http://tinyurl.com/2s3v8en6",
+                        "Focus":[],
+                        "LightConeName":"Worrisome, Blissful",
+                        "LightConeUrl":"http://tinyurl.com/y7ecrzuw",
+                        "LightConeThumbnailUrl":"",
+                        "LightConeFocus":[]},
+
+                    "jingliu" : 
+                        {"Name":"",
+                        "BannerUrl": "",
+                        "Icon":"http://tinyurl.com/7evvmsaa",
+                        "Focus":[],
+                        "LightConeName":"I Shall Be My Own Sword",
+                        "LightConeUrl":"http://tinyurl.com/ycxfscpd",
+                        "LightConeThumbnailUrl":"",
+                        "LightConeFocus":[]},
+
+                    "huohuo" : 
+                        {"Name":"",
+                        "BannerUrl": "",
+                        "Icon":"http://tinyurl.com/y69psnfn",
+                        "Focus":[],
+                        "LightConeName":"Night of Fright",
+                        "LightConeUrl":"http://tinyurl.com/44ymh23j",
+                        "LightConeThumbnailUrl":"",
+                        "LightConeFocus":[]},
+                    
+                    "argenti" : 
+                        {"Name":"",
+                        "BannerUrl": "",
+                        "Icon":"http://tinyurl.com/md432tzx",
+                        "Focus":[],
+                        "LightConeName":"An Instant Before A Gaze",
+                        "LightConeUrl":"http://tinyurl.com/mr9ve8pn",
+                        "LightConeThumbnailUrl":"",
+                        "LightConeFocus":[]},
+                   }

@@ -37,31 +37,30 @@ class starrail(commands.Cog):
         imageUrl = ""
         rarity = "★★★☆☆"
 
+        bannerName = ""
+        bannerImage = ""
+
         # Splits user input to check for key words
         messageSplit = ctx.message.content[7:].split()
 
-        # Temporarily Converts list to dict for easy access (not that i really wanted to...)
         # Checks message for key words
         for word in messageSplit:
-            match word.lower():
-                case "10": 
-                    tenPull = 10
-                case "sw":
+            # Checks if the user wants a 10 pull
+            if word == "10":
+                tenPull = 10
+            else:
+                # Alternate way (We need a function to call this. If the user wants the Light Cone banner or Char one)
+                try:
+                    fiveStarRateUp = [(word, limitedBanners[word]["Icon"])]
+                    fourStarRateUp = limitedBanners[word]["Focus"]
+                    bannerName = limitedBanners[word]["Name"]
+                    bannerImage = limitedBanners[word]["BannerUrl"]
                     break
-                case "seele":
-                    fiveStarRateUp = [("Seele", limitedFiveStarHeroes["Seele"])]
-                    fourStarRateUp = [("Natasha", fourStarHeroes["Natasha"]), ("Hook", fourStarHeroes["Hook"]), ("Pela", fourStarHeroes["Pela"])]
-                case "jingyuan":
-                    fiveStarRateUp = [("Jing Yuan", limitedFiveStarHeroes["Jing Yuan"])]
-                    fourStarRateUp = [("Sushang", fourStarHeroes["Sushang"]), ("March 7th", fourStarHeroes["March 7th"]), ("Tingyun", fourStarHeroes["Tingyun"])]
-                case _: 
-                    print("But nothing happened / some input that isn't important or misspelled input (DO NOT ADD SPACES ON BANNER)")
+                except:
+                    print("Character not found. (You aren't puttin spaces are ye?)")
+                    return
 
         print(fiveStarRateUp + fourStarRateUp)
-
-        # Checks if the user wants a 10 pull
-        if ctx.message.content[7:] == "10":
-            tenPull = 10
 
         for x in range(tenPull):
             rarity = "★★★☆☆"

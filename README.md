@@ -8,6 +8,11 @@ learn the basics of Discord bots using python. [First time using it lol]
 
 # CHANGELOG:
 
+1.2.9 (12/25/2023):  
+	* (Anime Quiz) fixed bug where hints have a chance to appear twice  
+	* (Hangman) fixed UI bug where it isn't showing correctly  
+	* (Hangman) also added the word to the game over screen
+
 1.2.8 (12/23/2023):  
 	* Ok so i had to create an entirely new repo because the folder was in a redundant place (VertBot/VertBot/vert.py) and removing the folder removed access to the repo from VSC  
 	* Refactored StarRailData.py (now dictionaries)  
