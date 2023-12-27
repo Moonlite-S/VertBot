@@ -1,6 +1,6 @@
 # VertBot
 A Discord bot for things I have no idea what to put there. A bot where I can
-learn the basics of Discord bots using python. [First time using it lol]
+create things for fun and show other people I have an imagination.
 
 # TO-DO LIST:  
 	- Completing the Star Rail Warp Summon Simulator  
@@ -8,14 +8,20 @@ learn the basics of Discord bots using python. [First time using it lol]
 
 # CHANGELOG:
 
+1.3.0 (12/26/2023):  
+	* (Star Rail) Fully Implemented the Limited Banners onto the warp function (Up to Argenti [1.6]) 
+		- There are still bugs that need to be fixed, but it is functional  
+	* I'm deadass tired, it's like 3 in the morning (at the time of writing)...  
+
 1.2.9 (12/25/2023):  
 	* (Anime Quiz) fixed bug where hints have a chance to appear twice  
 	* (Hangman) fixed UI bug where it isn't showing correctly  
 	* (Hangman) also added the word to the game over screen
+	* MERRY CHRISTMAS!
 
 1.2.8 (12/23/2023):  
 	* Ok so i had to create an entirely new repo because the folder was in a redundant place (VertBot/VertBot/vert.py) and removing the folder removed access to the repo from VSC  
-	* Refactored StarRailData.py (now dictionaries)  
+	* Rewrote StarRailData.py (now dictionaries)  
 	* (Star Rail) In the process of creating the Limited Banner warps [in version 1.2]
 	
 1.2.7 (7/18/2023):  

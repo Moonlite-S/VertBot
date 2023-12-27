@@ -22,7 +22,7 @@ class helpVert(commands.Cog):
             await ctx.channel.send(embed = emHelp)
 
     # General Commands
-    @helpV.group(name="version")
+    @helpV.group(name="version", aliases=["Vert", "vert", "v"])
     async def version(self, ctx):
         await self.createEmbed("Verion", "Show the current version of VertBot.", "--version", ctx)
 
@@ -48,9 +48,9 @@ class helpVert(commands.Cog):
         await self.createEmbed("Hangman Minigame", "Play hangman with Vert!", "--hangman --hm", ctx)
 
     # Star Rail
-    @helpV.group(name="stellarWarp", aliases=['sw'])
+    @helpV.group(name="starrailwarp", aliases=['sw'])
     async def stellarWarp(self, ctx):
-        await self.createEmbed("Stellar Warp", "Summon the Stellar Warp", "--sw --sw 10", ctx)
+        await self.createEmbed("Honkai Star Rail Warp Simulator", "Simulate summoning on either the Limited or Stellar Warp!\nParameters:\nCharacter - Any limited character (without spaces!)\n10 - Type this in if you want to do a 10 pull\nlc - Type this in if you want to summon on the character's Light Cone Banner\nNote: Parameters can be done in any order so long as they have space in between.", "--warp [character] [10] [lc]", ctx)
 
     # Misc
     @helpV.group(name="hello")
