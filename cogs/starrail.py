@@ -1,8 +1,6 @@
-from ast import alias
-from click import command
 import discord
 import random
-from discord.ext import commands, tasks
+from discord.ext import commands
 from cogs.database.starrailData import *
 
 class starrail(commands.Cog):
@@ -11,169 +9,63 @@ class starrail(commands.Cog):
     #   * Implement the Soft Pity into the rates (Around 75 pulls, chances rises by 6% each pull)
     #   * Have it so that pity it counted separately for everyone
 
+    ## Refactoring Tips:
+    # * Maybe separate Standard and Limited banners into their own functions
+
     commands.fourPityCounter = 0
     commands.simcounter = 0
     commands.fiveStarPityRateUp = 0.6
     commands.totalPulls = 0
     commands.totalAmountofMoneyWasted = 0
+
+    commands.rarityColor = 0
+    commands.tenPull = 1
+    commands.fiveStarsPulled = 0
+
     commands.isFiveStarGuaranteed = False
     commands.isFourStarGuaranteed = False
 
-    # Standard Warping
+    commands.rarity = "★★★☆☆"
+    commands.bannerName = ""
+    commands.bannerImage = ""
+    commands.imageUrl = ""
+
+    commands.chosenTenPull = []
+    commands.chosenList = []
+    commands.chosenTenRarity = []
+    commands.chosenPull = []
+
+    # Standard Warping Pool
     commands.normalPull = [list(threeStarLightCones.items()), list(fourStarHeroes.items()), list(fourStarLightCones.items()), list(fiveStarHeroes.items()), list(fiveStarLightCones.items())]
     commands.fourStarPity = [list(fourStarHeroes.items()), list(fourStarLightCones.items()), list(fiveStarHeroes.items()), list(fiveStarLightCones.items())]
     commands.fiveStarPity = [list(fiveStarHeroes.items()), list(fiveStarLightCones.items())]
 
-    # Limited Warping
+    # Limited Warping Pool
     commands.fourStarRateUp = []
     commands.fiveStarRateUp = []
 
-    commands.bannerName = ""
-    commands.bannerImage = ""
-    
     @commands.command(name="starrailwarp", aliases=["warp"])
-    # Warp Function (Standard, Limited, or Light Cones)
     async def SWSummonSim(self, ctx):
-        versionControl = "1.3"
+        versionControl = "1.4"
 
-        chosenTenPull = []
-        chosenTenRarity = []
-        rarityColor = 0
+        await self.resetBanner()
+        charName = ""
 
-        tenPull = 1
-        imageUrl = ""
-        rarity = "★★★☆☆"
-
-        isLightConeBanner = False
-        isStandardWarp = False
-
-        # Splits user input to check for key words
         messageSplit = ctx.message.content[7:].split()
+        charName = await self.decodeMessage(messageSplit)
+        bannerType = await self.initBannerType(charName[0], charName[1])
 
-        # Checks message for key words
-        for word in messageSplit:
-            word = word.lower()
-            # Checks if the user wants a 10 pull
-            if word == "10":
-                tenPull = 10
-            elif word == "lc" or word == "lightcone":
-                isLightConeBanner = True
-            else:
-                charName = word
-                print(charName)
+        for x in range(commands.tenPull):
+            await self.performSummon(bannerType)
 
-        # Initlizes what type of banner to do
-        try:
-            if isLightConeBanner:
-                await self.initLCBanner(charName)
-            else:
-                await self.initCharBanner(charName)
-        except:
-            isStandardWarp = True
-            commands.bannerName = "Stellar Warp"
-            commands.bannerImage = "https://tinyurl.com/3cbmye89"
-            print("Character (LC) not found. Assuming Standard Warp")
-
-        for x in range(tenPull):
-            rarity = "★★★☆☆"
-
-            # Soft Pity increases chances of getting a 5-star by 6% linearly
-            if (commands.simcounter >= 75):
-                commands.fiveStarPityRateUp += 6
-
-            commands.simcounter += 1
-            commands.fourPityCounter += 1
-
-            # Decides what pool to use
-            if commands.simcounter >= 90:
-                chosenList = random.choices(commands.fiveStarPity, weights=(50,50), k=1)
-                commands.simcounter = 0
-                commands.isFiveStarGuaranteed = True
-
-            elif commands.fourPityCounter >= 10:
-                chosenList = random.choices(commands.fourStarPity, weights=(49.2,49.2,(commands.fiveStarPityRateUp+1.0)/2.0,(commands.fiveStarPityRateUp+1.0)/2.0), k=1)
-                commands.fourPityCounter = 0
-            else:
-                chosenList = random.choices(commands.normalPull, weights=(94.3,2.55,2.55,commands.fiveStarPityRateUp/2.0,commands.fiveStarPityRateUp/2.0), k=1)
-
-            # Pity Reset Detection
-            # (Only just checks if the lists are the same)
-            if list(fourStarLightCones.items()) == chosenList[0] or list(fourStarHeroes.items()) == chosenList[0] or (not isStandardWarp and chosenList[0] == commands.fourStarRateUp):
-                rarity = "★★★★☆"
-                commands.fourPityCounter = 1
-            elif list(fiveStarHeroes.items()) == chosenList[0] or list(fiveStarLightCones.items()) == chosenList[0] or (not isStandardWarp and chosenList[0] == commands.fiveStarRateUp):
-                rarity = "★★★★★"
-                commands.simcounter = 0
-                commands.fiveStarPityRateUp = 0.6
-
-            # Limited Banners are done 50/50, either getting the rate up unit or not
-            # Limited Light Cone Banners follow the same thing but for 75/25, (75% chance to get rate up)
-            if rarity == "★★★★★" and not isStandardWarp:
-                chosenList += [commands.fiveStarRateUp]
-                if isLightConeBanner:
-                    chosenList = random.choices(chosenList, weights=(25,75), k=1)
-                else:
-                    chosenList = random.choices(chosenList, weights=(50,50), k=1)
-                chosenPull = random.choice(chosenList[0])
-            else:
-                chosenPull = random.choice(chosenList[0])
-
-            # Decides the color of the embed depending on rarity
-            if rarity == "★★★★★":
-                # Will forcefully change to focused 5 star if needed
-                if not isStandardWarp and commands.isFiveStarGuaranteed:
-                    chosenPull = commands.fiveStarRateUp[0]
-                    commands.isFiveStarGuaranteed = False
-                # If the user loses the 50/50 on limited banner
-                elif not isStandardWarp and chosenPull not in commands.fiveStarRateUp:
-                    commands.isFiveStarGuaranteed = True
-                    
-                rarityColor = 0xffcf4a
-                imageUrl = chosenPull[1]
-
-            elif rarity == "★★★★☆":
-                # Checks to see if a four star is in the Focus pool
-                if not isStandardWarp and chosenPull not in commands.fourStarRateUp and not commands.isFourStarGuaranteed:
-                    commands.isFourStarGuaranteed = True
-                    commands.fourPityCounter = 0
-                # Will force to pick one of the focus units if needed
-                elif not isStandardWarp and chosenPull not in commands.fourStarRateUp and commands.isFourStarGuaranteed:
-                    chosenPull = random.choice([commands.fourStarRateUp[0]])
-                    commands.isFourStarGuaranteed = False
-                    commands.fourPityCounter = 0
-                else:
-                    commands.isFourStarGuaranteed = False
-                    commands.fourPityCounter = 0
-        
-                if rarityColor != 0xffcf4a:
-                    rarityColor = 0xa252e3
-            elif not (rarityColor == 0xffcf4a or rarityColor == 0xa252e3):
-                rarityColor = 0x5dd6f5
-                        
-            # Gather list of pulls if 10 pull
-            if tenPull == 10:
-                chosenTenPull += [chosenPull]
-                chosenTenRarity += [rarity]
-
-            commands.totalPulls += 1
-            commands.totalAmountofMoneyWasted += 2.65
-
-        embedSummon = discord.Embed(title=commands.bannerName, color=rarityColor)
+        # Embed time
+        embedSummon = discord.Embed(title=commands.bannerName, color=commands.rarityColor)
         embedSummon.set_thumbnail(url=commands.bannerImage)
 
-        if tenPull == 10:
-            # Ten Summons
-            embedSummon.add_field(name="Your Pulls: ", value=f"Current Pity after all pulls: {commands.simcounter}\nTotal Pulls: {commands.totalPulls}\n Total Amount in USD: ${format(commands.totalAmountofMoneyWasted, '.2f')}", inline="False")
-            embedSummon.set_image(url=imageUrl)
-            for x in range(len(chosenTenPull)):
-                embedSummon.add_field(name=chosenTenPull[x][0][0].upper() + chosenTenPull[x][0][1:], value=chosenTenRarity[x], inline="True")
+        if commands.tenPull == 10:
+            await self.setTenPullEmbed(embedSummon)
         else:
-            # Single Summons
-            embedSummon.add_field(name="You have pulled: ", value=f"{rarity}\n{chosenPull[0][0].upper() + chosenPull[0][1:]}")
-            embedSummon.add_field(name="Current Pity Counter: ", value=commands.simcounter)
-            embedSummon.add_field(name="Total Pulls: ", value=commands.totalPulls)
-            embedSummon.add_field(name="Total Amount in USD: ", value=f"${format(commands.totalAmountofMoneyWasted, '.2f')}")
-            embedSummon.set_image(url=chosenPull[1])
+            await self.setSinglePullEmbed(embedSummon)
         
         embedSummon.set_footer(text=versionControl)
         await ctx.message.channel.send(embed=embedSummon)
@@ -184,34 +76,191 @@ class starrail(commands.Cog):
         commands.fourPityCounter = 0
         commands.simcounter = 0
         commands.totalPulls = 0
+        commands.fiveStarsPulled = 0
         commands.totalAmountofMoneyWasted = 0
         embedClear = discord.Embed(title="Pity has been cleared!", color=0x00ff00)
         await ctx.message.channel.send(embed=embedClear)
 
-    async def initCharBanner(self, word):
+    ## Helper Functions ##
+    async def performSummon(self, bannerType):
+        """Simulates one summon pull depending on bannerType and user input."""
+        commands.rarity = "★★★☆☆"
+
+        # Soft Pity increases chances of getting a 5-star by 6% linearly
+        if (commands.simcounter >= 75):
+            commands.fiveStarPityRateUp += 6
+                
+        commands.simcounter += 1
+        commands.fourPityCounter += 1
+
+        await self.poolDecider()
+        await self.pityDecider(bannerType)
+        await self.limitedBannerDecider(bannerType)
+        await self.checkRarityForColor(bannerType)
+                        
+        # Gather list of pulls if 10 pull
+        if commands.tenPull == 10:
+            commands.chosenTenPull += [commands.chosenPull]
+            commands.chosenTenRarity += [commands.rarity]
+
+        commands.totalPulls += 1
+        commands.totalAmountofMoneyWasted += 2.65
+
+    async def initLimitedCharBanner(self, word):
         commands.fiveStarRateUp = [(word, limitedBanners[word]["Icon"])]
         commands.fourStarRateUp = limitedBanners[word]["Focus"]
         commands.bannerName = limitedBanners[word]["Name"]
         commands.bannerImage = limitedBanners[word]["BannerUrl"]
-        print("Character Time")
+        return "Character"
 
-    async def initLCBanner(self, word):
+    async def initLimitedLCBanner(self, word):
         commands.fiveStarRateUp = [(limitedBanners[word]["LightConeName"], limitedBanners[word]["LightConeUrl"])]
         commands.fourStarRateUp = limitedBanners[word]["LightConeFocus"]
         commands.bannerName = limitedBanners[word]["LightConeName"]
         commands.bannerImage = limitedBanners[word]["LightConeThumbnailUrl"]
-        print("Light Cone Time")
+        return "Light Cone"
+
+    async def initStandardBanner(self):
+        commands.bannerName = "Stellar Warp"
+        commands.bannerImage = "https://tinyurl.com/3cbmye89"
+        print("Character not found. Assuming Standard Warp")
+        return "Standard"
 
     async def resetBanner(self):
-        # Reset Info
         commands.fourStarRateUp = []
         commands.fiveStarRateUp = []
 
+        commands.chosenTenPull = []
+        commands.chosenList = []
+        commands.chosenTenRarity = []
+
         commands.bannerName = ""
         commands.bannerImage = ""
-        print("Debug: reset rate ups")
+        commands.rarity = "★★★☆☆"
+        commands.imageUrl = ""
 
+        commands.rarityColor = 0
+        commands.tenPull = 1
 
+    async def decodeMessage(ctx, messageSplit):
+        """
+        ### Decodes the input from user to decide how the simulation will go
+        Input:
+            :messageSplit: list[str]
+        Output:
+            :tuple: ('bool' : Light Cone Trigger, 'str' : Character Name)
+        """
+        charName = ""
+        lightConeTrigger = False
+
+        # Checks message for key words
+        for word in messageSplit:
+            word = word.lower()
+            # Checks if the user wants a 10 pull
+            if word == "10":
+                commands.tenPull = 10
+            elif word == "lc" or word == "lightcone":
+                lightConeTrigger = True
+            else:
+                charName = word
+
+        return (lightConeTrigger, charName)
+
+    async def initBannerType(self, isLightConeBanner, charName):
+        """Initializes what type of banner it is. (Supports only Standard, Limited Character, and Light Cone Banners)"""
+        try:
+            if isLightConeBanner:
+                return await self.initLimitedLCBanner(charName)
+            else:
+                return await self.initLimitedCharBanner(charName)
+        except:
+            return await self.initStandardBanner()
+        
+    async def poolDecider(self):
+        """Decides which rarity pool it will use to pull on"""
+        if commands.simcounter >= 90:
+            commands.chosenList = random.choices(commands.fiveStarPity, weights=(50,50), k=1)
+            commands.simcounter = 0
+            commands.isFiveStarGuaranteed = True
+        elif commands.fourPityCounter >= 10:
+            commands.chosenList = random.choices(commands.fourStarPity, weights=(49.2,49.2,(commands.fiveStarPityRateUp+1.0)/2.0,(commands.fiveStarPityRateUp+1.0)/2.0), k=1)
+            commands.fourPityCounter = 0
+        else:
+            commands.chosenList = random.choices(commands.normalPull, weights=(94.3,2.55,2.55,commands.fiveStarPityRateUp/2.0,commands.fiveStarPityRateUp/2.0), k=1)
+    
+    async def pityDecider(self, bannerType):
+        """Decides if this pull has reached any pity threshhold"""
+        if list(fourStarLightCones.items()) == commands.chosenList[0] or list(fourStarHeroes.items()) == commands.chosenList[0] or (not bannerType and commands.chosenList[0] == commands.fourStarRateUp):
+            commands.rarity = "★★★★☆"
+            commands.fourPityCounter = 0
+
+        elif list(fiveStarHeroes.items()) == commands.chosenList[0] or list(fiveStarLightCones.items()) == commands.chosenList[0] or (bannerType != "Standard" and commands.chosenList[0] == commands.fiveStarRateUp):
+            commands.rarity = "★★★★★"
+            commands.simcounter = 0
+            commands.fiveStarPityRateUp = 0.6
+            commands.fiveStarsPulled += 1
+
+    async def limitedBannerDecider(self, bannerType):
+        """Adds the limited five star focus the pool if it is a limited banner"""
+        if commands.rarity == "★★★★★" and bannerType != "Standard":
+            commands.chosenList += [commands.fiveStarRateUp]
+            if bannerType == "Light Cone":
+                commands.chosenList = random.choices(commands.chosenList, weights=(25,75), k=1)
+            else:
+                commands.chosenList = random.choices(commands.chosenList, weights=(50,50), k=1)
+                
+        commands.chosenPull = random.choice(commands.chosenList[0])
+
+    async def limitedFiveStarGuaranteedPityDecider(self):
+        """Decides if the user is guaranteed the five star focus unit if they had lost the 50/50 before this one."""
+        if commands.isFiveStarGuaranteed:
+            commands.chosenPull = commands.fiveStarRateUp[0]
+            commands.isFiveStarGuaranteed = False
+        elif commands.chosenPull not in commands.fiveStarRateUp:
+            commands.isFiveStarGuaranteed = True
+
+    async def limitedFourStarGuaranteedPityDecider(self):
+        """Decides if the user is guaranteed a four star focus unit if they had gotten a non-focus four star before this one."""
+        if commands.chosenPull not in commands.fourStarRateUp and not commands.isFourStarGuaranteed:
+            commands.isFourStarGuaranteed = True
+            commands.fourPityCounter = 0
+        # Will force to pick one of the focus units if needed
+        elif commands.chosenPull not in commands.fourStarRateUp and commands.isFourStarGuaranteed:
+            commands.chosenPull = random.choice([commands.fourStarRateUp[0]])
+            commands.isFourStarGuaranteed = False
+            commands.fourPityCounter = 0
+        else:
+            commands.isFourStarGuaranteed = False
+            commands.fourPityCounter = 0
+
+    async def checkRarityForColor(self, bannerType):
+        "Assigns embed coloring depending on the rarity of the chosen pull"
+        if commands.rarity == "★★★★★":
+            if bannerType != "Standard":
+                await self.limitedFiveStarGuaranteedPityDecider()
+            commands.rarityColor = 0xffcf4a
+            commands.imageUrl = commands.chosenPull[1]
+        elif commands.rarity == "★★★★☆":
+            if bannerType != "Standard":
+                await self.limitedFourStarGuaranteedPityDecider()
+            if commands.rarityColor != 0xffcf4a:
+                commands.rarityColor = 0xa252e3
+        elif not (commands.rarityColor == 0xffcf4a or commands.rarityColor == 0xa252e3):
+            commands.rarityColor = 0x5dd6f5
+        
+    async def setTenPullEmbed(self, embedSummon):
+        embedSummon.add_field(name="Your Pulls: ", value=f"Current Pity after all pulls: {commands.simcounter}\nTotal Pulls: {commands.totalPulls}\nTotal Amount in USD: ${format(commands.totalAmountofMoneyWasted, '.2f')}\nFive Stars Pulled: {commands.fiveStarsPulled}", inline="False")
+        embedSummon.set_image(url=commands.imageUrl)
+        for x in range(len(commands.chosenTenPull)):
+            embedSummon.add_field(name=commands.chosenTenPull[x][0][0].upper() + commands.chosenTenPull[x][0][1:], value=commands.chosenTenRarity[x], inline="True")
+
+    async def setSinglePullEmbed(self, embedSummon):
+        embedSummon.add_field(name="You have pulled: ", value=f"{commands.rarity}\n{commands.chosenPull[0][0].upper() + commands.chosenPull[0][1:]}")
+        embedSummon.add_field(name="Current Pity Counter: ", value=commands.simcounter)
+        embedSummon.add_field(name="Total Pulls: ", value=commands.totalPulls)
+        embedSummon.add_field(name="Total Amount in USD: ", value=f"${format(commands.totalAmountofMoneyWasted, '.2f')}")
+        embedSummon.add_field(name="Five Stars Pulled: ", value=commands.fiveStarsPulled)
+        embedSummon.set_image(url=commands.chosenPull[1])
 
 #Cog stuff from src that does stuff so I can make stuff so I can do stuff
 async def setup(client):

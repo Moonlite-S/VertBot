@@ -1,35 +1,28 @@
 import discord
 import os
 from cogs.database.animeData import *
-from discord.ext import commands, tasks
+from discord.ext import commands
 from dotenv import load_dotenv
 
 #Usesrs must put this before imputing a command
 client = commands.Bot(command_prefix = '--', help_command=None, intents=discord.Intents.all())
 
-#Connects to the server
 @client.event
 async def on_connect():
     #loads all our cogs
     for filename in os.listdir('./cogs'):
         if filename.endswith('.py'):
-            #ignore any init files
             if (filename.startswith('__')):
                 break
             await client.load_extension(f'cogs.{filename[:-3]}')
-    #Prints to the console
     print('We have connected, please hold on til we get ready.'.format(client))
 
-    #sets the status of the bot
     await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="Michael Reeves"))
 
-#Bot is ready to do stuff
 @client.event
 async def on_ready():
-  #Prints to the console
   print('We have logged in as {0.user}'.format(client))
 
-#Function runs whenever a message is outputted onto the server [it reads shit]
 @client.event
 async def on_message(message):
     #Ignore any mesage that the bot sends
@@ -42,8 +35,8 @@ async def on_message(message):
     if (commands.animeQuizOn):
         await animQuizCheckWin(client, message)
 
-#Allows commands to operate with this event running
-#(Normally, this event forbids any extra commands from running)
+    #Allows commands to operate with this event running
+    #(Normally, this event forbids any extra commands from running)
     await client.process_commands(message)
 
 #When the bot leaves or dies somehow
