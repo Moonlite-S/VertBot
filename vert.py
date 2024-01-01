@@ -7,6 +7,9 @@ from dotenv import load_dotenv
 #Usesrs must put this before imputing a command
 client = commands.Bot(command_prefix = '--', help_command=None, intents=discord.Intents.all())
 
+versionControl = "1.3.2"
+lastUpdated = "1/1/2024"
+
 @client.event
 async def on_connect():
     #loads all our cogs
@@ -51,9 +54,10 @@ async def on_disconnect():
 async def version(context):   
     #A fun embed
     versionEmbed = discord.Embed(title="About:", description="A fun Vert bot.", color=0x00ff00)
-    versionEmbed.add_field(name="Version Code: ", value="v1.2.0", inline=False)
+    versionEmbed.add_field(name="Version Code: ", value=f"v{versionControl}", inline=False)
     versionEmbed.add_field(name="Date Released:", value="4/11/2021", inline=False)
-    versionEmbed.add_field(name="Latest Updated:", value="8/9/2022", inline=False)
+    versionEmbed.add_field(name="Latest Updated:", value=lastUpdated, inline=False)
+    versionEmbed.add_field(name="GitHub", value="https://github.com/Moonlite-S/VertBot", inline=False)
     versionEmbed.set_author(name="Moonlite-S", icon_url="https://i.imgur.com/Uu5LlrJ.png")
     versionEmbed.set_footer(text="Ara Ara~")
     versionEmbed.set_thumbnail(url="https://i.imgur.com/5fQopQr.png")

@@ -1,26 +1,22 @@
+from enum import auto
+from re import U
 import discord
 import random
 from discord.ext import commands
 from cogs.database.starrailData import *
 
 class starrail(commands.Cog):
-    ## TODO:
-    #   * Create a summon sim
-    #   * Implement the Soft Pity into the rates (Around 75 pulls, chances rises by 6% each pull)
-    #   * Have it so that pity it counted separately for everyone
-
-    ## Refactoring Tips:
-    # * Maybe separate Standard and Limited banners into their own functions
+    commands.userList = []
 
     commands.fourPityCounter = 0
     commands.simcounter = 0
     commands.fiveStarPityRateUp = 0.6
     commands.totalPulls = 0
     commands.totalAmountofMoneyWasted = 0
+    commands.fiveStarsPulled = 0
 
     commands.rarityColor = 0
     commands.tenPull = 1
-    commands.fiveStarsPulled = 0
 
     commands.isFiveStarGuaranteed = False
     commands.isFourStarGuaranteed = False
@@ -55,30 +51,36 @@ class starrail(commands.Cog):
         charName = await self.decodeMessage(messageSplit)
         bannerType = await self.initBannerType(charName[0], charName[1])
 
+        print(ctx.author.display_name)
+        user = await self.initUser(ctx.author.display_name)
+
         for x in range(commands.tenPull):
             await self.performSummon(bannerType)
+        
+        await user.setSummonResultsToStats()
 
         # Embed time
         embedSummon = discord.Embed(title=commands.bannerName, color=commands.rarityColor)
         embedSummon.set_thumbnail(url=commands.bannerImage)
 
         if commands.tenPull == 10:
-            await self.setTenPullEmbed(embedSummon)
+            await self.setTenPullEmbed(embedSummon, user)
         else:
-            await self.setSinglePullEmbed(embedSummon)
+            await self.setSinglePullEmbed(embedSummon, user)
         
         embedSummon.set_footer(text=versionControl)
         await ctx.message.channel.send(embed=embedSummon)
 
-    # Clears Current Pity
     @commands.command(name="clearpity", aliases=["clearp"])
     async def ClearPity(self, ctx):
-        commands.fourPityCounter = 0
-        commands.simcounter = 0
-        commands.totalPulls = 0
-        commands.fiveStarsPulled = 0
-        commands.totalAmountofMoneyWasted = 0
+        user = await self.findUser(ctx.author.display_name)
         embedClear = discord.Embed(title="Pity has been cleared!", color=0x00ff00)
+
+        if user != "None":
+            await user.clearPityFromAccount()
+        else:
+            embedClear = discord.Embed(title="There's no user found to clear pity!", color=0x00ff00)
+
         await ctx.message.channel.send(embed=embedClear)
 
     ## Helper Functions ##
@@ -248,19 +250,88 @@ class starrail(commands.Cog):
         elif not (commands.rarityColor == 0xffcf4a or commands.rarityColor == 0xa252e3):
             commands.rarityColor = 0x5dd6f5
         
-    async def setTenPullEmbed(self, embedSummon):
+    async def setTenPullEmbed(self, embedSummon, user):
+        embedSummon.add_field(name="User: ", value=f"{user.name}")
         embedSummon.add_field(name="Your Pulls: ", value=f"Current Pity after all pulls: {commands.simcounter}\nTotal Pulls: {commands.totalPulls}\nTotal Amount in USD: ${format(commands.totalAmountofMoneyWasted, '.2f')}\nFive Stars Pulled: {commands.fiveStarsPulled}", inline="False")
         embedSummon.set_image(url=commands.imageUrl)
         for x in range(len(commands.chosenTenPull)):
             embedSummon.add_field(name=commands.chosenTenPull[x][0][0].upper() + commands.chosenTenPull[x][0][1:], value=commands.chosenTenRarity[x], inline="True")
 
-    async def setSinglePullEmbed(self, embedSummon):
+    async def setSinglePullEmbed(self, embedSummon, user):
+        embedSummon.add_field(name="User: ", value=f"{user.name}")
         embedSummon.add_field(name="You have pulled: ", value=f"{commands.rarity}\n{commands.chosenPull[0][0].upper() + commands.chosenPull[0][1:]}")
         embedSummon.add_field(name="Current Pity Counter: ", value=commands.simcounter)
         embedSummon.add_field(name="Total Pulls: ", value=commands.totalPulls)
         embedSummon.add_field(name="Total Amount in USD: ", value=f"${format(commands.totalAmountofMoneyWasted, '.2f')}")
         embedSummon.add_field(name="Five Stars Pulled: ", value=commands.fiveStarsPulled)
         embedSummon.set_image(url=commands.chosenPull[1])
+
+    async def findUser(self, authorId):
+        for i, x in enumerate(commands.userList):
+            if x.name == authorId:
+                print(commands.userList)
+                return commands.userList[i]      
+        return "None"
+
+    async def createUser(self, authorId):
+        user = starRailUsers(authorId)
+        commands.userList.append(user)
+        await user.setStatsToSummon()
+
+        print(commands.userList)
+
+        return user
+
+    async def initUser(self, authorId):
+        user = await self.findUser(authorId)
+        if user == "None":
+            return await self.createUser(authorId)
+        
+        await user.setStatsToSummon()
+        return user
+
+class starRailUsers():
+    def __init__(self, authorId):
+        self.name = authorId
+
+        self.fourPityCounter = 0
+        self.fiveStarPityRateUp = 0.6
+        self.simcounter = 0
+        self.totalPulls = 0
+        self.totalAmountofMoneyWasted = 0
+        self.isFiveStarGuaranteed = False
+        self.isFourStarGuaranteed = False
+        self.fiveStarsPulled = 0
+
+    async def setStatsToSummon(self):
+        commands.fourPityCounter = self.fourPityCounter
+        commands.fiveStarPityRateUp = self.fiveStarPityRateUp
+        commands.simcounter = self.simcounter
+        commands.totalPulls = self.totalPulls
+        commands.totalAmountofMoneyWasted = self.totalAmountofMoneyWasted
+        commands.isFiveStarGuaranteed = self.isFiveStarGuaranteed
+        commands.isFourStarGuaranteed = self.isFourStarGuaranteed
+        commands.fiveStarsPulled = self.fiveStarsPulled
+
+    async def setSummonResultsToStats(self):
+        self.fourPityCounter = commands.fourPityCounter
+        self.fiveStarPityRateUp = commands.fiveStarPityRateUp
+        self.simcounter = commands.simcounter
+        self.totalPulls = commands.totalPulls
+        self.totalAmountofMoneyWasted = commands.totalAmountofMoneyWasted
+        self.isFiveStarGuaranteed = commands.isFiveStarGuaranteed
+        self.isFourStarGuaranteed = commands.isFourStarGuaranteed
+        self.fiveStarsPulled = commands.fiveStarsPulled
+
+    async def clearPityFromAccount(self):
+        self.fourPityCounter = 0
+        self.fiveStarPityRateUp = 0.6
+        self.simcounter = 0
+        self.totalPulls = 0
+        self.totalAmountofMoneyWasted = 0
+        self.isFiveStarGuaranteed = False
+        self.isFourStarGuaranteed = False
+        self.fiveStarsPulled = 0
 
 #Cog stuff from src that does stuff so I can make stuff so I can do stuff
 async def setup(client):

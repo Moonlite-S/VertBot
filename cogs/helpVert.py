@@ -15,7 +15,7 @@ class helpVert(commands.Cog):
 
         emHelp.add_field(name = "General Commands", value = "version, help")
         emHelp.add_field(name = "Games", value = "8ball, rps, animequiz, hangman")
-        emHelp.add_field(name = "Star Rail", value = "sw")
+        emHelp.add_field(name = "Star Rail", value = "warp, clearpity")
         emHelp.add_field(name = "Misc.", value = "hello, reee")
 
         if ctx.invoked_subcommand is None:
@@ -41,25 +41,25 @@ class helpVert(commands.Cog):
 
     @helpV.group(name="animequiz", aliases=['aq'])
     async def animequiz(self, ctx):
-        await self.createEmbed("Anime Quizshow", "Test your anime knowledge with this!", "--animequiz --aq", ctx)
+        await self.createEmbed("Anime Quizshow", "Test your anime knowledge by guessing the anime using the most confusing and out of context hints ever.", "--animequiz --aq", ctx)
 
     @helpV.group(name="hangman", aliases=['hm'])
     async def hangman(self, ctx):
         await self.createEmbed("Hangman Minigame", "Play hangman with Vert!", "--hangman --hm", ctx)
 
     # Star Rail
-    @helpV.group(name="starrailwarp", aliases=['sw'])
+    @helpV.group(name="starrailwarp", aliases=['warp'])
     async def stellarWarp(self, ctx):
-        await self.createEmbed("Honkai Star Rail Warp Simulator", "Simulate summoning on either the Limited or Stellar Warp!\nParameters:\nCharacter - Any limited character (without spaces!)\n10 - Type this in if you want to do a 10 pull\nlc - Type this in if you want to summon on the character's Light Cone Banner\nNote: Parameters can be done in any order so long as they have space in between.", "--warp [character] [10] [lc]", ctx)
+        await self.createEmbed("Honkai Star Rail Warp Simulator", "Simulate summoning on either the Limited or Stellar Warp!\n\nParameters:\nCharacter - Any limited character (without spaces!)\n10 - Type this in if you want to do a 10 pull\nlc - Type this in if you want to summon on the character's Light Cone Banner\n\nNote: Parameters can be done in any order so long as they have space in between. And the space is important.", "--warp [character] [10] [lc]", ctx)
+
+    @helpV.group(name="clearpity", aliases=['clearp'])
+    async def stellarWarp(self, ctx):
+        await self.createEmbed("Honkai Star Rail Warp Simulator", "Clears pity from the current user.\n\n--clearpity or --clearp", ctx)
 
     # Misc
     @helpV.group(name="hello")
     async def hello(self, ctx):
         await self.createEmbed("Hello", "Say hi to Vert.", "--hello", ctx)
-
-    @helpV.group(name="gif", aliases=['GIF'])
-    async def gif(self, ctx):
-        await self.createEmbed("Gif Finder (by Giphy)", "Search up a random gif based on your input! Also, Giphy sucks balls.", "--gif <keywords: trending | random | <custom>", ctx)
 
     @helpV.group(name="reee", aliases=['ree','reeee'])
     async def reee(self, ctx):
