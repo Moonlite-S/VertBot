@@ -257,7 +257,7 @@ class starrail(commands.Cog):
             embedSummon.add_field(name=commands.chosenTenPull[x][0][0].upper() + commands.chosenTenPull[x][0][1:], value=commands.chosenTenRarity[x], inline="True")
 
     async def setSinglePullEmbed(self, embedSummon, user):
-        embedSummon.add_field(name=user.name)
+        embedSummon.add_field(name="User:", value=user.name)
         embedSummon.add_field(name="You have pulled: ", value=f"{commands.rarity}\n{commands.chosenPull[0][0].upper() + commands.chosenPull[0][1:]}")
         embedSummon.add_field(name="Current Pity Counter: ", value=commands.simcounter)
         embedSummon.add_field(name="Total Pulls: ", value=commands.totalPulls)
