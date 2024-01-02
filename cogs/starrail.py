@@ -42,7 +42,8 @@ class starrail(commands.Cog):
 
     @commands.command(name="starrailwarp", aliases=["warp"])
     async def SWSummonSim(self, ctx):
-        versionControl = "1.4"
+        versionControl = "1.5"
+        gameVersion = "1.5"
 
         await self.resetBanner()
         charName = ""
@@ -51,7 +52,6 @@ class starrail(commands.Cog):
         charName = await self.decodeMessage(messageSplit)
         bannerType = await self.initBannerType(charName[0], charName[1])
 
-        print(ctx.author.display_name)
         user = await self.initUser(ctx.author.display_name)
 
         for x in range(commands.tenPull):
@@ -68,7 +68,7 @@ class starrail(commands.Cog):
         else:
             await self.setSinglePullEmbed(embedSummon, user)
         
-        embedSummon.set_footer(text=versionControl)
+        embedSummon.set_footer(text=f"Version: {versionControl} / Patch: {gameVersion}")
         await ctx.message.channel.send(embed=embedSummon)
 
     @commands.command(name="clearpity", aliases=["clearp"])
@@ -125,7 +125,6 @@ class starrail(commands.Cog):
     async def initStandardBanner(self):
         commands.bannerName = "Stellar Warp"
         commands.bannerImage = "https://tinyurl.com/3cbmye89"
-        print("Character not found. Assuming Standard Warp")
         return "Standard"
 
     async def resetBanner(self):
@@ -236,7 +235,7 @@ class starrail(commands.Cog):
             commands.fourPityCounter = 0
 
     async def checkRarityForColor(self, bannerType):
-        "Assigns embed coloring depending on the rarity of the chosen pull"
+        """Assigns embed coloring depending on the rarity of the chosen pull"""
         if commands.rarity == "★★★★★":
             if bannerType != "Standard":
                 await self.limitedFiveStarGuaranteedPityDecider()
@@ -251,14 +250,14 @@ class starrail(commands.Cog):
             commands.rarityColor = 0x5dd6f5
         
     async def setTenPullEmbed(self, embedSummon, user):
-        embedSummon.add_field(name="User: ", value=f"{user.name}")
+        embedSummon.add_field(name=user.name, value="==============")
         embedSummon.add_field(name="Your Pulls: ", value=f"Current Pity after all pulls: {commands.simcounter}\nTotal Pulls: {commands.totalPulls}\nTotal Amount in USD: ${format(commands.totalAmountofMoneyWasted, '.2f')}\nFive Stars Pulled: {commands.fiveStarsPulled}", inline="False")
         embedSummon.set_image(url=commands.imageUrl)
         for x in range(len(commands.chosenTenPull)):
             embedSummon.add_field(name=commands.chosenTenPull[x][0][0].upper() + commands.chosenTenPull[x][0][1:], value=commands.chosenTenRarity[x], inline="True")
 
     async def setSinglePullEmbed(self, embedSummon, user):
-        embedSummon.add_field(name="User: ", value=f"{user.name}")
+        embedSummon.add_field(name=user.name)
         embedSummon.add_field(name="You have pulled: ", value=f"{commands.rarity}\n{commands.chosenPull[0][0].upper() + commands.chosenPull[0][1:]}")
         embedSummon.add_field(name="Current Pity Counter: ", value=commands.simcounter)
         embedSummon.add_field(name="Total Pulls: ", value=commands.totalPulls)
@@ -269,7 +268,6 @@ class starrail(commands.Cog):
     async def findUser(self, authorId):
         for i, x in enumerate(commands.userList):
             if x.name == authorId:
-                print(commands.userList)
                 return commands.userList[i]      
         return "None"
 
@@ -277,8 +275,6 @@ class starrail(commands.Cog):
         user = starRailUsers(authorId)
         commands.userList.append(user)
         await user.setStatsToSummon()
-
-        print(commands.userList)
 
         return user
 

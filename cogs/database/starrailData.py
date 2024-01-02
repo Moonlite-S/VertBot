@@ -104,7 +104,7 @@ limitedBanners = {"seele" :
                         "Focus":[("Sushang", fourStarHeroes["Sushang"]), ("March 7th", fourStarHeroes["March 7th"]), ("Tingyun", fourStarHeroes["Tingyun"])],
                         "LightConeName":"Before Dawn",
                         "LightConeUrl":"https://tinyurl.com/3ckswmzp",
-                        "LightConeThumbnailUrl":"http://tinyurl.com/34j77v8y",
+                        "LightConeThumbnailUrl":"http://tinyurl.com/muvrme6w",
                         "LightConeFocus":[("Planetary Rendezvous", fourStarLightCones["Planetary Rendezous"]), ("Only Silence Remains", fourStarLightCones["Only Silence Remains"]), ("Day One of My New Life", fourStarLightCones["Day One of My New Life"])]},
 
 

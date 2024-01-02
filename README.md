@@ -14,7 +14,7 @@ create things for fun and show other people I have an imagination.
 
 * (Star Rail) Separated pulls by user. [Should now be per person]
 * (Star Rail) (Bug) Limited Banners still have all 4 star characters even though some shouldn't
-* (Star Rail) (Bug) Dunno if I wanna fix this or not, but Light Cone and Character Pulls should not be counted together, but who the hell pulls on LC banners on simulations?
+* (Star Rail) (Bug) Stellar Warp, Light Cone, and Character Banners all share the same pity.
 * *HAPPY NEW YEAR!!!!!*
 
 1.3.1 (12/27/2023):
