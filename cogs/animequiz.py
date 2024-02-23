@@ -22,6 +22,13 @@ class animequiz(commands.Cog):
 
     @commands.command(name='animequiz', aliases=['aq'])
     async def animequiz(self, ctx):
+        '''
+        #### Test your anime knowledge with the Anime Quiz minigame!
+        Usage: `--animequiz` or `--aq`
+
+        There is no command to input responses. When the command is run, Vert will look at every message sent to the channel.
+        '''
+
         #Checks to see if there's a quiz minigame ongoing
         if commands.animeQuizOn == False:
             await self.animQuizInitialization(ctx)
@@ -99,5 +106,3 @@ class animequiz(commands.Cog):
 #Cog stuff from src that does stuff so I can make stuff so I can do stuff
 async def setup(client):
     await client.add_cog(animequiz(client))
-
-

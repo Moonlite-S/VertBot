@@ -5,9 +5,15 @@ create things for fun and show other people I have an imagination.
 
 ## TO-DO LIST  
 
-> * Adding OpenAI to talk to Vert.
+> * (GPTVert) Mention the user's name instead of user.
 
 ## CHANGELOG  
+
+1.3.4 (2/23/2024):
+
+* (GPTVert) Implemented ChatGPT 3.5 Turbo so you can have a conversation with Vert!
+* (AnimeQuiz) Added seven more anime quizes. (Started using ChatGPT to generate these things lol)
+* Updated some things all around
 
 1.3.3 (2/22/2024):
 

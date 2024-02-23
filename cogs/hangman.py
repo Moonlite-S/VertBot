@@ -4,7 +4,7 @@ import random
 from discord.ext import commands, tasks
 
 ### TODO:
-#   - make bot delete it's previous messages to conserve space
+#   - make bot delete it's previous messages to conserve space (?)
 #   - fix the ASCII art on the Health UI
 #   - make the word ui larger if possible
 #   - change the info ui to something more useful
@@ -13,6 +13,8 @@ class hangman(commands.Cog):
     #########################################################################################
     #                           Hangman Minigame                                            #
     #########################################################################################
+    def __init__(self, client):
+        self.client = client
 
     # Checks if a game is currently playing
     commands.hangmanQuiz = False
@@ -47,6 +49,12 @@ class hangman(commands.Cog):
     #Hangman Minigame Command
     @commands.command(name='hangman', aliases=['hm'])
     async def hangmanInit(self, ctx):
+        '''
+        #### Play Hangman with Vert!
+        Usage: `--hangman` or `--hm`
+
+        Use `--hmg` to guess a letter or phrase. If the guess is wrong, regardless if it was a letter or phrase, you only lose one hp.
+        '''
         # Stops if there is a game currently underway
         if (commands.hangmanQuiz):
             await ctx.channel.send(embed=discord.Embed(title="Hangman", description="There is a gaming ongoing!", color = 0x00ff00))
@@ -123,11 +131,6 @@ class hangman(commands.Cog):
     
     # Updates the current mystery word with all applied letters.
     async def hangmangWordUpdate(self, ctx, guess):
-        # if len(guess) == 1:
-        #     for x in range (len(commands.currentWord)):
-        #         if guess == str.lower(commands.hangmanWord[x]):
-        #             commands.currentWord[x] = commands.hangmanWord[x]
-
         for counter in range(len(guess)):
             for x in range (len(commands.currentWord)):
                 if guess[counter] == str.lower(commands.hangmanWord[x]):

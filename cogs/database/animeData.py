@@ -89,8 +89,56 @@ animList = {
         "picBanner" : "https://imdb.to/46OMjun",
         "hint" : ["Astolfo.", "An anime created in 2014.", "Has three different anime with three different routes for each of them"],
         "picHint" : ["https://bit.ly/3PZaBMf","https://bit.ly/3PW2b8C", "https://bit.ly/3JZ2209"]
+    },
+    "konosuba": {
+        "name" : ["Kono Subarashii Sekai ni Shukufuku wo", "KonoSuba"],
+        "desc" : "An anime about a band of adventurers in a world.",
+        "picBanner" : "http://tinyurl.com/jsxakxyd",
+        "hint" : ["A boy gets transported to a fantasy world with useless companions.", "Main characters have unique and quirky personalities while going on quests.", "The protagonist's party is known for causing chaos wherever they go."],
+        "picHint" : ["http://tinyurl.com/yc7krndu", "http://tinyurl.com/2f3fvuwd", "http://tinyurl.com/3cs99js4"]
+    },
+    "hyperdimension neptunia": {
+        "name" : ["Choujigen Game Neptune The Animation", "Hyperdimension Neptunia", "Neptunia"],
+        "desc" : "Console wars but in real life.",
+        "picBanner" : "http://tinyurl.com/368tfyt9",
+        "hint" : ["A world where video game consoles take human form and fight each other.", "Features goddesses battling in a war that mirrors the console wars.", "Characters represent different gaming consoles and companies in a fantasy setting."],
+        "picHint" : ["http://tinyurl.com/49steas8", "http://tinyurl.com/ycxk26t3", "http://tinyurl.com/5cx5v24x"]
+    },
+    "one piece": {
+        "name" : ["One Piece", "OP"],
+        "desc" : "An anime about this one pirate in particular.",
+        "picBanner" : "http://tinyurl.com/52wewa5p",
+        "hint" : ["Follows a rubber man and his friends searching for a legendary treasure.", "Set in a vast world of islands and seas, pirates seek the greatest treasure.", "The journey includes facing powerful enemies and uncovering hidden truths of the world."],
+        "picHint" : ["http://tinyurl.com/ysbs63m5","http://tinyurl.com/3smn93rs","http://tinyurl.com/mr3xk4b7"]
+    },
+    "attack on titan": {
+        "name" : ["Attack on Titan", "Shingeki no Kyojin", "AoT", "SnK"],
+        "desc" : "big monsters attack the capital.",
+        "picBanner" : "http://tinyurl.com/49dvvm8s",
+        "hint" : ["Humans fight against giant humanoid creatures for survival.", "The story features a military dedicated to protecting humanity from external threats.", "Characters uncover the truth about the world and the origins of the Titans."],
+        "picHint" : ["http://tinyurl.com/mnswypnb","http://tinyurl.com/3anx9rrs","http://tinyurl.com/4dbcbxtt"]
+    },
+    "love live": {
+        "name" : ["Love Live! School Idol Project", "Love Live", "Love Live Sunshine", "LL"],
+        "desc" : "An anime where a group of girls save their school with the power of singing.",
+        "picBanner" : "http://tinyurl.com/4pb63tv7",
+        "hint" : ["High school girls become idols to save their school.", "All men have been eradicated from existence.", "There's an incredibly iconic character here."],
+        "picHint" : ["http://tinyurl.com/5eb5btt2","http://tinyurl.com/4fd5vpje","http://tinyurl.com/muf8v4t9"]
+    },
+    "gurren lagann": {
+        "name" : ["Tengen Toppa Gurren Lagann", "Gurren Lagann", "TTGL"],
+        "desc" : "An anime about some underground dweebs fighting for freedom.",
+        "picBanner" : "http://tinyurl.com/582sv2k3",
+        "hint" : ["Humans fight for freedom using robots powered by sheer willpower.", "The story escalates from underground villages to battles in space.", "Characters grow from humble beginnings to legendary heroes."],
+        "picHint" : ["http://tinyurl.com/3y8b8t7t","http://tinyurl.com/2s4k7nku","http://tinyurl.com/36jsvsdh"]
+    },
+    "solo leveling": {
+        "name" : ["Solo Leveling", "Na Honjaman Level-Up", "I Level Up Alone"],
+        "desc" : "some web novel about some guy wanting to be stronger.",
+        "picBanner" : "http://tinyurl.com/5n729943",
+        "hint" : ["A low-ranked hunter becomes the most powerful through a unique system.", "Set in a world where hunters enter dungeons to fight monsters.", "The protagonist discovers a secret power that allows him to grow stronger."],
+        "picHint" : ["http://tinyurl.com/sfrzxvwp","http://tinyurl.com/bvx3tpz8","http://tinyurl.com/3bs4p4he"]
     }
-
 }
 
 """

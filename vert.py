@@ -7,8 +7,8 @@ from dotenv import load_dotenv
 #Usesrs must put this before imputing a command
 client = commands.Bot(command_prefix = '--', help_command=None, intents=discord.Intents.all())
 
-versionControl = "1.3.2"
-lastUpdated = "1/1/2024"
+versionControl = "1.3.4"
+lastUpdated = "2/23/2024"
 
 @client.event
 async def on_connect():
@@ -24,7 +24,7 @@ async def on_connect():
 
 @client.event
 async def on_ready():
-  print('We have logged in as {0.user}'.format(client))
+    print('We have logged in as {0.user}'.format(client))
 
 @client.event
 async def on_message(message):

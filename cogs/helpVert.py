@@ -16,6 +16,7 @@ class helpVert(commands.Cog):
         emHelp.add_field(name = "General Commands", value = "version, help")
         emHelp.add_field(name = "Games", value = "8ball, rps, animequiz, hangman")
         emHelp.add_field(name = "Star Rail", value = "warp, clearpity")
+        emHelp.add_field(name = "Vert Chat", value = "chat")
         emHelp.add_field(name = "Misc.", value = "hello, reee")
 
         if ctx.invoked_subcommand is None:
@@ -64,6 +65,11 @@ class helpVert(commands.Cog):
     @helpV.group(name="reee", aliases=['ree','reeee'])
     async def reee(self, ctx):
         await self.createEmbed("Reee","Vert reee's", "--reee", ctx)
+
+    # Gpt Vert
+    @helpV.group(name="chat", aliases=['gptchat'])
+    async def chat(self, ctx):
+        await self.createEmbed("chat","Have a conversation with Vert using ChatGPT.", "--chat <message>", ctx)
 
     #   Helper Function for the Embed   #
     async def createEmbed(self, title, desc, value, ctx):

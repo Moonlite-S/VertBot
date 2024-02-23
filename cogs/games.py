@@ -15,6 +15,12 @@ class games(commands.Cog):
 
     @commands.command(name='8ball', aliases=["8Ball"])
     async def ball(self, ctx):
+        '''
+        #### Ask Vert a question and she will answer with her 8Ball!
+        Usage: `--8ball <question>?`
+
+        The input must have a question mark. Vert will answer your question with a random response. If no question is asked, Vert will ask you to ask her a question.
+        '''
         responses = [
             "Absolutely not.", "Maybe so.", "Fortune says yes.",
             "Try again later.", "Die in a fire.", "My ara senses say yes.",
@@ -40,6 +46,12 @@ class games(commands.Cog):
 
     @commands.command(name='rps', aliases=['RPS'])
     async def rps(self, ctx):
+        '''
+        #### Play Rock, Paper, Scissors with Vert!
+        Usage: `--rps <rock/paper/scissors>`
+
+        Vert will randomly choose rock, paper, or scissors and will respond with your input.
+        '''
         trio = ["rock", "paper", "scissors"]
 
         bot_input = random.choice(trio)

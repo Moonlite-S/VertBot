@@ -44,20 +44,21 @@ class starrail(commands.Cog):
     async def SWSummonSim(self, ctx):
         '''
         ### Simulates a summoning session for Star Rail Warp.
+        Usage: `--warp <character name> <10> <lc>`
+
         If no arguements are provided, the default output is a single pull on the standard banner.
 
         Arguments are not case sensitive nor do they need to be in any specific order to work.
 
-            <character name> - The name of the character you want to pull for. If a name has a space, remove it. Use --warpchars to see the available characters.
+        `<character name>` - The name of the character you want to pull for. If a name has a space, do not include it. Use `--warpchars` to see the available characters.
          
         No character name defaults to using the Standard Warp.
 
-            <10> - If you want to do a 10 pull.
+        `<10>` - If you want to do a 10 pull. Otherwise, defaults to a single pull.
 
-            <lc> - If you want to pull on a Light Cone banner. Must have a <character name> to be used. Otherwise, ignored.
+        `<lc>` - If you want to pull on a limited character's Light Cone banner. <character name> needs to be provided to be used. Otherwise, ignored.
 
-        #### Usage: --warp <character name> <10> <lc> 
-        Example: --warp imbibtorlunae 10 lc
+        Example: `--warp imbibtorlunae 10 lc`
         '''
         versionControl = "1.6"
         gameVersion = "2.0"
