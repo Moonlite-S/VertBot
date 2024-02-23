@@ -5,3 +5,6 @@
 *.env
 cogs/__pycache__/
 *.pyc
+
+.vscode
+.vs
