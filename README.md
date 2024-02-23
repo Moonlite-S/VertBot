@@ -5,10 +5,14 @@ create things for fun and show other people I have an imagination.
 
 ## TO-DO LIST  
 
-> * Completing the Star Rail Warp Summon Simulator  
-> * Finding more ideas to add onto Vert Bot
+> * Adding OpenAI to talk to Vert.
 
 ## CHANGELOG  
+
+1.3.3 (2/22/2024):
+
+* (Star Rail) Added "warpchars" command where it shows all available characters for the simulation.
+* (Star Rail) Updated the database to include up to the first half of 2.0 (Black Swan)
 
 1.3.2 (1/1/2024):
 

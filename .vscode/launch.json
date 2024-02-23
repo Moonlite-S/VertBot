@@ -2,7 +2,7 @@
     "configurations": [
         {
             "name": "Python: File",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "program": "vert.py",
             "justMyCode": true

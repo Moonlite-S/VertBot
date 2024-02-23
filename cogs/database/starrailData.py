@@ -2,11 +2,9 @@ class starRail:
     def __init__(self, client) :
         self.client = client
 
-# Updated for 1.5 
-#  Latest Characters: 
-#  - Huohuo and Argenti (Limited 5* Heroes)
-#  - Night of Fright and An Instant Before a Gaze (Limited 5* Light Cones)
-#  - Hanya (4* Hero)
+# Updated for 2.0 
+#  Latest Characters from last Version: 
+#  - Dr. Ration and Black Swan
         
 threeStarLightCones = {"Sagacity": "https://tinyurl.com/2p8a4zha", 
                        "Mediation":"https://tinyurl.com/mwryjmb4", 
@@ -30,62 +28,87 @@ threeStarLightCones = {"Sagacity": "https://tinyurl.com/2p8a4zha",
                        "Cornucopia":"https://tinyurl.com/2mebeemb",
                        "Arrows":"https://tinyurl.com/4h6txkm4"}
 
-fourStarLightCones = {"Under the Blue Sky": "https://tinyurl.com/ycx8dbnr",
-                       "Geniuses' Repose": "https://tinyurl.com/542ejv3u", 
-                       "Dance! Dance! Dance!": "https://tinyurl.com/2avf8keu", 
-                       "Subscribe for More!":"https://tinyurl.com/5a38se2s", 
-                       "Trend of the Universal Market": "https://tinyurl.com/yezvuamb", 
-                       "Resolution Shines As Pearls of Sweat": "https://tinyurl.com/34rx2se9", 
-                       "Perfect Timing": "https://tinyurl.com/497838wa", 
-                       "Make the World Clamor":"https://tinyurl.com/st93dtzm", 
-                       "A Secret Vow":"https://tinyurl.com/3ue7b36w", 
-                       "Planetary Rendezous":"https://tinyurl.com/yamxdfmm", 
-                       "Swordplay": "https://tinyurl.com/mptfspwt", 
-                       "Landau's Choice": "https://tinyurl.com/rk8hdcwc", 
-                       "Eyes of the Prey": "https://tinyurl.com/4s8rmeyu", 
-                       "Shared Feeling": "https://tinyurl.com/5xhtzd8t", 
-                       "The Birth of the Self": "https://tinyurl.com/ysep9zwx", 
-                       "The Moles Welcome You": "https://tinyurl.com/2p8kw5pm", 
-                       "Memories of the Past":"https://tinyurl.com/4sfpy77s", 
-                       "Only Silence Remains": "https://tinyurl.com/434x6wmf", 
-                       "Day One of My New Life": "https://tinyurl.com/3yaj6uyb", 
-                       "Good Night and Sleep Well":"https://tinyurl.com/3dajc5vz", 
-                       "Post-Op Conversation": "https://tinyurl.com/mwmxe29n"}
+fourStarLightCones = {
+                    # 1.0 Light Cones
+                    "Under the Blue Sky": "https://tinyurl.com/ycx8dbnr",
+                    "Geniuses' Repose": "https://tinyurl.com/542ejv3u", 
+                    "Dance! Dance! Dance!": "https://tinyurl.com/2avf8keu", 
+                    "Subscribe for More!":"https://tinyurl.com/5a38se2s", 
+                    "Trend of the Universal Market": "https://tinyurl.com/yezvuamb", 
+                    "Resolution Shines As Pearls of Sweat": "https://tinyurl.com/34rx2se9", 
+                    "Perfect Timing": "https://tinyurl.com/497838wa", 
+                    "Make the World Clamor":"https://tinyurl.com/st93dtzm", 
+                    "A Secret Vow":"https://tinyurl.com/3ue7b36w", 
+                    "Planetary Rendezvous":"https://tinyurl.com/yamxdfmm", 
+                    "Swordplay": "https://tinyurl.com/mptfspwt", 
+                    "Landau's Choice": "https://tinyurl.com/rk8hdcwc", 
+                    "Eyes of the Prey": "https://tinyurl.com/4s8rmeyu", 
+                    "Shared Feeling": "https://tinyurl.com/5xhtzd8t", 
+                    "The Birth of the Self": "https://tinyurl.com/ysep9zwx", 
+                    "The Moles Welcome You": "https://tinyurl.com/2p8kw5pm", 
+                    "Memories of the Past":"https://tinyurl.com/4sfpy77s", 
+                    "Only Silence Remains": "https://tinyurl.com/434x6wmf", 
+                    "Day One of My New Life": "https://tinyurl.com/3yaj6uyb", 
+                    "Good Night and Sleep Well":"https://tinyurl.com/3dajc5vz", 
+                    "Post-Op Conversation": "https://tinyurl.com/mwmxe29n",
 
-fourStarHeroes = {"Serval":"https://tinyurl.com/mw3vkz6r", 
-                  "Arlan": "https://tinyurl.com/4pxrxf8a", 
-                  "Asta": "https://tinyurl.com/yckpt2cy", 
-                  "Shampoo": "https://tinyurl.com/33s8c2jc", 
-                  "Yukong": "https://tinyurl.com/2jvts454", 
-                  "Sushang": "https://tinyurl.com/ybae7y7b", 
-                  "Tingyun": "https://tinyurl.com/4rksvxmb", 
-                  "Qingque": "https://tinyurl.com/3jnra4fw", 
-                  "Hook": "https://tinyurl.com/2p9xhy2u", 
-                  "Pela": "https://tinyurl.com/mfxz5yse", 
-                  "Natasha": "https://tinyurl.com/yc7x4m9f", 
-                  "Herta": "https://tinyurl.com/3vafwcfw", 
-                  "Dang Heng": "https://tinyurl.com/4tn8fs8d", 
-                  "March 7th": "https://tinyurl.com/4bvhme2k", 
-                  "Luka": "http://tinyurl.com/5e5k7xhz", 
-                  "Lynx": "http://tinyurl.com/5n6jk5re", 
-                  "Guinaifen": "http://tinyurl.com/54mpab9m", 
-                  "Hanya": "http://tinyurl.com/mvy3xv6k"}
+                    # 2.0 Light Cones
+                    "Final Victor": "http://tinyurl.com/yv8u4fvh",
+                    "It's Showtime": "http://tinyurl.com/49ne2u5w",       
+                    "Destiny's Threads Forewoven": "http://tinyurl.com/pj482tam",
+                    "The Day The Cosmos Fell": "http://tinyurl.com/4rf2xst4",
+                    "Indelible Promise": "http://tinyurl.com/mt94ub4b",
+                    "Flames Afar": "http://tinyurl.com/ycxcf7pt",
+                    "Dreamville Adventure": "http://tinyurl.com/mvre6j9t",
+                    "What is Real": "http://tinyurl.com/5n8rp5we"
+                    }
 
-fiveStarHeroes  = {"Bailu": "https://tinyurl.com/ymwuawpt", 
-                   "Yanqing":"https://tinyurl.com/5n72trtf", 
-                   "Clara":"https://tinyurl.com/yc82uyfx",
-                   "Gepard":"https://tinyurl.com/3vy9mmab",
-                   "Bronya":"https://tinyurl.com/p8r4a6x7",
-                   "Welt":"https://tinyurl.com/r7kvhjaz",
-                   "Himeko":"https://tinyurl.com/2p84k9f6"}
+fourStarHeroes = {
+                # 1.0 Heroes
+                "Serval":"https://tinyurl.com/mw3vkz6r", 
+                "Arlan": "https://tinyurl.com/4pxrxf8a", 
+                "Asta": "https://tinyurl.com/yckpt2cy", 
+                "Shampoo": "https://tinyurl.com/33s8c2jc", 
+                "Sushang": "https://tinyurl.com/ybae7y7b", 
+                "Tingyun": "https://tinyurl.com/4rksvxmb", 
+                "Qingque": "https://tinyurl.com/3jnra4fw", 
+                "Hook": "https://tinyurl.com/2p9xhy2u", 
+                "Pela": "https://tinyurl.com/mfxz5yse", 
+                "Natasha": "https://tinyurl.com/yc7x4m9f", 
+                "Herta": "https://tinyurl.com/3vafwcfw", 
+                "March 7th": "https://tinyurl.com/4bvhme2k",
+                "Dang Heng": "https://tinyurl.com/4tn8fs8d", 
 
-fiveStarLightCones = {"Time Waits for No One":"https://tinyurl.com/s9vu2zts", 
-                      "Moment of Victory":"https://tinyurl.com/4ewpp8c3",
-                      "In the Name of the World":"https://tinyurl.com/bdhp4m24", 
-                      "But the Battle Isn't Over":"https://tinyurl.com/w37w2vs8",
-                      "Something Irreplaceable":"https://tinyurl.com/5ad8srte",
-                      "Night on the Milky Way":"https://tinyurl.com/4xnamfep", 
-                      "Sleep Like the Dead": "https://tinyurl.com/ad4t3pvm"}
+                "Yukong": "https://tinyurl.com/2jvts454", 
+                "Luka": "http://tinyurl.com/5e5k7xhz", 
+                "Lynx": "http://tinyurl.com/5n6jk5re", 
+                "Guinaifen": "http://tinyurl.com/54mpab9m", 
+                "Hanya": "http://tinyurl.com/mvy3xv6k",
+                "Xueyi": "http://tinyurl.com/ye4pknw9",
+
+                # 2.0 Heroes
+                "Misha": "http://tinyurl.com/bdf6z43k"
+                }
+
+fiveStarHeroes  = {
+                    "Bailu": "https://tinyurl.com/ymwuawpt", 
+                    "Yanqing":"https://tinyurl.com/5n72trtf", 
+                    "Clara":"https://tinyurl.com/yc82uyfx",
+                    "Gepard":"https://tinyurl.com/3vy9mmab",
+                    "Bronya":"https://tinyurl.com/p8r4a6x7",
+                    "Welt":"https://tinyurl.com/r7kvhjaz",
+                    "Himeko":"https://tinyurl.com/2p84k9f6"
+                    }
+
+fiveStarLightCones = {
+                    "Time Waits for No One":"https://tinyurl.com/s9vu2zts", 
+                    "Moment of Victory":"https://tinyurl.com/4ewpp8c3",
+                    "In the Name of the World":"https://tinyurl.com/bdhp4m24", 
+                    "But the Battle Isn't Over":"https://tinyurl.com/w37w2vs8",
+                    "Something Irreplaceable":"https://tinyurl.com/5ad8srte",
+                    "Night on the Milky Way":"https://tinyurl.com/4xnamfep", 
+                    "Sleep Like the Dead": "https://tinyurl.com/ad4t3pvm"
+                    }
 
 limitedBanners = {"seele" : 
                         {"Name": "Butterfly on Swordtip",
@@ -105,7 +128,7 @@ limitedBanners = {"seele" :
                         "LightConeName":"Before Dawn",
                         "LightConeUrl":"https://tinyurl.com/3ckswmzp",
                         "LightConeThumbnailUrl":"http://tinyurl.com/muvrme6w",
-                        "LightConeFocus":[("Planetary Rendezvous", fourStarLightCones["Planetary Rendezous"]), ("Only Silence Remains", fourStarLightCones["Only Silence Remains"]), ("Day One of My New Life", fourStarLightCones["Day One of My New Life"])]},
+                        "LightConeFocus":[("Planetary Rendezvous", fourStarLightCones["Planetary Rendezvous"]), ("Only Silence Remains", fourStarLightCones["Only Silence Remains"]), ("Day One of My New Life", fourStarLightCones["Day One of My New Life"])]},
 
 
                    "silverwolf" : 
@@ -156,7 +179,7 @@ limitedBanners = {"seele" :
                         "LightConeName":"Brighter than the Sun",
                         "LightConeUrl":"http://tinyurl.com/ywbtces7",
                         "LightConeThumbnailUrl":"http://tinyurl.com/3jswbayz",
-                        "LightConeFocus":[("Dance! Dance! Dance!", fourStarLightCones["Dance! Dance! Dance!"]), ("Planetary Rendezvous", fourStarLightCones["Planetary Rendezous"]), ("Landau's Choice", fourStarLightCones["Landau's Choice"])]},
+                        "LightConeFocus":[("Dance! Dance! Dance!", fourStarLightCones["Dance! Dance! Dance!"]), ("Planetary Rendezvous", fourStarLightCones["Planetary Rendezvous"]), ("Landau's Choice", fourStarLightCones["Landau's Choice"])]},
 
                     "fuxuan" : 
                         {"Name":"Forseen, Foreknown, Foretorld",
@@ -207,4 +230,56 @@ limitedBanners = {"seele" :
                         "LightConeUrl":"http://tinyurl.com/mr9ve8pn",
                         "LightConeThumbnailUrl":"http://tinyurl.com/mwdnzf38",
                         "LightConeFocus":[("Post-Op Conversation", fourStarLightCones["Post-Op Conversation"]), ("Under the Blue Sky", fourStarLightCones["Under the Blue Sky"]), ("The Birth of the True Self", fourStarLightCones["The Birth of the Self"])]},
+                    
+                   "drratio" : 
+                        {"Name":"Phanta Rhei",
+                        "BannerUrl": "http://tinyurl.com/ndbb66xr",
+                        "Icon":"http://tinyurl.com/yp7ab2rc",
+                        "Focus":[("Sushang", fourStarHeroes["Sushang"]), ("Natasha", fourStarHeroes["Natasha"]), ("Hook", fourStarHeroes["Hook"])],
+                        "LightConeName":"Baptism of Pure Thought",
+                        "LightConeUrl":"http://tinyurl.com/bdd6sayv",
+                        "LightConeThumbnailUrl":"http://tinyurl.com/3uyn2ujw",
+                        "LightConeFocus":[("Landau's Choice", fourStarLightCones["Landau's Choice"]), ("Only Silence Remains", fourStarLightCones["Only Silence Remains"]), ("Perfect Tming", fourStarLightCones["Perfect Timing"])]},
+
+                   "ruanmei" : 
+                        {"Name":"Phanta Rhei",
+                        "BannerUrl": "http://tinyurl.com/ycyvs3ux",
+                        "Icon":"http://tinyurl.com/cku4yhnr",
+                        "Focus":[("Xueyi", fourStarHeroes["Xueyi"]), ("March 7th", fourStarHeroes["March 7th"]), ("Tingyun", fourStarHeroes["Tingyun"])],
+                        "LightConeName":"Baptism of Pure Thought",
+                        "LightConeUrl":"Past Self in Mirror",
+                        "LightConeThumbnailUrl":"http://tinyurl.com/29rvjnp6",
+                        "LightConeFocus":[("A Secret Vow", fourStarLightCones["A Secret Vow"]), ("Day One of My New Life", fourStarLightCones["Day One of My New Life"]), ("Planetary Rendezvous", fourStarLightCones["Planetary Rendezvous"])]},
+
+                   "blackswan" : 
+                        {"Name":"Ripples in Reflection",
+                        "BannerUrl": "http://tinyurl.com/ys6mcbc3",
+                        "Icon":"http://tinyurl.com/mr37yzzb",
+                        "Focus":[("Misha", fourStarHeroes["Misha"]), ("Guinaifen", fourStarHeroes["Guinaifen"]), ("Tingyun", fourStarHeroes["Tingyun"])],
+                        "LightConeName":"Reforged Rememberance",
+                        "LightConeUrl":"http://tinyurl.com/2z3atrth",
+                        "LightConeThumbnailUrl":"http://tinyurl.com/2w6et5sh",
+                        "LightConeFocus":[("Indelible Promise", fourStarLightCones["Indelible Promise"]), ("Dance! Dance! Dance!", fourStarLightCones["Dance! Dance! Dance!"]), ("Resolution Shines As Pearls of Sweat", fourStarLightCones["Resolution Shines As Pearls of Sweat"])]},
                    }
+
+"""
+nameWithoutSpaces:
+    BannerUrl: Banner URL featuring the 5* and 4* heroes,
+    Icon: Picture URL for the 5 *character in the banner,
+    Focus: The three 4* heroes in focus in a tupled array [(name, fourStarHeroes(name)],
+    LightConeName: Name of the light cone,
+    LightConeUrl: Picture URL for the light cone,
+    LightConeThumbnailUrl: Thumbnail URL for the light cone,
+    LightConeFocus: Same as Focus but for the Light Cones [(name, fourStarLightCones(name))]
+
+Template:
+    "nameWithoutSpaces" : 
+        {"Name":"",
+        "BannerUrl": "",
+        "Icon":"",
+        "Focus":[("", fourStarHeroes[""]), ("", fourStarHeroes[""]), ("", fourStarHeroes[""])],
+        "LightConeName":"",
+        "LightConeUrl":"",
+        "LightConeThumbnailUrl":"",
+        "LightConeFocus":[("", fourStarLightCones[""]), ("", fourStarLightCones[""]), ("", fourStarLightCones[""])]},
+"""

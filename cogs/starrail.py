@@ -1,13 +1,13 @@
-from enum import auto
-from re import U
 import discord
 import random
 from discord.ext import commands
 from cogs.database.starrailData import *
 
 class starrail(commands.Cog):
+    # List of users that have used the command. Resets every time the bot is restarted.
     commands.userList = []
 
+    # Local Stats for the user
     commands.fourPityCounter = 0
     commands.simcounter = 0
     commands.fiveStarPityRateUp = 0.6
@@ -42,11 +42,28 @@ class starrail(commands.Cog):
 
     @commands.command(name="starrailwarp", aliases=["warp"])
     async def SWSummonSim(self, ctx):
-        versionControl = "1.5"
-        gameVersion = "1.5"
+        '''
+        ### Simulates a summoning session for Star Rail Warp.
+        If no arguements are provided, the default output is a single pull on the standard banner.
+
+        Arguments are not case sensitive nor do they need to be in any specific order to work.
+
+            <character name> - The name of the character you want to pull for. If a name has a space, remove it. Use --warpchars to see the available characters.
+         
+        No character name defaults to using the Standard Warp.
+
+            <10> - If you want to do a 10 pull.
+
+            <lc> - If you want to pull on a Light Cone banner. Must have a <character name> to be used. Otherwise, ignored.
+
+        #### Usage: --warp <character name> <10> <lc> 
+        Example: --warp imbibtorlunae 10 lc
+        '''
+        versionControl = "1.6"
+        gameVersion = "2.0"
 
         await self.resetBanner()
-        charName = ""
+        charName = () # A tuple (bool, str) that holds the user's input
 
         messageSplit = ctx.message.content[7:].split()
         charName = await self.decodeMessage(messageSplit)
@@ -73,6 +90,7 @@ class starrail(commands.Cog):
 
     @commands.command(name="clearpity", aliases=["clearp"])
     async def ClearPity(self, ctx):
+        '''Clears the pity counter for the user.'''
         user = await self.findUser(ctx.author.display_name)
         embedClear = discord.Embed(title="Pity has been cleared!", color=0x00ff00)
 
@@ -82,6 +100,17 @@ class starrail(commands.Cog):
             embedClear = discord.Embed(title="There's no user found to clear pity!", color=0x00ff00)
 
         await ctx.message.channel.send(embed=embedClear)
+
+    @commands.command(name="warpchars", aliases=["wchars"])
+    async def WarpChars(self, ctx):
+        '''Shows all available limited characters for the Honkai Star Rail Warp.'''
+        embedChars = discord.Embed(title="Star Rail Summon Simulator", color=0x00ff00)
+
+        listofChars = list(limitedBanners.keys())
+
+        embedChars.add_field(name="Available Characters", value="\n".join(listofChars), inline="False")
+
+        await ctx.message.channel.send(embed=embedChars)
 
     ## Helper Functions ##
     async def performSummon(self, bannerType):
@@ -106,7 +135,9 @@ class starrail(commands.Cog):
             commands.chosenTenRarity += [commands.rarity]
 
         commands.totalPulls += 1
-        commands.totalAmountofMoneyWasted += 2.65
+        
+        # Average cost of a single pull in USD (Source: I made it the fuck up)
+        commands.totalAmountofMoneyWasted += 2.65 
 
     async def initLimitedCharBanner(self, word):
         commands.fiveStarRateUp = [(word, limitedBanners[word]["Icon"])]
@@ -145,7 +176,7 @@ class starrail(commands.Cog):
 
     async def decodeMessage(ctx, messageSplit):
         """
-        ### Decodes the input from user to decide how the simulation will go
+        ### Decodes the input from user to decide how the simulation will be ran.
         Input:
             :messageSplit: list[str]
         Output:
@@ -168,7 +199,9 @@ class starrail(commands.Cog):
         return (lightConeTrigger, charName)
 
     async def initBannerType(self, isLightConeBanner, charName):
-        """Initializes what type of banner it is. (Supports only Standard, Limited Character, and Light Cone Banners)"""
+        """
+        Initializes the type of banner the user wants to pull on.
+        """
         try:
             if isLightConeBanner:
                 return await self.initLimitedLCBanner(charName)
@@ -265,6 +298,8 @@ class starrail(commands.Cog):
         embedSummon.add_field(name="Five Stars Pulled: ", value=commands.fiveStarsPulled)
         embedSummon.set_image(url=commands.chosenPull[1])
 
+    # Helper Functions for StarRailUsers
+
     async def findUser(self, authorId):
         for i, x in enumerate(commands.userList):
             if x.name == authorId:
@@ -274,11 +309,11 @@ class starrail(commands.Cog):
     async def createUser(self, authorId):
         user = starRailUsers(authorId)
         commands.userList.append(user)
-        await user.setStatsToSummon()
 
         return user
 
     async def initUser(self, authorId):
+        '''Initializes the user's stats for the summoning simulator. If the user is not found, it will create a new user.'''
         user = await self.findUser(authorId)
         if user == "None":
             return await self.createUser(authorId)
@@ -287,6 +322,7 @@ class starrail(commands.Cog):
         return user
 
 class starRailUsers():
+    """#### Class that holds the user's stats for the summoning simulator."""
     def __init__(self, authorId):
         self.name = authorId
 
