@@ -109,7 +109,6 @@ create things for fun and show other people I have an imagination.
 
 * Revised text to be more clear in helpVert.py  
 * Added a new cog, e7.py, to showcase my units? (idk what I want to this for tbh)  
-* Removed env and added a gitignore
 
 1.0.1 (4/11/2021):
 
