@@ -2,9 +2,9 @@ class starRail:
     def __init__(self, client) :
         self.client = client
 
-# Updated for 2.0 
+# Updated for Patch 2.0 
 #  Latest Characters from last Version: 
-#  - Dr. Ration and Black Swan
+#  - Dr. Ratio and Black Swan
         
 threeStarLightCones = {"Sagacity": "https://tinyurl.com/2p8a4zha", 
                        "Mediation":"https://tinyurl.com/mwryjmb4", 
@@ -110,157 +110,158 @@ fiveStarLightCones = {
                     "Sleep Like the Dead": "https://tinyurl.com/ad4t3pvm"
                     }
 
-limitedBanners = {"seele" : 
-                        {"Name": "Butterfly on Swordtip",
-                        "BannerUrl":"http://tinyurl.com/3c9bsmux",
-                        "Icon":"https://tinyurl.com/5n87vzhc", 
-                        "Focus":[("Natasha", fourStarHeroes["Natasha"]), ("Hook", fourStarHeroes["Hook"]), ("Pela", fourStarHeroes["Pela"])], 
-                        "LightConeName":"In the Night",
-                        "LightConeUrl":"https://tinyurl.com/56ht5yfm",
-                        "LightConeThumbnailUrl":"http://tinyurl.com/34j77v8y",
-                        "LightConeFocus":[("The Moles Welcome You", fourStarLightCones["The Moles Welcome You"]), "Good Night and Sleep Well", fourStarLightCones["Good Night and Sleep Well"], ("Post Op Conversation", fourStarLightCones["Post-Op Conversation"])]},
+limitedBanners = {
+"seele" : 
+    {"Name": "Butterfly on Swordtip",
+    "BannerUrl":"http://tinyurl.com/3c9bsmux",
+    "Icon":"https://tinyurl.com/5n87vzhc", 
+    "Focus":[("Natasha", fourStarHeroes["Natasha"]), ("Hook", fourStarHeroes["Hook"]), ("Pela", fourStarHeroes["Pela"])], 
+    "LightConeName":"In the Night",
+    "LightConeUrl":"https://tinyurl.com/56ht5yfm",
+    "LightConeThumbnailUrl":"http://tinyurl.com/34j77v8y",
+    "LightConeFocus":[("The Moles Welcome You", fourStarLightCones["The Moles Welcome You"]), "Good Night and Sleep Well", fourStarLightCones["Good Night and Sleep Well"], ("Post Op Conversation", fourStarLightCones["Post-Op Conversation"])]},
 
-                  "jingyuan" : 
-                        {"Name":"Swirl of Heavenly Spear",
-                        "BannerUrl": "http://tinyurl.com/2zvpc925",
-                        "Icon":"https://tinyurl.com/2h7sb9n5",
-                        "Focus":[("Sushang", fourStarHeroes["Sushang"]), ("March 7th", fourStarHeroes["March 7th"]), ("Tingyun", fourStarHeroes["Tingyun"])],
-                        "LightConeName":"Before Dawn",
-                        "LightConeUrl":"https://tinyurl.com/3ckswmzp",
-                        "LightConeThumbnailUrl":"http://tinyurl.com/muvrme6w",
-                        "LightConeFocus":[("Planetary Rendezvous", fourStarLightCones["Planetary Rendezvous"]), ("Only Silence Remains", fourStarLightCones["Only Silence Remains"]), ("Day One of My New Life", fourStarLightCones["Day One of My New Life"])]},
+"jingyuan" : 
+    {"Name":"Swirl of Heavenly Spear",
+    "BannerUrl": "http://tinyurl.com/2zvpc925",
+    "Icon":"https://tinyurl.com/2h7sb9n5",
+    "Focus":[("Sushang", fourStarHeroes["Sushang"]), ("March 7th", fourStarHeroes["March 7th"]), ("Tingyun", fourStarHeroes["Tingyun"])],
+    "LightConeName":"Before Dawn",
+    "LightConeUrl":"https://tinyurl.com/3ckswmzp",
+    "LightConeThumbnailUrl":"http://tinyurl.com/muvrme6w",
+    "LightConeFocus":[("Planetary Rendezvous", fourStarLightCones["Planetary Rendezvous"]), ("Only Silence Remains", fourStarLightCones["Only Silence Remains"]), ("Day One of My New Life", fourStarLightCones["Day One of My New Life"])]},
 
 
-                   "silverwolf" : 
-                        {"Name":"Contract Zero",
-                        "BannerUrl": "http://tinyurl.com/2hk2n2hj",
-                        "Icon":"https://tinyurl.com/38rffb7x",
-                        "Focus":[("Dan Heng", fourStarHeroes["Dang Heng"]), ("Asta", fourStarHeroes["Asta"]), ("Serval", fourStarHeroes["Serval"])],
-                        "LightConeName":"Incessant Rain",
-                        "LightConeUrl":"https://tinyurl.com/2nhf9zdu",
-                        "LightConeThumbnailUrl":"http://tinyurl.com/mrnktpua",
-                        "LightConeFocus":[("Subscribe for More!", fourStarLightCones["Subscribe for More!"]), ("Memories of the Past", fourStarLightCones["Memories of the Past"]), ("Make the World Clamor", fourStarLightCones["Make the World Clamor"])]},
+"silverwolf" : 
+    {"Name":"Contract Zero",
+    "BannerUrl": "http://tinyurl.com/2hk2n2hj",
+    "Icon":"https://tinyurl.com/38rffb7x",
+    "Focus":[("Dan Heng", fourStarHeroes["Dang Heng"]), ("Asta", fourStarHeroes["Asta"]), ("Serval", fourStarHeroes["Serval"])],
+    "LightConeName":"Incessant Rain",
+    "LightConeUrl":"https://tinyurl.com/2nhf9zdu",
+    "LightConeThumbnailUrl":"http://tinyurl.com/mrnktpua",
+    "LightConeFocus":[("Subscribe for More!", fourStarLightCones["Subscribe for More!"]), ("Memories of the Past", fourStarLightCones["Memories of the Past"]), ("Make the World Clamor", fourStarLightCones["Make the World Clamor"])]},
 
-                    "loucha" : 
-                        {"Name":"Laic Pursuit",
-                        "BannerUrl": "http://tinyurl.com/2mj2njj3",
-                        "Icon":"https://tinyurl.com/4hbjy5ee",
-                        "Focus":[("Pela", fourStarHeroes["Pela"]), ("Qingque", fourStarHeroes["Qingque"]), ("Yukong", fourStarHeroes["Yukong"])],
-                        "LightConeName":"Echoes of the Coffin",
-                        "LightConeUrl":"https://tinyurl.com/44bnxmpr",
-                        "LightConeThumbnailUrl":"http://tinyurl.com/5n862vsp",
-                        "LightConeFocus":[("Good Night and Sleep Well", fourStarLightCones["Good Night and Sleep Well"]), ("Dance! Dance! Dance!", fourStarLightCones["Dance! Dance! Dance!"]), ("Geniuses' Repose", fourStarLightCones["Geniuses' Repose"])]},
+"loucha" : 
+    {"Name":"Laic Pursuit",
+    "BannerUrl": "http://tinyurl.com/2mj2njj3",
+    "Icon":"https://tinyurl.com/4hbjy5ee",
+    "Focus":[("Pela", fourStarHeroes["Pela"]), ("Qingque", fourStarHeroes["Qingque"]), ("Yukong", fourStarHeroes["Yukong"])],
+    "LightConeName":"Echoes of the Coffin",
+    "LightConeUrl":"https://tinyurl.com/44bnxmpr",
+    "LightConeThumbnailUrl":"http://tinyurl.com/5n862vsp",
+    "LightConeFocus":[("Good Night and Sleep Well", fourStarLightCones["Good Night and Sleep Well"]), ("Dance! Dance! Dance!", fourStarLightCones["Dance! Dance! Dance!"]), ("Geniuses' Repose", fourStarLightCones["Geniuses' Repose"])]},
 
-                    "blade" : 
-                        {"Name":"A Lost Soul",
-                        "BannerUrl": "http://tinyurl.com/669nwzpd",
-                        "Icon":"http://tinyurl.com/3w9bxje5",
-                        "Focus":[("Arlan", fourStarHeroes["Arlan"]), ("Sushang", fourStarHeroes["Sushang"]), ("Natasha", fourStarHeroes["Natasha"])],
-                        "LightConeName":"The Unreachable Side",
-                        "LightConeUrl":"http://tinyurl.com/mh77a6j8",
-                        "LightConeThumbnailUrl":"http://tinyurl.com/36wmv8dn",
-                        "LightConeFocus":[("A Secret Vow", fourStarLightCones["A Secret Vow"]),("Shared Feeling", fourStarLightCones["Shared Feeling"]), ("Swordplay", fourStarLightCones["Swordplay"])]},
+"blade" : 
+    {"Name":"A Lost Soul",
+    "BannerUrl": "http://tinyurl.com/669nwzpd",
+    "Icon":"http://tinyurl.com/3w9bxje5",
+    "Focus":[("Arlan", fourStarHeroes["Arlan"]), ("Sushang", fourStarHeroes["Sushang"]), ("Natasha", fourStarHeroes["Natasha"])],
+    "LightConeName":"The Unreachable Side",
+    "LightConeUrl":"http://tinyurl.com/mh77a6j8",
+    "LightConeThumbnailUrl":"http://tinyurl.com/36wmv8dn",
+    "LightConeFocus":[("A Secret Vow", fourStarLightCones["A Secret Vow"]),("Shared Feeling", fourStarLightCones["Shared Feeling"]), ("Swordplay", fourStarLightCones["Swordplay"])]},
 
-                    "kafka" : 
-                        {"Name":"Nessun Dorma",
-                        "BannerUrl": "http://tinyurl.com/5cuj8xhc",
-                        "Icon":"http://tinyurl.com/4vj2mu4v",
-                        "Focus":[("Luka", fourStarHeroes["Luka"]), ("Sampo", fourStarHeroes["Shampoo"]), ("Serval", fourStarHeroes["Serval"])],
-                        "LightConeName":"Paitence is All You Need",
-                        "LightConeUrl":"http://tinyurl.com/3enka4zw",
-                        "LightConeThumbnailUrl":"http://tinyurl.com/52kdr2xa",
-                        "LightConeFocus":[("Resolution Shines As Pearls of Sweat", fourStarLightCones["Resolution Shines As Pearls of Sweat"]), ("Eyes of the Prey", fourStarLightCones["Eyes of the Prey"]), ("The Birth of the Self", fourStarLightCones["The Birth of the Self"])]},
-                    
-                    "imbibitorlunae" : 
-                        {"Name":"Epochal Spectrum",
-                        "BannerUrl": "http://tinyurl.com/3m8x398r",
-                        "Icon":"http://tinyurl.com/bde6vc33",
-                        "Focus":[("Yukong", fourStarHeroes["Yukong"]), ("Asta", fourStarHeroes["Asta"]), ("March 7th", fourStarHeroes["March 7th"])],
-                        "LightConeName":"Brighter than the Sun",
-                        "LightConeUrl":"http://tinyurl.com/ywbtces7",
-                        "LightConeThumbnailUrl":"http://tinyurl.com/3jswbayz",
-                        "LightConeFocus":[("Dance! Dance! Dance!", fourStarLightCones["Dance! Dance! Dance!"]), ("Planetary Rendezvous", fourStarLightCones["Planetary Rendezvous"]), ("Landau's Choice", fourStarLightCones["Landau's Choice"])]},
+"kafka" : 
+    {"Name":"Nessun Dorma",
+    "BannerUrl": "http://tinyurl.com/5cuj8xhc",
+    "Icon":"http://tinyurl.com/4vj2mu4v",
+    "Focus":[("Luka", fourStarHeroes["Luka"]), ("Sampo", fourStarHeroes["Shampoo"]), ("Serval", fourStarHeroes["Serval"])],
+    "LightConeName":"Paitence is All You Need",
+    "LightConeUrl":"http://tinyurl.com/3enka4zw",
+    "LightConeThumbnailUrl":"http://tinyurl.com/52kdr2xa",
+    "LightConeFocus":[("Resolution Shines As Pearls of Sweat", fourStarLightCones["Resolution Shines As Pearls of Sweat"]), ("Eyes of the Prey", fourStarLightCones["Eyes of the Prey"]), ("The Birth of the Self", fourStarLightCones["The Birth of the Self"])]},
 
-                    "fuxuan" : 
-                        {"Name":"Forseen, Foreknown, Foretorld",
-                        "BannerUrl": "http://tinyurl.com/4ajrt8xv",
-                        "Icon":"http://tinyurl.com/5bucks62",
-                        "Focus":[("Lynx", fourStarHeroes["Lynx"]), ("Hook", fourStarHeroes["Hook"]), ("Pela", fourStarHeroes["Pela"])],
-                        "LightConeName":"She Already Shut Her Eyes",
-                        "LightConeUrl":"http://tinyurl.com/4bmv8khc",
-                        "LightConeThumbnailUrl":"http://tinyurl.com/bdz9ecwu",
-                        "LightConeFocus":[("Perfect Timing", fourStarLightCones["Perfect Timing"]), ("Under the Blue Sky", fourStarLightCones["Under the Blue Sky"]), ("Trend of the Universal Market", fourStarLightCones["Trend of the Universal Market"])]},
+"imbibitorlunae" : 
+    {"Name":"Epochal Spectrum",
+    "BannerUrl": "http://tinyurl.com/3m8x398r",
+    "Icon":"http://tinyurl.com/bde6vc33",
+    "Focus":[("Yukong", fourStarHeroes["Yukong"]), ("Asta", fourStarHeroes["Asta"]), ("March 7th", fourStarHeroes["March 7th"])],
+    "LightConeName":"Brighter than the Sun",
+    "LightConeUrl":"http://tinyurl.com/ywbtces7",
+    "LightConeThumbnailUrl":"http://tinyurl.com/3jswbayz",
+    "LightConeFocus":[("Dance! Dance! Dance!", fourStarLightCones["Dance! Dance! Dance!"]), ("Planetary Rendezvous", fourStarLightCones["Planetary Rendezvous"]), ("Landau's Choice", fourStarLightCones["Landau's Choice"])]},
 
-                    "jingliu" : 
-                        {"Name":"Gentle Eclipse of the Moon",
-                        "BannerUrl": "http://tinyurl.com/ycxr6933",
-                        "Icon":"http://tinyurl.com/7evvmsaa",
-                        "Focus":[("Tingyun", fourStarHeroes["Tingyun"]), ("Qingque", fourStarHeroes["Qingque"]), ("Sampo", fourStarHeroes["Shampoo"])],
-                        "LightConeName":"I Shall Be My Own Sword",
-                        "LightConeUrl":"http://tinyurl.com/ycxfscpd",
-                        "LightConeThumbnailUrl":"http://tinyurl.com/4n7577du",
-                        "LightConeFocus":[("Memories of the Past", fourStarLightCones["Memories of the Past"]), ("Make the World Clamor", fourStarLightCones["Make the World Clamor"]),("Eyes of the Prey", fourStarLightCones["Eyes of the Prey"])]},
+"fuxuan" : 
+    {"Name":"Forseen, Foreknown, Foretorld",
+    "BannerUrl": "http://tinyurl.com/4ajrt8xv",
+    "Icon":"http://tinyurl.com/5bucks62",
+    "Focus":[("Lynx", fourStarHeroes["Lynx"]), ("Hook", fourStarHeroes["Hook"]), ("Pela", fourStarHeroes["Pela"])],
+    "LightConeName":"She Already Shut Her Eyes",
+    "LightConeUrl":"http://tinyurl.com/4bmv8khc",
+    "LightConeThumbnailUrl":"http://tinyurl.com/bdz9ecwu",
+    "LightConeFocus":[("Perfect Timing", fourStarLightCones["Perfect Timing"]), ("Under the Blue Sky", fourStarLightCones["Under the Blue Sky"]), ("Trend of the Universal Market", fourStarLightCones["Trend of the Universal Market"])]},
 
-                    "topaz" : 
-                        {"Name":"Sunset Clause",
-                        "BannerUrl": "http://tinyurl.com/52985t7u",
-                        "Icon":"http://tinyurl.com/2s3v8en6",
-                        "Focus":[("Guinaifen", fourStarHeroes["Guinaifen"]), ("Luka", fourStarHeroes["Luka"]), ("Sushang", fourStarHeroes["Sushang"])],
-                        "LightConeName":"Worrisome, Blissful",
-                        "LightConeUrl":"http://tinyurl.com/y7ecrzuw",
-                        "LightConeThumbnailUrl":"http://tinyurl.com/3yrb9fa9",
-                        "LightConeFocus":[("The Moles Welcome You", fourStarLightCones["The Moles Welcome You"]), ("Resolution Shines as Pearls of Sweat", fourStarLightCones["Resolution Shines As Pearls of Sweat"]), ("Only Silence Remains", fourStarLightCones["Only Silence Remains"])]},
+"jingliu" : 
+    {"Name":"Gentle Eclipse of the Moon",
+    "BannerUrl": "http://tinyurl.com/ycxr6933",
+    "Icon":"http://tinyurl.com/7evvmsaa",
+    "Focus":[("Tingyun", fourStarHeroes["Tingyun"]), ("Qingque", fourStarHeroes["Qingque"]), ("Sampo", fourStarHeroes["Shampoo"])],
+    "LightConeName":"I Shall Be My Own Sword",
+    "LightConeUrl":"http://tinyurl.com/ycxfscpd",
+    "LightConeThumbnailUrl":"http://tinyurl.com/4n7577du",
+    "LightConeFocus":[("Memories of the Past", fourStarLightCones["Memories of the Past"]), ("Make the World Clamor", fourStarLightCones["Make the World Clamor"]),("Eyes of the Prey", fourStarLightCones["Eyes of the Prey"])]},
 
-                    "huohuo" : 
-                        {"Name":"Bloom in Gloom",
-                        "BannerUrl": "http://tinyurl.com/mtusfsva",
-                        "Icon":"http://tinyurl.com/y69psnfn",
-                        "Focus":[("Dan Heng", fourStarHeroes["Dang Heng"]), ("Arlan", fourStarHeroes["Arlan"]), ("Serval", fourStarHeroes["Serval"])],
-                        "LightConeName":"Night of Fright",
-                        "LightConeUrl":"http://tinyurl.com/44ymh23j",
-                        "LightConeThumbnailUrl":"http://tinyurl.com/2tzhr6x8",
-                        "LightConeFocus":[("Shared Feeling", fourStarLightCones["Shared Feeling"]), ("Subscribe for More!", fourStarLightCones["Subscribe for More!"]), ("Trend of the Univseral Market", fourStarLightCones["Trend of the Universal Market"])]},
-                    
-                    "argenti" : 
-                        {"Name":"Thorns of Scented Crown",
-                        "BannerUrl": "http://tinyurl.com/ypxnn53x",
-                        "Icon":"http://tinyurl.com/md432tzx",
-                        "Focus":[("Hanya", fourStarHeroes["Hanya"]), ("Lynx", fourStarHeroes["Lynx"]), ("Asta", fourStarHeroes["Asta"])],
-                        "LightConeName":"An Instant Before A Gaze",
-                        "LightConeUrl":"http://tinyurl.com/mr9ve8pn",
-                        "LightConeThumbnailUrl":"http://tinyurl.com/mwdnzf38",
-                        "LightConeFocus":[("Post-Op Conversation", fourStarLightCones["Post-Op Conversation"]), ("Under the Blue Sky", fourStarLightCones["Under the Blue Sky"]), ("The Birth of the True Self", fourStarLightCones["The Birth of the Self"])]},
-                    
-                   "drratio" : 
-                        {"Name":"Phanta Rhei",
-                        "BannerUrl": "http://tinyurl.com/ndbb66xr",
-                        "Icon":"http://tinyurl.com/yp7ab2rc",
-                        "Focus":[("Sushang", fourStarHeroes["Sushang"]), ("Natasha", fourStarHeroes["Natasha"]), ("Hook", fourStarHeroes["Hook"])],
-                        "LightConeName":"Baptism of Pure Thought",
-                        "LightConeUrl":"http://tinyurl.com/bdd6sayv",
-                        "LightConeThumbnailUrl":"http://tinyurl.com/3uyn2ujw",
-                        "LightConeFocus":[("Landau's Choice", fourStarLightCones["Landau's Choice"]), ("Only Silence Remains", fourStarLightCones["Only Silence Remains"]), ("Perfect Tming", fourStarLightCones["Perfect Timing"])]},
+"topaz" : 
+    {"Name":"Sunset Clause",
+    "BannerUrl": "http://tinyurl.com/52985t7u",
+    "Icon":"http://tinyurl.com/2s3v8en6",
+    "Focus":[("Guinaifen", fourStarHeroes["Guinaifen"]), ("Luka", fourStarHeroes["Luka"]), ("Sushang", fourStarHeroes["Sushang"])],
+    "LightConeName":"Worrisome, Blissful",
+    "LightConeUrl":"http://tinyurl.com/y7ecrzuw",
+    "LightConeThumbnailUrl":"http://tinyurl.com/3yrb9fa9",
+    "LightConeFocus":[("The Moles Welcome You", fourStarLightCones["The Moles Welcome You"]), ("Resolution Shines as Pearls of Sweat", fourStarLightCones["Resolution Shines As Pearls of Sweat"]), ("Only Silence Remains", fourStarLightCones["Only Silence Remains"])]},
 
-                   "ruanmei" : 
-                        {"Name":"Phanta Rhei",
-                        "BannerUrl": "http://tinyurl.com/ycyvs3ux",
-                        "Icon":"http://tinyurl.com/cku4yhnr",
-                        "Focus":[("Xueyi", fourStarHeroes["Xueyi"]), ("March 7th", fourStarHeroes["March 7th"]), ("Tingyun", fourStarHeroes["Tingyun"])],
-                        "LightConeName":"Baptism of Pure Thought",
-                        "LightConeUrl":"Past Self in Mirror",
-                        "LightConeThumbnailUrl":"http://tinyurl.com/29rvjnp6",
-                        "LightConeFocus":[("A Secret Vow", fourStarLightCones["A Secret Vow"]), ("Day One of My New Life", fourStarLightCones["Day One of My New Life"]), ("Planetary Rendezvous", fourStarLightCones["Planetary Rendezvous"])]},
+"huohuo" : 
+    {"Name":"Bloom in Gloom",
+    "BannerUrl": "http://tinyurl.com/mtusfsva",
+    "Icon":"http://tinyurl.com/y69psnfn",
+    "Focus":[("Dan Heng", fourStarHeroes["Dang Heng"]), ("Arlan", fourStarHeroes["Arlan"]), ("Serval", fourStarHeroes["Serval"])],
+    "LightConeName":"Night of Fright",
+    "LightConeUrl":"http://tinyurl.com/44ymh23j",
+    "LightConeThumbnailUrl":"http://tinyurl.com/2tzhr6x8",
+    "LightConeFocus":[("Shared Feeling", fourStarLightCones["Shared Feeling"]), ("Subscribe for More!", fourStarLightCones["Subscribe for More!"]), ("Trend of the Univseral Market", fourStarLightCones["Trend of the Universal Market"])]},
 
-                   "blackswan" : 
-                        {"Name":"Ripples in Reflection",
-                        "BannerUrl": "http://tinyurl.com/ys6mcbc3",
-                        "Icon":"http://tinyurl.com/mr37yzzb",
-                        "Focus":[("Misha", fourStarHeroes["Misha"]), ("Guinaifen", fourStarHeroes["Guinaifen"]), ("Tingyun", fourStarHeroes["Tingyun"])],
-                        "LightConeName":"Reforged Rememberance",
-                        "LightConeUrl":"http://tinyurl.com/2z3atrth",
-                        "LightConeThumbnailUrl":"http://tinyurl.com/2w6et5sh",
-                        "LightConeFocus":[("Indelible Promise", fourStarLightCones["Indelible Promise"]), ("Dance! Dance! Dance!", fourStarLightCones["Dance! Dance! Dance!"]), ("Resolution Shines As Pearls of Sweat", fourStarLightCones["Resolution Shines As Pearls of Sweat"])]},
-                   }
+"argenti" : 
+    {"Name":"Thorns of Scented Crown",
+    "BannerUrl": "http://tinyurl.com/ypxnn53x",
+    "Icon":"http://tinyurl.com/md432tzx",
+    "Focus":[("Hanya", fourStarHeroes["Hanya"]), ("Lynx", fourStarHeroes["Lynx"]), ("Asta", fourStarHeroes["Asta"])],
+    "LightConeName":"An Instant Before A Gaze",
+    "LightConeUrl":"http://tinyurl.com/mr9ve8pn",
+    "LightConeThumbnailUrl":"http://tinyurl.com/mwdnzf38",
+    "LightConeFocus":[("Post-Op Conversation", fourStarLightCones["Post-Op Conversation"]), ("Under the Blue Sky", fourStarLightCones["Under the Blue Sky"]), ("The Birth of the True Self", fourStarLightCones["The Birth of the Self"])]},
+
+"drratio" : 
+    {"Name":"Phanta Rhei",
+    "BannerUrl": "http://tinyurl.com/ndbb66xr",
+    "Icon":"http://tinyurl.com/yp7ab2rc",
+    "Focus":[("Sushang", fourStarHeroes["Sushang"]), ("Natasha", fourStarHeroes["Natasha"]), ("Hook", fourStarHeroes["Hook"])],
+    "LightConeName":"Baptism of Pure Thought",
+    "LightConeUrl":"http://tinyurl.com/bdd6sayv",
+    "LightConeThumbnailUrl":"http://tinyurl.com/3uyn2ujw",
+    "LightConeFocus":[("Landau's Choice", fourStarLightCones["Landau's Choice"]), ("Only Silence Remains", fourStarLightCones["Only Silence Remains"]), ("Perfect Tming", fourStarLightCones["Perfect Timing"])]},
+
+"ruanmei" : 
+    {"Name":"Phanta Rhei",
+    "BannerUrl": "http://tinyurl.com/ycyvs3ux",
+    "Icon":"http://tinyurl.com/cku4yhnr",
+    "Focus":[("Xueyi", fourStarHeroes["Xueyi"]), ("March 7th", fourStarHeroes["March 7th"]), ("Tingyun", fourStarHeroes["Tingyun"])],
+    "LightConeName":"Baptism of Pure Thought",
+    "LightConeUrl":"Past Self in Mirror",
+    "LightConeThumbnailUrl":"http://tinyurl.com/29rvjnp6",
+    "LightConeFocus":[("A Secret Vow", fourStarLightCones["A Secret Vow"]), ("Day One of My New Life", fourStarLightCones["Day One of My New Life"]), ("Planetary Rendezvous", fourStarLightCones["Planetary Rendezvous"])]},
+
+"blackswan" : 
+    {"Name":"Ripples in Reflection",
+    "BannerUrl": "http://tinyurl.com/ys6mcbc3",
+    "Icon":"http://tinyurl.com/mr37yzzb",
+    "Focus":[("Misha", fourStarHeroes["Misha"]), ("Guinaifen", fourStarHeroes["Guinaifen"]), ("Tingyun", fourStarHeroes["Tingyun"])],
+    "LightConeName":"Reforged Rememberance",
+    "LightConeUrl":"http://tinyurl.com/2z3atrth",
+    "LightConeThumbnailUrl":"http://tinyurl.com/2w6et5sh",
+    "LightConeFocus":[("Indelible Promise", fourStarLightCones["Indelible Promise"]), ("Dance! Dance! Dance!", fourStarLightCones["Dance! Dance! Dance!"]), ("Resolution Shines As Pearls of Sweat", fourStarLightCones["Resolution Shines As Pearls of Sweat"])]},
+}
 
 """
 nameWithoutSpaces:

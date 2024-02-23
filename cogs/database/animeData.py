@@ -84,7 +84,7 @@ animList = {
         "picHint" : ["https://bit.ly/3PWOmXk", "https://bit.ly/3Q1ko4F", "https://bit.ly/44DNNpo"]
     },
     "fate stay night UBW": {
-        "name" : ["Fate Stay Night", "Fate Stay Night: Unlimited Blade Works", "FST: UBW"],
+        "name" : ["Fate Stay Night", "Fate Stay Night: Unlimited Blade Works", "FST UBW"],
         "desc" : "Battle royale between mages using fabled warriors of the past.",
         "picBanner" : "https://imdb.to/46OMjun",
         "hint" : ["Astolfo.", "An anime created in 2014.", "Has three different anime with three different routes for each of them"],
@@ -138,7 +138,7 @@ animList = {
         "picBanner" : "http://tinyurl.com/5n729943",
         "hint" : ["A low-ranked hunter becomes the most powerful through a unique system.", "Set in a world where hunters enter dungeons to fight monsters.", "The protagonist discovers a secret power that allows him to grow stronger."],
         "picHint" : ["http://tinyurl.com/sfrzxvwp","http://tinyurl.com/bvx3tpz8","http://tinyurl.com/3bs4p4he"]
-    }
+    } 
 }
 
 """
