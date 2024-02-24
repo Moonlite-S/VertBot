@@ -31,7 +31,7 @@ class gptVert(commands.Cog):
         
         # Limit the conversation list to 50 messages to avoid paying for more tokens
         # Since the conversation holds both user and bot's responses, it would only take around 25 commands before the list gets full
-        if commands.conversation.len() > 50:
+        if len(commands.conversation ) > 50:
             del commands.conversation[:1]
         
         commands.conversation.append(await self.chatFormat("user", messageResponse))
