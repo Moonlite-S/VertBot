@@ -6,6 +6,10 @@ class starRail:
 #  Latest Characters from last Version: 
 #  - Dr. Ratio and Black Swan
         
+# BUGS:
+#   - Limited banners have a chance of showing characters that haven't been released yet.
+#       (Maybe a check for the patch version of the character?)
+        
 threeStarLightCones = {"Sagacity": "https://tinyurl.com/2p8a4zha", 
                        "Mediation":"https://tinyurl.com/mwryjmb4", 
                        "Hidden Shadow":"https://tinyurl.com/yc76n7b3", 
@@ -79,12 +83,12 @@ fourStarHeroes = {
                 "March 7th": "https://tinyurl.com/4bvhme2k",
                 "Dang Heng": "https://tinyurl.com/4tn8fs8d", 
 
-                "Yukong": "https://tinyurl.com/2jvts454", 
-                "Luka": "http://tinyurl.com/5e5k7xhz", 
-                "Lynx": "http://tinyurl.com/5n6jk5re", 
-                "Guinaifen": "http://tinyurl.com/54mpab9m", 
-                "Hanya": "http://tinyurl.com/mvy3xv6k",
-                "Xueyi": "http://tinyurl.com/ye4pknw9",
+                "Yukong": "https://tinyurl.com/2jvts454", # 1.1
+                "Luka": "http://tinyurl.com/5e5k7xhz",  # 1.2
+                "Lynx": "http://tinyurl.com/5n6jk5re",  # 1.3
+                "Guinaifen": "http://tinyurl.com/54mpab9m", # 1.4
+                "Hanya": "http://tinyurl.com/mvy3xv6k", # 1.5
+                "Xueyi": "http://tinyurl.com/ye4pknw9", # 1.6
 
                 # 2.0 Heroes
                 "Misha": "http://tinyurl.com/bdf6z43k"

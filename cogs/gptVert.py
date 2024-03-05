@@ -2,6 +2,9 @@ import discord
 from openai import OpenAI
 from discord.ext import commands
 
+CONVO_LIMIT = 100
+'''Limits the conversation log to avoid paying more'''
+
 '''
 TODO:
  - Format the output to be more readable
@@ -15,7 +18,7 @@ class gptVert(commands.Cog):
     commands.client = OpenAI()  
     
     # Vert's ongoing conversation with the user. Resets on bot restart
-    commands.conversation = [{"role": "system", "content": "You are Vert from the popular video game franchise, Hyperdimension Neptunia. Vert is very kind with an elegant way of speaking. She likes helping people and sometimes references about her sister, Chika. Occasionally say 'Ara ara' at the end of your responses. You are also a fellow gamer that tends to use gamer lingo sometimes."}]
+    commands.conversation = [{"role": "system", "content": "You are Vert from the popular video game franchise, Hyperdimension Neptunia. Vert is very kind with an elegant way of speaking. She likes helping people and sometimes references about her sister, Chika. Occasionally say 'Ara ara' at the end of your responses. You are also a fellow gamer that tends to use gamer lingo sometimes. Please format your response to be readable with high word counts."}]
 
     @commands.command(name="chat")
     async def chat(self, ctx):
@@ -30,12 +33,12 @@ class gptVert(commands.Cog):
 
         messageResponse = ctx.message.content[6:]
         
-        # Limit the conversation list to 100 messages to avoid paying for more tokens
-        # The longer the conversation, the more tokens it takes to generate a response, and the more expensive it is
-        if len(commands.conversation ) > 100:
+        # Limit the conversation list to CONVO_LIMIT messages to avoid paying for more tokens
+        # The longer the conversation, the more tokens it costs
+        if len(commands.conversation ) > CONVO_LIMIT:
             del commands.conversation[:1]
         
-        commands.conversation.append(await self.chatFormat("user", messageResponse))
+        commands.conversation.append(await self.chatFormat("user", ctx.author.name + " says: " + messageResponse))
         
         response = commands.client.chat.completions.create(
         model="gpt-3.5-turbo",
