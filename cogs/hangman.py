@@ -4,9 +4,6 @@ import random
 from discord.ext import commands, tasks
 
 ### TODO:
-#   - make bot delete it's previous messages to conserve space (?)
-#   - fix the ASCII art on the Health UI
-#   - make the word ui larger if possible
 #   - change the info ui to something more useful
 
 class hangman(commands.Cog):
@@ -15,23 +12,20 @@ class hangman(commands.Cog):
     #########################################################################################
     def __init__(self, client):
         self.client = client
-
-    # Checks if a game is currently playing
-    commands.hangmanQuiz = False
-    # Holds the word from the list in hangmanInit
-    commands.hangmanWord = None
-    # Success condition
-    commands.hangmanWin = False
-        
-    commands.timer = 120
-    commands.health = 6
+        # Checks if a game is currently playing
+        self.hangmanQuiz = False
+        # Holds the word from the list in hangmanInit
+        self.hangmanWord = None
+        # Success condition
+        self.hangmanWin = False
+        self.health = 6
 
     # A 5x4 matrix ASCII art
     # List goes from 0 HP to 6 HP,
     # Updating the UI as HP decreases
-    commands.hpUI =  ["Γ--| \n| O \n|  -|-\n| / \ ",
-                "Γ--| \n|  O \n|  -| \n| / \ ",
-                "Γ--| \n|  O \n|     | \n| / \ ",
+    commands.hpUI =  ["Γ--| \n| O \n|  -|-\n| / \\ ",
+                "Γ--| \n|  O \n|  -| \n| / \\ ",
+                "Γ--| \n|  O \n|     | \n| / \\ ",
                 "Γ--| \n|  O \n|     | \n| /  ", 
                 "Γ--| \n|  O \n|     | \n|    ",
                 "Γ--| \n|  O \n|     \n|    ",
@@ -56,17 +50,17 @@ class hangman(commands.Cog):
         Use `--hmg` to guess a letter or phrase. If the guess is wrong, regardless if it was a letter or phrase, you only lose one hp.
         '''
         # Stops if there is a game currently underway
-        if (commands.hangmanQuiz):
+        if (self.hangmanQuiz):
             await ctx.channel.send(embed=discord.Embed(title="Hangman", description="There is a gaming ongoing!", color = 0x00ff00))
             return
 
-        commands.hangmanWord = random.choice(commands.words)
-        commands.hangmanQuiz = True
+        self.hangmanWord = random.choice(commands.words)
+        self.hangmanQuiz = True
 
-        commands.currentWord = ["\_"] * len(commands.hangmanWord)
+        commands.currentWord = ["\\_"] * len(self.hangmanWord)
               
-        for x in range(len(commands.hangmanWord)):
-            if commands.hangmanWord[x] == " ":
+        for x in range(len(self.hangmanWord)):
+            if self.hangmanWord[x] == " ":
                 commands.currentWord[x] = " "
                 continue
 
@@ -76,7 +70,7 @@ class hangman(commands.Cog):
     @commands.command(name='hangmanGuess', aliases=['hmg', 'hmguess'])
     async def hangmanGuessLetter(self, ctx):
 
-        if not commands.hangmanQuiz:
+        if not self.hangmanQuiz:
             await ctx.channel.send(embed=discord.Embed(title="Hangman", description="There is no game currently ongoing!", color = 0x00ff00))
             return
        
@@ -84,17 +78,25 @@ class hangman(commands.Cog):
 
         # DEBUG: Force Game Over
         if guess == "forcelose":
-            commands.health = 0
+            self.health = 0
             await self.hangmanCanvasUpdate(ctx, "-")
             return
 
-        if guess in str.lower(commands.hangmanWord):
+        if guess in str.lower(self.hangmanWord):
             await self.hangmanCanvasUpdate(ctx, guess)
             return
         
         # If letter is not in word, reduce hp
-        commands.health -= 1
+        self.health -= 1
         await self.hangmanCanvasUpdate(ctx, "-")
+
+    @commands.command(name='hangmanQuit', aliases=['hmquit', 'hmq'])
+    async def hangmanQuit(self, ctx):
+        embed = discord.Embed(title="You bailed. Quitter.", color = 0x00ff00)
+        embed.add_field(name="The answer was: ", value=self.hangmanWord)
+        await ctx.channel.send(embed=embed)
+        commands.hangmanQuit = False
+        await self.hangmanReset()
 
     # Updates the current UI with ASCII
     async def hangmanCanvasUpdate(self, ctx, guess):
@@ -104,15 +106,15 @@ class hangman(commands.Cog):
         hangmanUI.add_field(name="Word UI", value=await self.hangmangWordUpdate(self, guess), inline=False)
         
         # Lose Scenario
-        if commands.health <= 0:
+        if self.health <= 0:
             hangmanUI.clear_fields()
             hangmanUI.add_field(name="Mr. Hang", value=await self.hangmanHealthUI(self))
             hangmanUI.add_field(name="Game Over", value="You lost! Try harder loser")
-            hangmanUI.add_field(name="The word was:", value=commands.hangmanWord)
+            hangmanUI.add_field(name="The word was:", value=self.hangmanWord)
             await self.hangmanReset()
 
         # Win Scenario
-        elif commands.hangmanWin:
+        elif self.hangmanWin:
             hangmanUI.clear_fields()
             hangmanUI.add_field(name="Congration", value="You won! You are totally based and stuff!")
             await self.hangmanReset()
@@ -121,24 +123,24 @@ class hangman(commands.Cog):
         await ctx.channel.send(embed=hangmanUI)
 
     async def hangmanReset(self):
-        commands.hangmanQuiz = False
-        commands.health = 6
+        self.hangmanQuiz = False
+        self.health = 6
         commands.currentWord = [None]
-        commands.hangmanWin = False
+        self.hangmanWin = False
 
     async def hangmanHealthUI(self, ctx):
-        return commands.hpUI[commands.health]
+        return commands.hpUI[self.health]
     
     # Updates the current mystery word with all applied letters.
     async def hangmangWordUpdate(self, ctx, guess):
         for counter in range(len(guess)):
             for x in range (len(commands.currentWord)):
-                if guess[counter] == str.lower(commands.hangmanWord[x]):
-                    commands.currentWord[x] = commands.hangmanWord[x]
+                if guess[counter] == str.lower(self.hangmanWord[x]):
+                    commands.currentWord[x] = self.hangmanWord[x]
 
         toString = ''.join(str(x) for x in commands.currentWord)
-        if toString == commands.hangmanWord:
-            commands.hangmanWin = True
+        if toString == self.hangmanWord:
+            self.hangmanWin = True
         return toString
 
 #Cog stuff from src that does stuff so I can make stuff so I can do stuff

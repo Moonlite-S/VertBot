@@ -5,9 +5,13 @@ create things for fun and show other people I have an imagination.
 
 ## TO-DO LIST  
 
-> * (GPTVert) Mention the user's name instead of user.
+> (Nothing so far...)
 
 ## CHANGELOG  
+
+1.3.5 (3/4/2024): 
+* (GPTVert) Vert now knows who is speaking
+* (Hangman) Small refactoring
 
 1.3.4 (2/23/2024):
 
