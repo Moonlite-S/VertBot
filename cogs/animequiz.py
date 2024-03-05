@@ -2,7 +2,7 @@ import discord
 import asyncio
 import random
 from cogs.database.animeData import *
-from discord.ext import commands, tasks
+from discord.ext import commands
 
     #########################################################################################
     #                           Anime Quiz Minigame                                         #
@@ -12,13 +12,9 @@ class animequiz(commands.Cog):
 
     def __init__(self, client):
         self.client = client
-
-    #Local variables For animeQuiz
-    #anim is an Object from anime class in animeData.py
-    commands.animeQuizOn = False
-    commands.anim = None
-
-    commands.possibleHints = []
+        self.possibleHints = []
+        commands.anim = None
+        commands.animeQuizOn = False
 
     @commands.command(name='animequiz', aliases=['aq'])
     async def animequiz(self, ctx):
@@ -74,9 +70,9 @@ class animequiz(commands.Cog):
     async def animQuizGiveHint(self, ctx):
         if commands.animeQuizOn:
             animEmbedTime = discord.Embed(title="Here's a hint:", color=0x00ff00, description="")
-            hint = random.choice(commands.possibleHints)
+            hint = random.choice(self.possibleHints)
             animEmbedTime.description = hint
-            commands.possibleHints.remove(hint)
+            self.possibleHints.remove(hint)
             await ctx.channel.send(embed=animEmbedTime)
 
     #Gives a picture hint
@@ -95,7 +91,7 @@ class animequiz(commands.Cog):
         commands.anim = random.choice(list(animList))
 
         #Gets the list of hints from the anime object
-        commands.possibleHints = animList[commands.anim]["hint"]
+        self.possibleHints = animList[commands.anim]["hint"]
 
         #Start the quiz by giving the description of a random anime
         animEmbed = discord.Embed(title="What anime is this?", color=0x00ff00, description="")

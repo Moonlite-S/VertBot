@@ -2,10 +2,11 @@ import discord
 from openai import OpenAI
 from discord.ext import commands
 
-
 '''
 TODO:
  - Format the output to be more readable
+ - Add a way to reset the conversation
+ - Make Vert know the name of the user she's talking to
 '''
 class gptVert(commands.Cog):
     def __init__(self, client):
@@ -19,19 +20,19 @@ class gptVert(commands.Cog):
     @commands.command(name="chat")
     async def chat(self, ctx):
         '''
-        #### Talk to Vert using ChatGPT-3.5!
+        #### Talk to Vert using ChatGPT-3.5 Turbo!
         Usage: `--chat <message>`
 
         If no input is given, no response will be given.
         '''
-        messageResponse = ctx.message.content[6:]
-
-        if messageResponse == "":
+        if ctx.message.content == "":
             return
+
+        messageResponse = ctx.message.content[6:]
         
-        # Limit the conversation list to 50 messages to avoid paying for more tokens
-        # Since the conversation holds both user and bot's responses, it would only take around 25 commands before the list gets full
-        if len(commands.conversation ) > 50:
+        # Limit the conversation list to 100 messages to avoid paying for more tokens
+        # The longer the conversation, the more tokens it takes to generate a response, and the more expensive it is
+        if len(commands.conversation ) > 100:
             del commands.conversation[:1]
         
         commands.conversation.append(await self.chatFormat("user", messageResponse))

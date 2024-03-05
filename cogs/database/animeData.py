@@ -1,4 +1,3 @@
-import random
 #Used to create a huge catalog of anime shows
 #for the "animequiz" minigame in games.py
 class anime:
@@ -17,7 +16,7 @@ animList = {
         "hint" : ["It seperates itself into parts rather that seasons. (Which mean the same thing, but its a hint)", "A very cool and manly artstyle.", 
                     "A german robotic general.", "Three Big Burly Men.", "Part 2 was the best season."],
         "picHint" : ["https://bit.ly/3svNg5B","https://bit.ly/3mXo0UB"]
-        },
+    },
     "clannad" : {
         "name" : ["Clannad", "Clannad After Story", "Clannad: After Story"],
         "desc" : "A tragic supernatural high school story, involving themes of family and change.",
