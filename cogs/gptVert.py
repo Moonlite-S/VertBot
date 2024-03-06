@@ -8,6 +8,8 @@ CONVO_LIMIT = 100
 '''
 TODO:
  - Format the output to be more readable
+ - Add a way to reset the conversation
+ - Make Vert know the name of the user she's talking to
 '''
 class gptVert(commands.Cog):
     def __init__(self, client):
@@ -26,10 +28,10 @@ class gptVert(commands.Cog):
 
         If no input is given, no response will be given.
         '''
-        messageResponse = ctx.message.content[6:]
-
-        if messageResponse == "":
+        if ctx.message.content == "":
             return
+
+        messageResponse = ctx.message.content[6:]
         
         # Limit the conversation list to CONVO_LIMIT messages to avoid paying for more tokens
         # The longer the conversation, the more tokens it costs

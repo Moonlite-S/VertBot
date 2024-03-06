@@ -8,15 +8,13 @@ from dotenv import load_dotenv
 client = commands.Bot(command_prefix = '--', help_command=None, intents=discord.Intents.all())
 
 versionControl = "1.3.4"
-lastUpdated = "2/23/2024"
+lastUpdated = "2/27/2024"
 
 @client.event
 async def on_connect():
     #loads all our cogs
     for filename in os.listdir('./cogs'):
-        if filename.endswith('.py'):
-            if (filename.startswith('__')):
-                break
+        if filename.endswith('.py') and not filename.startswith('__'):
             await client.load_extension(f'cogs.{filename[:-3]}')
     print('We have connected, please hold on til we get ready.'.format(client))
 
