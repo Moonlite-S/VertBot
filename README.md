@@ -5,9 +5,12 @@ create things for fun and show other people I have an imagination.
 
 ## TO-DO LIST  
 
-> (Nothing so far...)
+> Create a Blackjack mini-game!
 
 ## CHANGELOG  
+
+1.3.6 (3/6/2024):
+* (Blackjack) Started work on a new mini-game, Blackjack
 
 1.3.5 (3/4/2024): 
 * (GPTVert) Vert now knows who is speaking

@@ -20,7 +20,7 @@ async def on_connect():
             await client.load_extension(f'cogs.{filename[:-3]}')
     print('We have connected, please hold on til we get ready.'.format(client))
 
-    await client.change_presence(activity=discord.Activity(type=discord.ActivityType.custom, name="Version 1.6"))
+    await client.change_presence(status=discord.Status.online, activity=discord.CustomActivity('Gaming with Neptune'))
 
 @client.event
 async def on_ready():
