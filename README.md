@@ -9,6 +9,9 @@ create things for fun and show other people I have an imagination.
 
 ## CHANGELOG  
 
+1.3.7 (3/6/2024):
+* (Blackjack) Released Blackjack 1.0!
+
 1.3.6 (3/6/2024):
 * (Blackjack) Started work on a new mini-game, Blackjack
 
