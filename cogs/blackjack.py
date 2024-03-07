@@ -5,6 +5,8 @@ import random
 '''TODO:
 - So far it's single player, but eventually I want to this minigame used for multiple players at once
     (maybe create a class for each player)
+- Maybe add a betting system ????
+- Maybe add an image of the cards in the embed message
 '''
 class blackjack(commands.Cog):
     def __init__(self, client):
@@ -34,8 +36,8 @@ class blackjack(commands.Cog):
             return
         
         self.isOngoing = True
-        await self.resetGame()
-        await self.drawInitCards()
+        self.resetGame()
+        self.drawInitCards()
         await self.showHand(ctx)
 
     @commands.command(name="blackjackHit", aliases=["hit"])
@@ -45,13 +47,13 @@ class blackjack(commands.Cog):
         # Game Validation
         await self.validateGame(ctx)
 
-        await self.drawCard(self.player_hand)
+        self.drawCard(self.player_hand)
 
-        if await self.calculateHand(self.player_hand) > 21:
+        if self.calculateHand(self.player_hand) > 21:
             self.isOngoing = False
-            await self.blackjackLose(ctx)
+            await self.calculateWinner(ctx)
         else:
-            await self.vertHit()
+            self.vertHit()
             await self.showHand(ctx)
 
 
@@ -62,7 +64,7 @@ class blackjack(commands.Cog):
         # Game Validation
         await self.validateGame(ctx)
         
-        await self.vertHit()
+        self.vertHit()
         await self.calculateWinner(ctx)
 
     @commands.command(name="blackjackQuit", aliases=["quit"])
@@ -72,28 +74,28 @@ class blackjack(commands.Cog):
         # Game Validation
         await self.validateGame(ctx)
         
-        await self.resetGame()
+        self.resetGame()
         self.isOngoing = False
         embed = discord.Embed(title="Blackjack Ended", description="You quit the game. Quitter.", color = 0x00ff00)
         await ctx.channel.send(embed=embed)
 
     # Helper Functions #
         
-    async def drawInitCards(self):
+    def drawInitCards(self):
         ''' Draws the initial two cards for both the player and Vert. '''
         for _ in range(2):
-            await self.drawCard(self.player_hand)
-            await self.drawCard(self.vert_hand)
+            self.drawCard(self.player_hand)
+            self.drawCard(self.vert_hand)
 
     async def showHand(self, ctx):
         ''' Shows only player's hand as an embed message to channel. '''
         embed = discord.Embed(title="Blackjack", description="Your hand:", color = 0x00ff00)
         embed.add_field(name="Your Hand:", value=self.printHand(self.player_hand))
-        embed.add_field(name="Value:", value=await self.calculateHand(self.player_hand))
+        embed.add_field(name="Value:", value=self.calculateHand(self.player_hand))
         embed.add_field(name="Hit or Pass?", value="Type --hit or --pass", inline=False)
         await ctx.channel.send(embed=embed)
 
-    async def resetGame(self):
+    def resetGame(self):
         ''' Resets the game variables. '''
         self.deck = ["D2","D3","D4","D5","D6","D7","D8","D9","D10","DJ","DQ","DK","DA",
                     "C2","C3","C4","C5","C6","C7","C8","C9","C10","CJ","CQ","CK","CA",
@@ -102,35 +104,35 @@ class blackjack(commands.Cog):
         self.player_hand = []
         self.vert_hand = []
 
-    async def vertHit(self):
+    def vertHit(self):
         ''' ### Calculates the value of the hand and decides whether to hit or not. '''
 
         rng = random.randint(1, 100)
-        vert_hand_value = await self.calculateHand(self.vert_hand)
+        vert_hand_value = self.calculateHand(self.vert_hand)
 
         if vert_hand_value < 12:
-            await self.drawCard(self.vert_hand)
+            self.drawCard(self.vert_hand)
         elif vert_hand_value < 16:
             if rng <= 80:
-                await self.drawCard(self.vert_hand)
+                self.drawCard(self.vert_hand)
         elif vert_hand_value < 18:
             if rng <= 40:
-                await self.drawCard(self.vert_hand)
+                self.drawCard(self.vert_hand)
         elif vert_hand_value < 20:
             if rng <= 10:
-                await self.drawCard(self.vert_hand)
+                self.drawCard(self.vert_hand)
             return
         else:
             return
         
-        await self.vertHit()
+        self.vertHit()
 
-    async def drawCard(self, hand: list[str]):
+    def drawCard(self, hand: list[str]):
         ''' Draws a card from the deck. '''
         card = self.deck.pop(random.randint(0, len(self.deck) - 1))
         hand.append(card)
 
-    async def calculateHand(self, hand: list[str]) -> int:
+    def calculateHand(self, hand: list[str]) -> int:
         ''' Calculates the hand's value. 
         2-10 = simple
         J, Q, K = 10
@@ -139,10 +141,11 @@ class blackjack(commands.Cog):
 
         if len(hand) == 0:
             print("Hand is empty. This should not have happened.")
+            commands.on_command_error()
             return 0
         
         value = 0
-        ace_check = (False, 0) # Keeps track if there is an Ace and the number of Aces in the hand.
+        ace_check = (False, 0) # Keeps track if there is an Ace and the number of Aces in hand.
 
         for card in hand:
             if card[1] == "A":
@@ -171,47 +174,40 @@ class blackjack(commands.Cog):
 
         self.isOngoing = False
 
-        vert_hand_value = await self.calculateHand(self.vert_hand)
-        player_hand_value = await self.calculateHand(self.player_hand)
+        vert_hand_value = self.calculateHand(self.vert_hand)
+        player_hand_value = self.calculateHand(self.player_hand)
 
-        # Make a tie case
         if player_hand_value > 21:
-            await self.blackjackLose(ctx)
+            await self.embedResults(ctx, 'lose')
         elif vert_hand_value > 21 or player_hand_value > vert_hand_value:
-            await self.blackjackWin(ctx)
+            await self.embedResults(ctx, 'win')
+        elif player_hand_value == vert_hand_value:
+            await self.embedResults(ctx, 'tie')
         else:
-            await self.blackjackLose(ctx)
+            await self.embedResults(ctx, 'lose')
 
-    async def blackjackWin(self, ctx):
-        ''' The player wins. '''
-        embed = await self.embedResults('win')
-        await ctx.channel.send(embed=embed)
-
-
-    async def blackjackLose(self, ctx):
-        ''' The player loses. '''
-        embed = await self.embedResults('lose')
-        await ctx.channel.send(embed=embed)
-
-    async def embedResults(self, result: str):
+    async def embedResults(self, ctx, result: str):
         embed = discord.Embed(title="Blackjack Result:", color = 0x00ff00)
         embed.add_field(name="Your Hand:", value=self.printHand(self.player_hand))
-        embed.add_field(name="Value:", value=await self.calculateHand(self.player_hand))
+        embed.add_field(name="Value:", value=self.calculateHand(self.player_hand))
         embed.add_field(name="", value="", inline=False)
         embed.add_field(name="Vert's Hand:", value=self.printHand(self.vert_hand))
-        embed.add_field(name="Value:", value=await self.calculateHand(self.vert_hand))
+        embed.add_field(name="Value:", value=self.calculateHand(self.vert_hand))
 
         if result == 'win':
-            embed.add_field(name="Vert:", value="How could I lose?", inline=False)
+            embed.add_field(name="Vert:", value=random.choice(self.vert_lose_responses), inline=False)
             embed.description = "You win!"
         elif result == 'lose':
-            embed.add_field(name="Vert:", value="I win!", inline=False)
+            embed.add_field(name="Vert:", value=random.choice(self.vert_win_responses), inline=False)
             embed.description = "You lose!"
+        elif result == 'tie':
+            embed.add_field(name="Vert:", value="It's a tie!", inline=False)
+            embed.description = "It's a tie!"
         else:
             print("Invalid result. Something went wrong")
             return
 
-        return embed
+        await ctx.channel.send(embed=embed)
 
     def printHand(self, hand: list[str]):
         return f"{(', '.join(hand))}"
