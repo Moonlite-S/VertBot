@@ -16,7 +16,7 @@ class animequiz(commands.Cog):
         commands.anim = None
         commands.animeQuizOn = False
 
-    @commands.command(name='animequiz', aliases=['aq'])
+    @commands.slash_command(name='animequiz', description="Guess the anime with the worst descriptions.")
     async def animequiz(self, ctx):
         '''
         #### Test your anime knowledge with the Anime Quiz minigame!
@@ -30,7 +30,7 @@ class animequiz(commands.Cog):
             await self.animQuizInitialization(ctx)
         else:
             animInGameEmbed = discord.Embed(title="There is a game ongoing!", color=0x00ff00)
-            await ctx.channel.send(embed=animInGameEmbed)
+            await ctx.respond(embed=animInGameEmbed)
             return
 
         #range(n) where n is the maximum amount of hints given
@@ -61,7 +61,7 @@ class animequiz(commands.Cog):
             animEmbedTime = discord.Embed(title="You ran outta time, sucker", color=0x00ff00)
             animEmbedTime.description = f"The anime was {animList[commands.anim]['name'][0]}"
             animEmbedTime.set_image(url=animList[commands.anim]["picBanner"])
-            await ctx.channel.send(embed=animEmbedTime)
+            await ctx.respond(embed=animEmbedTime)
             commands.animeQuizOn = False
         else:
             return
@@ -73,14 +73,14 @@ class animequiz(commands.Cog):
             hint = random.choice(self.possibleHints)
             animEmbedTime.description = hint
             self.possibleHints.remove(hint)
-            await ctx.channel.send(embed=animEmbedTime)
+            await ctx.respond(embed=animEmbedTime)
 
     #Gives a picture hint
     async def animQuizGivePicHint(self, ctx):
         if commands.animeQuizOn:
             animEmbedTime = discord.Embed(title="Here's a hint:", color=0x00ff00, description="")
             animEmbedTime.set_image(url=random.choice(animList[commands.anim]["picHint"]))
-            await ctx.channel.send(embed=animEmbedTime)
+            await ctx.respond(embed=animEmbedTime)
 
     #Initializes the quiz to start
     async def animQuizInitialization(self, ctx):
@@ -96,9 +96,9 @@ class animequiz(commands.Cog):
         #Start the quiz by giving the description of a random anime
         animEmbed = discord.Embed(title="What anime is this?", color=0x00ff00, description="")
         animEmbed.description = animList[commands.anim]["desc"]
-        await ctx.channel.send(embed=animEmbed)
+        await ctx.respond(embed=animEmbed)
         return True
 
 #Cog stuff from src that does stuff so I can make stuff so I can do stuff
-async def setup(client):
-    await client.add_cog(animequiz(client))
+def setup(client):
+    client.add_cog(animequiz(client))

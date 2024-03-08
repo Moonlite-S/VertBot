@@ -41,7 +41,7 @@ class hangman(commands.Cog):
     commands.versionControl = "1.2"
 
     #Hangman Minigame Command
-    @commands.command(name='hangman', aliases=['hm'])
+    @commands.slash_command(name='hangman', aliases=['hm'])
     async def hangmanInit(self, ctx):
         '''
         #### Play Hangman with Vert!
@@ -51,7 +51,7 @@ class hangman(commands.Cog):
         '''
         # Stops if there is a game currently underway
         if (self.hangmanQuiz):
-            await ctx.channel.send(embed=discord.Embed(title="Hangman", description="There is a gaming ongoing!", color = 0x00ff00))
+            await ctx.respond(embed=discord.Embed(title="Hangman", description="There is a gaming ongoing!", color = 0x00ff00))
             return
 
         self.hangmanWord = random.choice(commands.words)
@@ -67,11 +67,11 @@ class hangman(commands.Cog):
         await self.hangmanCanvasUpdate(ctx, "-")
 
     # Command that player uses to guess
-    @commands.command(name='hangmanGuess', aliases=['hmg', 'hmguess'])
+    @commands.slash_command(name='hangmanguess', aliases=['hmg', 'hmguess'])
     async def hangmanGuessLetter(self, ctx):
 
         if not self.hangmanQuiz:
-            await ctx.channel.send(embed=discord.Embed(title="Hangman", description="There is no game currently ongoing!", color = 0x00ff00))
+            await ctx.respond(embed=discord.Embed(title="Hangman", description="There is no game currently ongoing!", color = 0x00ff00))
             return
        
         guess = str.lower(ctx.message.content[6:])
@@ -90,11 +90,11 @@ class hangman(commands.Cog):
         self.health -= 1
         await self.hangmanCanvasUpdate(ctx, "-")
 
-    @commands.command(name='hangmanQuit', aliases=['hmquit', 'hmq'])
+    @commands.slash_command(name='hangmanquit', aliases=['hmquit', 'hmq'])
     async def hangmanQuit(self, ctx):
         embed = discord.Embed(title="You bailed. Quitter.", color = 0x00ff00)
         embed.add_field(name="The answer was: ", value=self.hangmanWord)
-        await ctx.channel.send(embed=embed)
+        await ctx.respond(embed=embed)
         commands.hangmanQuit = False
         await self.hangmanReset()
 
@@ -120,7 +120,7 @@ class hangman(commands.Cog):
             await self.hangmanReset()
 
         hangmanUI.set_footer(text=commands.versionControl)
-        await ctx.channel.send(embed=hangmanUI)
+        await ctx.respond(embed=hangmanUI)
 
     async def hangmanReset(self):
         self.hangmanQuiz = False
@@ -144,5 +144,5 @@ class hangman(commands.Cog):
         return toString
 
 #Cog stuff from src that does stuff so I can make stuff so I can do stuff
-async def setup(client):
-    await client.add_cog(hangman(client))
+def setup(client):
+    client.add_cog(hangman(client))

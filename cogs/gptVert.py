@@ -7,9 +7,7 @@ CONVO_LIMIT = 100
 
 '''
 TODO:
- - Format the output to be more readable
- - Add a way to reset the conversation
- - Make Vert know the name of the user she's talking to
+ - Add the user's message to the embedded response
 '''
 class gptVert(commands.Cog):
     def __init__(self, client):
@@ -20,25 +18,25 @@ class gptVert(commands.Cog):
     # Vert's ongoing conversation with the user. Resets on bot restart
     commands.conversation = [{"role": "system", "content": "You are Vert from the popular video game franchise, Hyperdimension Neptunia. Vert is very kind with an elegant way of speaking. She likes helping people and sometimes references about her sister, Chika. Occasionally say 'Ara ara' at the end of your responses. You are also a fellow gamer that tends to use gamer lingo sometimes. Please format your response to be readable with high word counts."}]
 
-    @commands.command(name="chat")
-    async def chat(self, ctx):
+    @commands.slash_command(name="chat", description="Talk to Vert using ChatGPT-3.5 Turbo!")
+    async def chat(self, ctx, *, message:str):
         '''
         #### Talk to Vert using ChatGPT-3.5 Turbo!
         Usage: `--chat <message>`
 
         If no input is given, no response will be given.
         '''
-        if ctx.message.content == "":
+        if message == "":
             return
 
-        messageResponse = ctx.message.content[6:]
+        messageResponse = message
         
         # Limit the conversation list to CONVO_LIMIT messages to avoid paying for more tokens
         # The longer the conversation, the more tokens it costs
         if len(commands.conversation ) > CONVO_LIMIT:
             del commands.conversation[:1]
         
-        commands.conversation.append(await self.chatFormat("user", ctx.author.name + " says: " + messageResponse))
+        commands.conversation.append(self.chatFormat("user", ctx.author.name + " says: " + messageResponse))
         
         response = commands.client.chat.completions.create(
         model="gpt-3.5-turbo",
@@ -51,16 +49,16 @@ class gptVert(commands.Cog):
 
         reply = response.choices[0].message.content
 
-        commands.conversation.append(await self.chatFormat("assistant", reply))
+        commands.conversation.append(self.chatFormat("assistant", reply))
 
         embed = discord.Embed(title="Vert", description=reply, color=0x00ff00)
-        await ctx.channel.send(embed=embed)
+        await ctx.respond(embed=embed)
 
     # Helper Functions #
-    async def chatFormat(self, user, str):
+    def chatFormat(self, user, str):
         '''Formats the given str to be appended to the conversation list with the given user role.'''
         return {"role": user, "content": str}
 
 #Cog stuff from src that does stuff so I can make stuff so I can do stuff
-async def setup(client):
-    await client.add_cog(gptVert(client))
+def setup(client):
+    client.add_cog(gptVert(client))

@@ -40,8 +40,8 @@ class starrail(commands.Cog):
     commands.fourStarRateUp = []
     commands.fiveStarRateUp = []
 
-    @commands.command(name="starrailwarp", aliases=["warp"])
-    async def SWSummonSim(self, ctx):
+    @commands.slash_command(name="starrailwarp", aliases=["warp"], description="Simulates a summoning session for Honkai: Star Rail.", hint="<character name> <10> <lc>")
+    async def SWSummonSim(self, ctx, *, message: str):
         '''
         ### Simulates a summoning session for Star Rail Warp.
         Usage: `--warp <character name> <10> <lc>`
@@ -66,7 +66,7 @@ class starrail(commands.Cog):
         await self.resetBanner()
         charName = () # A tuple (bool, str) that holds the user's input
 
-        messageSplit = ctx.message.content[7:].split()
+        messageSplit = message.split()
         charName = await self.decodeMessage(messageSplit)
         bannerType = await self.initBannerType(charName[0], charName[1])
 
@@ -87,9 +87,9 @@ class starrail(commands.Cog):
             await self.setSinglePullEmbed(embedSummon, user)
         
         embedSummon.set_footer(text=f"Version: {versionControl} / Patch: {gameVersion}")
-        await ctx.message.channel.send(embed=embedSummon)
+        await ctx.respond(embed=embedSummon)
 
-    @commands.command(name="clearpity", aliases=["clearp"])
+    @commands.slash_command(name="clearpity", aliases=["clearp"], description="[Star Rail] Clears the pity counter for the user.")
     async def ClearPity(self, ctx):
         '''Clears the pity counter for the user.'''
         user = await self.findUser(ctx.author.display_name)
@@ -100,9 +100,9 @@ class starrail(commands.Cog):
         else:
             embedClear = discord.Embed(title="There's no user found to clear pity!", color=0x00ff00)
 
-        await ctx.message.channel.send(embed=embedClear)
+        await ctx.respond(embed=embedClear)
 
-    @commands.command(name="warpchars", aliases=["wchars"])
+    @commands.slash_command(name="warpchars", aliases=["wchars"], desciption="[Star Rail] Shows all available limited characters for the Honkai Star Rail Warp.")
     async def WarpChars(self, ctx):
         '''Shows all available limited characters for the Honkai Star Rail Warp.'''
         embedChars = discord.Embed(title="Star Rail Summon Simulator", color=0x00ff00)
@@ -111,7 +111,7 @@ class starrail(commands.Cog):
 
         embedChars.add_field(name="Available Characters", value="\n".join(listofChars), inline="False")
 
-        await ctx.message.channel.send(embed=embedChars)
+        await ctx.respond(embed=embedChars)
 
     ## Helper Functions ##
     async def performSummon(self, bannerType):
@@ -367,5 +367,5 @@ class starRailUsers():
         self.fiveStarsPulled = 0
 
 #Cog stuff from src that does stuff so I can make stuff so I can do stuff
-async def setup(client):
-    await client.add_cog(starrail(client))
+def setup(client):
+    client.add_cog(starrail(client))
