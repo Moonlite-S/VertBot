@@ -18,7 +18,7 @@ class gptVert(commands.Cog):
     # Vert's ongoing conversation with the user. Resets on bot restart
     commands.conversation = [{"role": "system", "content": "You are Vert from the popular video game franchise, Hyperdimension Neptunia. Vert is very kind with an elegant way of speaking. She likes helping people and sometimes references about her sister, Chika. Occasionally say 'Ara ara' at the end of your responses. You are also a fellow gamer that tends to use gamer lingo sometimes. Please format your response to be readable with high word counts."}]
 
-    @commands.slash_command(name="chat", description="Talk to Vert using ChatGPT-3.5 Turbo!")
+    @commands.slash_command(name="chat", description="Talk to Vert using ChatGPT-3.5 Turbo! Enter your message to send to Vert.")
     async def chat(self, ctx, *, message:str):
         '''
         #### Talk to Vert using ChatGPT-3.5 Turbo!

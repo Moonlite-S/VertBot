@@ -1,6 +1,7 @@
 import discord
 import random
 from discord.ext import commands
+from discord import option
 from cogs.database.starrailData import *
 
 class starrail(commands.Cog):
@@ -40,7 +41,8 @@ class starrail(commands.Cog):
     commands.fourStarRateUp = []
     commands.fiveStarRateUp = []
 
-    @commands.slash_command(name="starrailwarp", aliases=["warp"], description="Simulates a summoning session for Honkai: Star Rail.", hint="<character name> <10> <lc>")
+    @commands.slash_command(name="starrailwarp", description="Simulates a summoning session for Honkai: Star Rail.")
+    @option("message", description="Usage: <character_name> <lc> <10> Order does not matter. Every arguement is optional.", required=False)
     async def SWSummonSim(self, ctx, *, message: str):
         '''
         ### Simulates a summoning session for Star Rail Warp.
@@ -66,7 +68,11 @@ class starrail(commands.Cog):
         await self.resetBanner()
         charName = () # A tuple (bool, str) that holds the user's input
 
-        messageSplit = message.split()
+        # Edge case if user inputs no arguements.
+        if not message:
+            messageSplit = " "
+        else:
+            messageSplit = message.split()
         charName = await self.decodeMessage(messageSplit)
         bannerType = await self.initBannerType(charName[0], charName[1])
 
@@ -89,7 +95,7 @@ class starrail(commands.Cog):
         embedSummon.set_footer(text=f"Version: {versionControl} / Patch: {gameVersion}")
         await ctx.respond(embed=embedSummon)
 
-    @commands.slash_command(name="clearpity", aliases=["clearp"], description="[Star Rail] Clears the pity counter for the user.")
+    @commands.slash_command(name="clearpity", description="[Star Rail] Clears the pity counter for the user.")
     async def ClearPity(self, ctx):
         '''Clears the pity counter for the user.'''
         user = await self.findUser(ctx.author.display_name)
@@ -102,14 +108,14 @@ class starrail(commands.Cog):
 
         await ctx.respond(embed=embedClear)
 
-    @commands.slash_command(name="warpchars", aliases=["wchars"], desciption="[Star Rail] Shows all available limited characters for the Honkai Star Rail Warp.")
+    @commands.slash_command(name="warpchars", desciption="[Star Rail] Shows all available limited characters for the Honkai Star Rail Warp.")
     async def WarpChars(self, ctx):
         '''Shows all available limited characters for the Honkai Star Rail Warp.'''
         embedChars = discord.Embed(title="Star Rail Summon Simulator", color=0x00ff00)
 
         listofChars = list(limitedBanners.keys())
 
-        embedChars.add_field(name="Available Characters", value="\n".join(listofChars), inline="False")
+        embedChars.add_field(name="Available Characters", value="\n".join(listofChars), inline=False)
 
         await ctx.respond(embed=embedChars)
 
@@ -175,7 +181,7 @@ class starrail(commands.Cog):
         commands.rarityColor = 0
         commands.tenPull = 1
 
-    async def decodeMessage(ctx, messageSplit):
+    async def decodeMessage(self, messageSplit):
         """
         ### Decodes the input from user to decide how the simulation will be ran.
         Input:
@@ -202,6 +208,9 @@ class starrail(commands.Cog):
     async def initBannerType(self, isLightConeBanner, charName):
         """
         Initializes the type of banner the user wants to pull on.
+
+        Tries to see if a LC banner is applicable. Then Limited Banner char. If not, then use Standard Banner.
+        (Seems like a very bad way to do this tho so try to change it)
         """
         try:
             if isLightConeBanner:
