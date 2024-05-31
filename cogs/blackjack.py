@@ -91,7 +91,7 @@ class blackjack(commands.Cog):
         embed = discord.Embed(title="Blackjack", description="Your hand:", color = 0x00ff00)
         embed.add_field(name="Your Hand:", value=self.printHand(self.player_hand))
         embed.add_field(name="Value:", value=self.calculateHand(self.player_hand))
-        embed.add_field(name="Hit or Pass?", value="Type --hit or --pass", inline=False)
+        embed.add_field(name="Hit or Pass?", value="Type /blackjackhit or /blackjackpass", inline=False)
         await ctx.respond(embed=embed)
 
     def resetGame(self):
@@ -127,12 +127,12 @@ class blackjack(commands.Cog):
         self.vertHit()
 
     def drawCard(self, hand: list[str]):
-        ''' Draws a card from the deck. '''
+        ''' Randomly pops a card from the deck list. Hand is an array of strings that holds the type and num of card  '''
         card = self.deck.pop(random.randint(0, len(self.deck) - 1))
         hand.append(card)
 
     def calculateHand(self, hand: list[str]) -> int:
-        ''' Calculates the hand's value. 
+        ''' Calculates the hand's value of given argument. 
         2-10 = simple
         J, Q, K = 10
         A = 11, unless the hand is over 21, then it's 1.

@@ -10,6 +10,9 @@ A Discord bot that I like to put features in every so often. Uses PyCord (before
 
 ## CHANGELOG  
 
+2.1.1 (5/30/2024): 
+* Small changes
+
 2.1.0 (5/28/2024):
 * Migrated the codebase from Discord.py to Pycord (might have some bugs)  
 * Me back boysssssssss  

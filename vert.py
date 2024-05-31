@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 #Usesrs must put this before imputing a command
 client = commands.Bot(intents=discord.Intents.all(), help_command=commands.DefaultHelpCommand())
 
-versionControl = "2.0.1"
+versionControl = "2.1.1"
 lastUpdated = "5/28/2024"
 
 @client.event

@@ -95,7 +95,7 @@ class starrail(commands.Cog):
         embedSummon.set_footer(text=f"Version: {versionControl} / Patch: {gameVersion}")
         await ctx.respond(embed=embedSummon)
 
-    @commands.slash_command(name="clearpity", description="[Star Rail] Clears the pity counter for the user.")
+    @commands.slash_command(name="starrailclearpity", description="[Star Rail] Clears the pity counter for the user.")
     async def ClearPity(self, ctx):
         '''Clears the pity counter for the user.'''
         user = await self.findUser(ctx.author.display_name)
@@ -108,7 +108,7 @@ class starrail(commands.Cog):
 
         await ctx.respond(embed=embedClear)
 
-    @commands.slash_command(name="warpchars", desciption="[Star Rail] Shows all available limited characters for the Honkai Star Rail Warp.")
+    @commands.slash_command(name="starrailwarpchars", desciption="[Star Rail] Shows all available limited characters for the Honkai Star Rail Warp.")
     async def WarpChars(self, ctx):
         '''Shows all available limited characters for the Honkai Star Rail Warp.'''
         embedChars = discord.Embed(title="Star Rail Summon Simulator", color=0x00ff00)
