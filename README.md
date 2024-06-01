@@ -1,13 +1,31 @@
 # VertBot
 
-A Discord bot for things I have no idea what to put there. A bot where I can
-create things for fun and show other people I have an imagination.
+A Discord bot that I like to put features in every so often. Uses PyCord (before was Discord.py).
 
 ## TO-DO LIST  
 
-> Create a Blackjack mini-game!
+> Create a weather commands that tells the weather
+
+> Find either a VPS or a mini PC to host the bot 24/7
 
 ## CHANGELOG  
+
+2.1.1 (5/30/2024): 
+* Small changes
+
+2.1.0 (5/28/2024):
+* Migrated the codebase from Discord.py to Pycord (might have some bugs)  
+* Me back boysssssssss  
+ 
+2.0.0 (3/8/2024):
+* Update 2.0! (I skipped like 7 numbers but fuck it we ball)
+* Big Update incoming! I'm migrating from using Discord.py to Pycord.
+* Mostly everything should be done fixing the needed code to fit Pycord, but some bugs might remain.
+* It also allows me to introduce some other features that I found interesting using Pycord. Such as:
+* Converted all commands and upcoming commands to 'Slash Commands', meaning they'll show up in Discord's command UI when pressing /
+* Slash commands hide your responses, so I'll have to change some commands to account for that.
+* [Removed] HelpVert cog as Pycord has its own customizable help page
+* [Blackjack] Various fixes
 
 1.3.7 (3/6/2024):
 * (Blackjack) Released Blackjack 1.0!

@@ -5,18 +5,20 @@ from discord.ext import commands
 from dotenv import load_dotenv
 
 #Usesrs must put this before imputing a command
-client = commands.Bot(command_prefix = '--', help_command=None, intents=discord.Intents.all())
+client = commands.Bot(intents=discord.Intents.all(), help_command=commands.DefaultHelpCommand())
 
-versionControl = "1.3.4"
-lastUpdated = "2/27/2024"
+versionControl = "2.1.1"
+lastUpdated = "5/28/2024"
 
 @client.event
 async def on_connect():
     #loads all our cogs
     for filename in os.listdir('./cogs'):
         if filename.endswith('.py') and not filename.startswith('__'):
-            await client.load_extension(f'cogs.{filename[:-3]}')
+            client.load_extension(f'cogs.{filename[:-3]}')
+            print(f'Loaded {filename[:-3]}')
     print('We have connected, please hold on til we get ready.'.format(client))
+    await client.sync_commands()
 
     await client.change_presence(status=discord.Status.online, activity=discord.CustomActivity('Gaming with Neptune'))
 
@@ -48,7 +50,7 @@ async def on_disconnect():
     ################            Misc Commands           ###################
 
 #Tells the version of the bot
-@client.command(name='version')
+@client.slash_command(name='version', description="Tells you the version of Vert Bot")
 async def version(context):   
     #A fun embed
     versionEmbed = discord.Embed(title="About:", description="A fun Vert bot.", color=0x00ff00)
@@ -60,21 +62,15 @@ async def version(context):
     versionEmbed.set_footer(text="Ara Ara~")
     versionEmbed.set_thumbnail(url="https://i.imgur.com/5fQopQr.png")
 
-    await context.message.channel.send(embed=versionEmbed)
+    await context.respond(embed=versionEmbed)
 
 #Simply replies hello with the user who said it
-@client.command(name='hello')
+@client.slash_command(name='hello', description="Say hi to Vert")
 async def hello(context):
-    user = str(context.author)
+    user = str(context.author.name)
 
-    hiEmb = discord.Embed(title=f"Hello, {user[:-5]}!", color=0x00ff00)
-    await context.message.channel.send(embed=hiEmb)
-
-#A reee button? I don't fucking know
-@client.command(name='reee')
-async def reee(ctx):
-    reBed = discord.Embed(title="REEEEEEEEEEEEEEEEEEEEEEEEEEEE", color=0x00ff00)
-    await ctx.message.channel.send(embed=reBed)
+    hiEmb = discord.Embed(title=f"Hello, {user}!", color=0x00ff00)
+    await context.respond(embed=hiEmb)
 
     ################            Helper Functions           ###################
 
