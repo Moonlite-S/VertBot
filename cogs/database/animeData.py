@@ -28,7 +28,7 @@ animList = {
     },
     "demon slayer" : {
         "name" : ["Demon Slayer", "Kimetsu no Yaiba"],
-        "descHint" : "A boy's family is destroyed by demons and his sister has turned into one.",
+        "desc" : "A boy's family is destroyed by demons and his sister has turned into one.",
         "picBanner" : "https://cdn.myanimelist.net/images/anime/1286/99889.jpg",
         "hint" : ["The main character has a unique scar on his head.", "The animation studio that created this anime is ufotable.", "One of the characters has a boar helmet."],
         "picHint" : ["https://bit.ly/3P9BOaY", "https://bit.ly/3P8AVzC", "https://bit.ly/3SDxqny"]
@@ -121,7 +121,7 @@ animList = {
         "name" : ["Love Live! School Idol Project", "Love Live", "Love Live Sunshine", "LL"],
         "desc" : "An anime where a group of girls save their school with the power of singing.",
         "picBanner" : "http://tinyurl.com/4pb63tv7",
-        "hint" : ["High school girls become idols to save their school.", "All men have been eradicated from existence.", "There's an incredibly iconic character here."],
+        "hint" : ["High school girls become idols to save their school.", "Most men have been eradicated from existence.", "There's an incredibly iconic character here that involves her name as her slogan."],
         "picHint" : ["http://tinyurl.com/5eb5btt2","http://tinyurl.com/4fd5vpje","http://tinyurl.com/muf8v4t9"]
     },
     "gurren lagann": {

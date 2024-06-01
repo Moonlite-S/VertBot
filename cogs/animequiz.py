@@ -8,6 +8,9 @@ from discord.ext import commands
     #                           Anime Quiz Minigame                                         #
     #########################################################################################
     
+
+# TODO:
+# - REFACTOR the helper functions (if condition redundant)
 class animequiz(commands.Cog):
 
     def __init__(self, client):
