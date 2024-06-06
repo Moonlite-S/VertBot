@@ -46,9 +46,9 @@ class hangman(commands.Cog):
     async def hangmanInit(self, ctx):
         '''
         #### Play Hangman with Vert!
-        Usage: `--hangman` or `--hm`
+        Usage: `/hangman` or `/hm`
 
-        Use `--hmg` to guess a letter or phrase. If the guess is wrong, regardless if it was a letter or phrase, you only lose one hp.
+        Use `/hmg` to guess a letter or phrase. If the guess is wrong, regardless if it was a letter or phrase, you only lose one hp.
         '''
         # Stops if there is a game currently underway
         if (self.hangmanQuiz):
