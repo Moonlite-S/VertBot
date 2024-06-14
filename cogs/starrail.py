@@ -78,6 +78,8 @@ class starrail(commands.Cog):
 
         user = await self.initUser(ctx.author.display_name)
 
+        await user.setStatsToSummon()
+
         for x in range(commands.tenPull):
             await self.performSummon(bannerType)
         
