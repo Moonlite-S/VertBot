@@ -9,6 +9,7 @@ CONVO_LIMIT = 100
 TODO:
  - Add the user's message to the embedded response
 '''
+
 class gptVert(commands.Cog):
     def __init__(self, client):
         self.client = client
@@ -22,7 +23,7 @@ class gptVert(commands.Cog):
     async def chat(self, ctx, *, message:str):
         '''
         #### Talk to Vert using ChatGPT-3.5 Turbo!
-        Usage: `--chat <message>`
+        Usage: `/chat <message>`
 
         If no input is given, no response will be given.
         '''
