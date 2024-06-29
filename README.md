@@ -10,6 +10,10 @@ A Discord bot that I like to put features in every so often. Uses PyCord (before
 
 ## CHANGELOG  
 
+2.1.2 (6/29/2024):
+* (Blackjack) Fixed some bugs
+* Other changes
+
 2.1.1 (5/30/2024): 
 * Small changes
 
