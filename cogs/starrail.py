@@ -1,9 +1,22 @@
 import discord
 import random
+import json
 from discord.ext import commands
 from discord import option
-from cogs.database.starrailData import *
 
+gameVersion = "2.0"
+
+with open('cogs/database/starRailData.json') as data:
+    starRailDB: dict = json.load(data)
+    
+    threeStarLightCones: dict = starRailDB['threeStarLightCones']
+    fourStarLightCones: dict = starRailDB['fourStarLightCones']
+    fourStarHeroes: dict = starRailDB['fourStarHeroes']
+    fiveStarLightCones: dict = starRailDB['fiveStarLightCones']
+    fiveStarHeroes: dict = starRailDB['fiveStarHeroes']
+    
+    limitedBanners: dict = starRailDB['limitedBanners']
+    
 class starrail(commands.Cog):
     # List of users that have used the command. Resets every time the bot is restarted.
     commands.userList = []
@@ -62,28 +75,27 @@ class starrail(commands.Cog):
 
         Example: `--warp imbibtorlunae 10 lc`
         '''
-        versionControl = "1.6"
-        gameVersion = "2.0"
 
         await self.resetBanner()
-        charName = () # A tuple (bool, str) that holds the user's input
+        charName = () # A tuple (bool, str) that holds if an LC banner is triggered and the user's input
 
         # Edge case if user inputs no arguements.
         if not message:
             messageSplit = " "
         else:
             messageSplit = message.split()
+            
         charName = await self.decodeMessage(messageSplit)
         bannerType = await self.initBannerType(charName[0], charName[1])
 
-        user = await self.initUser(ctx.author.display_name)
+        user = self.initUser(ctx.author.display_name)
 
-        await user.setStatsToSummon()
+        user.setStatsToSummon()
 
         for x in range(commands.tenPull):
             await self.performSummon(bannerType)
         
-        await user.setSummonResultsToStats()
+        user.setSummonResultsToStats()
 
         # Embed time
         embedSummon = discord.Embed(title=commands.bannerName, color=commands.rarityColor)
@@ -93,8 +105,8 @@ class starrail(commands.Cog):
             await self.setTenPullEmbed(embedSummon, user)
         else:
             await self.setSinglePullEmbed(embedSummon, user)
-        
-        embedSummon.set_footer(text=f"Version: {versionControl} / Patch: {gameVersion}")
+                
+        embedSummon.set_footer(text=f"Patch: {gameVersion}")
         await ctx.respond(embed=embedSummon)
 
     @commands.slash_command(name="starrailclearpity", description="[Star Rail] Clears the pity counter for the user.")
@@ -148,21 +160,21 @@ class starrail(commands.Cog):
         # Average cost of a single pull in USD (Source: I made it the fuck up)
         commands.totalAmountofMoneyWasted += 2.65 
 
-    async def initLimitedCharBanner(self, word):
+    async def initLimitedCharBanner(self, word) -> str:
         commands.fiveStarRateUp = [(word, limitedBanners[word]["Icon"])]
-        commands.fourStarRateUp = limitedBanners[word]["Focus"]
+        commands.fourStarRateUp = self.getFocusHeroes(limitedBanners[word]['Focus'])
         commands.bannerName = limitedBanners[word]["Name"]
         commands.bannerImage = limitedBanners[word]["BannerUrl"]
         return "Character"
 
-    async def initLimitedLCBanner(self, word):
+    async def initLimitedLCBanner(self, word) -> str:
         commands.fiveStarRateUp = [(limitedBanners[word]["LightConeName"], limitedBanners[word]["LightConeUrl"])]
-        commands.fourStarRateUp = limitedBanners[word]["LightConeFocus"]
+        commands.fourStarRateUp = self.getFocusLC(limitedBanners[word]['LightConeFocus'])
         commands.bannerName = limitedBanners[word]["LightConeName"]
         commands.bannerImage = limitedBanners[word]["LightConeThumbnailUrl"]
         return "Light Cone"
 
-    async def initStandardBanner(self):
+    async def initStandardBanner(self) -> str:
         commands.bannerName = "Stellar Warp"
         commands.bannerImage = "https://tinyurl.com/3cbmye89"
         return "Standard"
@@ -207,7 +219,7 @@ class starrail(commands.Cog):
 
         return (lightConeTrigger, charName)
 
-    async def initBannerType(self, isLightConeBanner, charName):
+    async def initBannerType(self, isLightConeBanner, charName) -> str:
         """
         Initializes the type of banner the user wants to pull on.
 
@@ -219,7 +231,7 @@ class starrail(commands.Cog):
                 return await self.initLimitedLCBanner(charName)
             else:
                 return await self.initLimitedCharBanner(charName)
-        except:
+        except KeyError:
             return await self.initStandardBanner()
         
     async def poolDecider(self):
@@ -311,26 +323,46 @@ class starrail(commands.Cog):
         embedSummon.set_image(url=commands.chosenPull[1])
 
     # Helper Functions for StarRailUsers
+            
+    def getFocusHeroes(self, banner: dict) -> list[tuple[()]]:
+        # Gets the Focus units of either LC or 4 Star units and returns them in a list in this format:
+        # ('Name', 'PictureLink')
+        tupleBanner = []
 
-    async def findUser(self, authorId):
+        for focus in banner:
+            tupleBanner.append((focus, fourStarHeroes[focus]))
+        
+        return tupleBanner 
+
+    def getFocusLC(self, banner: dict) -> list[tuple[()]]:
+        # Gets the Focus units of either LC or 4 Star units and returns them in a list in this format:
+        # ('Name', 'PictureLink')
+        tupleBanner = []
+
+        for focus in banner:
+            tupleBanner.append((focus, fourStarLightCones[focus]))
+        
+        return tupleBanner     
+    
+    def findUser(self, authorId):
         for i, x in enumerate(commands.userList):
             if x.name == authorId:
                 return commands.userList[i]      
         return "None"
 
-    async def createUser(self, authorId):
+    def createUser(self, authorId):
         user = starRailUsers(authorId)
         commands.userList.append(user)
 
         return user
 
-    async def initUser(self, authorId):
+    def initUser(self, authorId):
         '''Initializes the user's stats for the summoning simulator. If the user is not found, it will create a new user.'''
-        user = await self.findUser(authorId)
+        user = self.findUser(authorId)
         if user == "None":
-            return await self.createUser(authorId)
+            return self.createUser(authorId)
         
-        await user.setStatsToSummon()
+        user.setStatsToSummon()
         return user
 
 class starRailUsers():
@@ -347,7 +379,7 @@ class starRailUsers():
         self.isFourStarGuaranteed = False
         self.fiveStarsPulled = 0
 
-    async def setStatsToSummon(self):
+    def setStatsToSummon(self):
         commands.fourPityCounter = self.fourPityCounter
         commands.fiveStarPityRateUp = self.fiveStarPityRateUp
         commands.simcounter = self.simcounter
@@ -357,7 +389,7 @@ class starRailUsers():
         commands.isFourStarGuaranteed = self.isFourStarGuaranteed
         commands.fiveStarsPulled = self.fiveStarsPulled
 
-    async def setSummonResultsToStats(self):
+    def setSummonResultsToStats(self):
         self.fourPityCounter = commands.fourPityCounter
         self.fiveStarPityRateUp = commands.fiveStarPityRateUp
         self.simcounter = commands.simcounter
@@ -367,7 +399,7 @@ class starRailUsers():
         self.isFourStarGuaranteed = commands.isFourStarGuaranteed
         self.fiveStarsPulled = commands.fiveStarsPulled
 
-    async def clearPityFromAccount(self):
+    def clearPityFromAccount(self):
         self.fourPityCounter = 0
         self.fiveStarPityRateUp = 0.6
         self.simcounter = 0
@@ -376,6 +408,8 @@ class starRailUsers():
         self.isFiveStarGuaranteed = False
         self.isFourStarGuaranteed = False
         self.fiveStarsPulled = 0
+        
+    
 
 #Cog stuff from src that does stuff so I can make stuff so I can do stuff
 def setup(client):

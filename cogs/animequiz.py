@@ -1,7 +1,7 @@
+import json
 import discord
 import asyncio
 import random
-from cogs.database.animeData import animList
 from discord.ext import commands
 
     #########################################################################################
@@ -11,6 +11,10 @@ from discord.ext import commands
 
 # TODO:
 # - REFACTOR the helper functions (if condition redundant)
+
+with open('cogs/database/animeData.json') as data:
+    animList = json.load(data)
+
 class animequiz(commands.Cog):
 
     def __init__(self, client):

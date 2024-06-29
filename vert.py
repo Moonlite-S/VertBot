@@ -1,6 +1,6 @@
 import discord
 import os
-from cogs.database.animeData import animList
+import json
 from discord.ext import commands
 from dotenv import load_dotenv
 
@@ -10,6 +10,9 @@ client = commands.Bot(intents=discord.Intents.all(), help_command=commands.Defau
 versionControl = "2.1.1"
 lastUpdated = "5/28/2024"
 
+with open('cogs/database/animeData.json') as data:
+    animList = json.load(data)
+
 @client.event
 async def on_connect():
     #loads all our cogs
@@ -17,7 +20,7 @@ async def on_connect():
         if filename.endswith('.py') and not filename.startswith('__'):
             client.load_extension(f'cogs.{filename[:-3]}')
             print(f'Loaded {filename[:-3]}')
-    print('We have connected, please hold on til we get ready.'.format(client))
+    print('We have connected, please hold on til we get ready.')
     await client.sync_commands()
 
     await client.change_presence(status=discord.Status.online, activity=discord.CustomActivity('Gaming with Neptune'))
@@ -92,4 +95,4 @@ async def animQuizCheckWin(self, message):
                 
 #Loads up the env file to pass the token
 load_dotenv()
-client.run(os.getenv('DEV_DISCORD_TOKEN'))
+client.run(os.getenv('DISCORD_TOKEN'))
