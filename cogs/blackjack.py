@@ -1,12 +1,14 @@
 from discord.ext import commands
 import discord
 import random
+from discord import option
 
 '''TODO:
 - So far it's single player, but eventually I want to this minigame used for multiple players at once
     (maybe create a class for each player)
 - Since we have slash commands, we could make the hit and update reaction based?
 '''
+
 class blackjack(commands.Cog):
     def __init__(self, client):
         self.client = client
@@ -21,7 +23,8 @@ class blackjack(commands.Cog):
         self.vert_lose_responses = ["How could this be? I thought I could win...", "I guess you win..."]
     
     @commands.slash_command(name="blackjack", description="Play Blackjack with Vert!")
-    async def blackjackInit(self, ctx):
+    @option("hitorpass", description="Use 'hit' or 'pass' or 'quit'. To start the game, use this command with no arguements.", required=False)
+    async def blackjackInit(self, ctx, *, hitorpass:str):
         ''' ### Initializes Blackjack mini-game. 
         The game is played casual-styled. No chips or betting.
 
@@ -29,6 +32,25 @@ class blackjack(commands.Cog):
         The player can hit as many times before they pass. Then the game is finalized on Vert's turn.
         '''
 
+        await self.messageValidation(ctx, hitorpass)
+
+    # Helper Functions #
+    
+    async def messageValidation(self, ctx, message: str):
+        '''This decides on what to do based on response'''
+        if not message:
+            await self.blackjackStartGame(ctx)
+            return 
+        
+        # Check Message
+        if message.lower() == "hit":
+            await self.blackjackHit(ctx)
+        elif message.lower() == "pass":
+            await self.blackjackPass(ctx)
+        elif message.lower() == "quit":
+            await self.blackjackQuit(ctx)
+    
+    async def blackjackStartGame(self, ctx):
         if self.isOngoing:
             embed = discord.Embed(title="Blackjack", description="There is already a game ongoing!", color = 0x00ff00)
             await ctx.respond(embed=embed)
@@ -38,8 +60,18 @@ class blackjack(commands.Cog):
         self.resetGame()
         self.drawInitCards()
         await self.showHand(ctx)
+    
+    async def blackjackQuit(self, ctx):
+        ''' Quits the game manually. '''
+        
+        # Game Validation
+        await self.validateGame(ctx)
+        
+        self.resetGame()
+        self.isOngoing = False
+        embed = discord.Embed(title="Blackjack Ended", description="You quit the game. Quitter.", color = 0x00ff00)
+        await ctx.respond(embed=embed)
 
-    @commands.slash_command(name="blackjackhit", aliases=["hit"], description="[Blackjack] Draw a card.")
     async def blackjackHit(self, ctx):
         ''' Player hits. '''
 
@@ -56,7 +88,6 @@ class blackjack(commands.Cog):
             await self.showHand(ctx)
 
 
-    @commands.slash_command(name="blackjackpass", aliases=["pass"], description="[Blackjack] Finish drawing cards.")
     async def blackjackPass(self, ctx):
         ''' Player passes on drawing a card. '''
 
@@ -65,20 +96,6 @@ class blackjack(commands.Cog):
         
         self.vertHit()
         await self.calculateWinner(ctx)
-
-    @commands.slash_command(name="blackjackquit", aliases=["quit"], desciprtion="[Blackjack] Quit the game.")
-    async def blackjackQuit(self, ctx):
-        ''' Quits the game manually. '''
-        
-        # Game Validation
-        await self.validateGame(ctx)
-        
-        self.resetGame()
-        self.isOngoing = False
-        embed = discord.Embed(title="Blackjack Ended", description="You quit the game. Quitter.", color = 0x00ff00)
-        await ctx.respond(embed=embed)
-
-    # Helper Functions #
         
     def drawInitCards(self):
         ''' Draws the initial two cards for both the player and Vert. '''
@@ -91,7 +108,7 @@ class blackjack(commands.Cog):
         embed = discord.Embed(title="Blackjack", description="Your hand:", color = 0x00ff00)
         embed.add_field(name="Your Hand:", value=self.printHand(self.player_hand))
         embed.add_field(name="Value:", value=self.calculateHand(self.player_hand))
-        embed.add_field(name="Hit or Pass?", value="Type /blackjackhit or /blackjackpass", inline=False)
+        embed.add_field(name="Hit or Pass?", value="Type /blackjack 'hit' or 'pass' to continue.", inline=False)
         await ctx.respond(embed=embed)
 
     def resetGame(self):
@@ -166,8 +183,7 @@ class blackjack(commands.Cog):
         if not self.isOngoing:
             embed = discord.Embed(title="Blackjack", description="There is no game ongoing!", color = 0x00ff00)
             await ctx.respond(embed=embed)
-            return
-        
+
     async def calculateWinner(self, ctx):
         ''' Calculates the winner. '''
 
@@ -187,13 +203,12 @@ class blackjack(commands.Cog):
 
     async def blackjackWin(self, ctx):
         ''' The player wins. '''
-        embed = await self.embedResults('win')
+        embed = await self.embedResults(ctx, 'win')
         await ctx.respond(embed=embed)
-
 
     async def blackjackLose(self, ctx):
         ''' The player loses. '''
-        embed = await self.embedResults('lose')
+        embed = await self.embedResults(ctx, 'lose')
         await ctx.respond(embed=embed)
 
     async def embedResults(self, ctx, result: str):

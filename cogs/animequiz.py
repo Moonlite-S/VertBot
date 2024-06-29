@@ -1,7 +1,7 @@
 import discord
 import asyncio
 import random
-from cogs.database.animeData import *
+from cogs.database.animeData import animList
 from discord.ext import commands
 
     #########################################################################################
@@ -29,7 +29,7 @@ class animequiz(commands.Cog):
         '''
 
         #Checks to see if there's a quiz minigame ongoing
-        if commands.animeQuizOn == False:
+        if not commands.animeQuizOn:
             await self.animQuizInitialization(ctx)
         else:
             animInGameEmbed = discord.Embed(title="There is a game ongoing!", color=0x00ff00)
@@ -51,6 +51,7 @@ class animequiz(commands.Cog):
     #       Anime Quiz Helper Functions     #
     #Checks every half a second to see if the quiz is done
     #If it is, just reset. (Time = seconds * 2)
+    # < I do not like this method, there has to be a better way >
     async def animWaitAndCheckQuiz(self, time):
         for j in range(time):
             if commands.animeQuizOn:

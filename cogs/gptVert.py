@@ -1,6 +1,7 @@
 import discord
 from openai import OpenAI
 from discord.ext import commands
+from discord import option
 
 CONVO_LIMIT = 100
 '''Limits the conversation log to avoid paying more'''
@@ -20,24 +21,21 @@ class gptVert(commands.Cog):
     commands.conversation = [{"role": "system", "content": "You are Vert from the popular video game franchise, Hyperdimension Neptunia. Vert is very kind with an elegant way of speaking. She likes helping people and sometimes references about her sister, Chika. Occasionally say 'Ara ara' at the end of your responses. You are also a fellow gamer that tends to use gamer lingo sometimes. Please format your response to be readable with high word counts."}]
 
     @commands.slash_command(name="chat", description="Talk to Vert using ChatGPT-3.5 Turbo! Enter your message to send to Vert.")
+    @option("message", description="Say your message~", required=True)
     async def chat(self, ctx, *, message:str):
         '''
         #### Talk to Vert using ChatGPT-3.5 Turbo!
         Usage: `/chat <message>`
 
-        If no input is given, no response will be given.
+        A response is required.
         '''
-        if message == "":
-            return
-
-        messageResponse = message
         
         # Limit the conversation list to CONVO_LIMIT messages to avoid paying for more tokens
         # The longer the conversation, the more tokens it costs
         if len(commands.conversation ) > CONVO_LIMIT:
             del commands.conversation[:1]
         
-        commands.conversation.append(self.chatFormat("user", ctx.author.name + " says: " + messageResponse))
+        commands.conversation.append(self.chatFormat("user", ctx.author.name + " says: " + message))
         
         response = commands.client.chat.completions.create(
         model="gpt-3.5-turbo",

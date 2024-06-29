@@ -1,7 +1,6 @@
 import discord
 import random
-from cogs.database.animeData import *
-from discord.ext import commands, tasks
+from discord.ext import commands
 
 # Games are fun
 class games(commands.Cog):
@@ -34,7 +33,9 @@ class games(commands.Cog):
     #with a random response
     async def ballCheckAndAnswerQuestion(self, ctx, response, message):
         if "?" in message:
-            ballEmb = discord.Embed(color = 0x00ff00, description = random.choice(response))
+            ballEmb = discord.Embed(color = 0x00ff00)
+            ballEmb.add_field(name="You said ", value=message)
+            ballEmb.add_field(name="8Ball says: ", value=random.choice(response))
             await ctx.respond(embed=ballEmb)
         else:
             ballEmb = discord.Embed(title="Ask me a question, please.", color = 0x00ff00)
@@ -62,8 +63,8 @@ class games(commands.Cog):
         loss_responses = [f"Oh no, I picked {bot_input}. I lost...", f"I picked {bot_input}.. How could I lose?", f"How could this be? I thought I could win with {bot_input}..",
                           f"Oh man, I picked {bot_input}.. I guess you win.."]
 
-        tie_responses = [f"Oh, I guess we tied.",f"Interesting, we chose the same thing.",f"Ah great minds think alike. I also picked {bot_input}",
-                         f"It seems that we have tied."]
+        tie_responses = ["Oh, I guess we tied.","Interesting, we chose the same thing.",f"Ah great minds think alike. I also picked {bot_input}",
+                         "It seems that we have tied."]
 
         user = message
 
