@@ -92,4 +92,4 @@ async def animQuizCheckWin(self, message):
                 
 #Loads up the env file to pass the token
 load_dotenv()
-client.run(os.getenv('DEV_DISCORD_TOKEN'))
+client.run(os.getenv('DISCORD_TOKEN'))
