@@ -7,8 +7,8 @@ from dotenv import load_dotenv
 #Usesrs must put this before imputing a command
 client = commands.Bot(intents=discord.Intents.all(), help_command=commands.DefaultHelpCommand())
 
-versionControl = "2.1.1"
-lastUpdated = "5/28/2024"
+versionControl = "2.1.2"
+lastUpdated = "6/30/2024"
 
 with open('cogs/database/animeData.json') as data:
     animList = json.load(data)
