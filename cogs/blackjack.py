@@ -38,24 +38,22 @@ class blackjack(commands.Cog):
     
     async def messageValidation(self, ctx, message: str):
         '''This decides on what to do based on response'''
-        if not message:
-            await self.blackjackStartGame(ctx)
-            return 
+        if not message and not self.isOngoing:
+            return await self.blackjackStartGame(ctx)
+
+        if not self.isOngoing:
+            return await self.gameOngoingEmbed(ctx)
         
         # Check Message
-        if message.lower() == "hit":
+        if message.lower().strip() == "hit":
             await self.blackjackHit(ctx)
-        elif message.lower() == "pass":
+        elif message.lower().strip() == "pass":
             await self.blackjackPass(ctx)
-        elif message.lower() == "quit":
+        elif message.lower().strip() == "quit":
             await self.blackjackQuit(ctx)
     
     async def blackjackStartGame(self, ctx):
-        if self.isOngoing:
-            embed = discord.Embed(title="Blackjack", description="There is already a game ongoing!", color = 0x00ff00)
-            await ctx.respond(embed=embed)
-            return
-        
+
         self.isOngoing = True
         self.resetGame()
         self.drawInitCards()
@@ -64,9 +62,6 @@ class blackjack(commands.Cog):
     async def blackjackQuit(self, ctx):
         ''' Quits the game manually. '''
         
-        # Game Validation
-        await self.validateGame(ctx)
-        
         self.resetGame()
         self.isOngoing = False
         embed = discord.Embed(title="Blackjack Ended", description="You quit the game. Quitter.", color = 0x00ff00)
@@ -74,9 +69,6 @@ class blackjack(commands.Cog):
 
     async def blackjackHit(self, ctx):
         ''' Player hits. '''
-
-        # Game Validation
-        await self.validateGame(ctx)
 
         self.drawCard(self.player_hand)
 
@@ -91,9 +83,6 @@ class blackjack(commands.Cog):
     async def blackjackPass(self, ctx):
         ''' Player passes on drawing a card. '''
 
-        # Game Validation
-        await self.validateGame(ctx)
-        
         self.vertHit()
         await self.calculateWinner(ctx)
         
@@ -179,7 +168,8 @@ class blackjack(commands.Cog):
 
         return value
 
-    async def validateGame(self, ctx):
+    async def gameOngoingEmbed(self, ctx):
+        ''' Checks to see if a game is currently running. If not, sends an Embed about it. '''
         if not self.isOngoing:
             embed = discord.Embed(title="Blackjack", description="There is no game ongoing!", color = 0x00ff00)
             await ctx.respond(embed=embed)
@@ -230,14 +220,15 @@ class blackjack(commands.Cog):
             embed.description = "It's a tie!"
         else:
             print("Invalid result. Something went wrong")
-            return
+            embed.add_field(name="SOMETHING HAPPENED", value="NOTHING GOOD")
 
-        await ctx.channel.send(embed=embed)
+        await ctx.respond(embed=embed)
 
     def printHand(self, hand: list[str]):
         return f"{(', '.join(hand))}"
     
 #Cog stuff from src that does stuff so I can make stuff so I can do stuff
 def setup(client):
+
     client.add_cog(blackjack(client))
 
