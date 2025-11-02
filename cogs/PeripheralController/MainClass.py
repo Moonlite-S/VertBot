@@ -1,4 +1,4 @@
-from cogs.PeripheralController.Exceptions.Disconnect import DisconnectError
+from cogs.PeripheralController.Exceptions.ConnectionErrors import PeripheralAlreadyConnectedError, PeripheralNotConnectedError
 from cogs.PeripheralController.ModuleClass import Module
 import logging
 
@@ -22,52 +22,62 @@ class PeripheralController:
     - The PC class then calls the speaker module to do the command. (Do the whole TTS process)
     - The PC class then returns the result to the cog.
     - The cog then sends the result to the user.
-
     '''
-    def __init__(self):
-        self.peripherals: list[Module] = []
 
-    def add_peripheral(self, peripheral: Module) -> bool:
+    def __init__(self):
+        self.peripheral_list: list[Module] = []
+
+    def list_peripherals(self) -> list[Module]:
+        '''
+        Lists all peripherals in the controller.
+        '''
+        return self.peripheral_list
+
+    def list_all_peripherals(self) -> list[str]:
+        '''
+        Lists all available peripherals that can be added to the controller.
+        '''
+        return []
+
+    def add_peripheral(self, peripheral: Module) -> Module:
         '''
         Adds a peripheral to the controller.
-        Returns True if the peripheral is added successfully, False otherwise.
+        
+        Throws:
+        - ConnectionError: If the peripheral is already connected.
+        - DisconnectError: If the peripheral is not connected.
+        - Exception: If there is an error connecting the peripheral.
         '''
-        if peripheral in self.peripherals:
-            logger.error(f"Peripheral {peripheral.name} already exists.")
-            return False
+        if peripheral in self.peripheral_list:
+            raise PeripheralAlreadyConnectedError(f"Peripheral {peripheral.name} already exists.")
         
         try:
-            if peripheral.connect():
-                self.peripherals.append(peripheral)
-                return True
-            else:
-                logger.error(f"Error connecting peripheral: {peripheral.name}")
-                return False
-        except Exception as e:
-            logger.error(f"Error connecting peripheral: {peripheral.name} - {e}")
-            return False
+            if not peripheral.connect():
+                raise PeripheralNotConnectedError(f"Error connecting peripheral: {peripheral.name}")
+
+            self.peripheral_list.append(peripheral)
+            return peripheral
+        except (PeripheralNotConnectedError, PeripheralAlreadyConnectedError, Exception) as e:
+            raise PeripheralNotConnectedError(f"Error connecting peripheral: {peripheral.name} - {e}")
         
-    def remove_peripheral(self, chosen_peripheral: Module) -> bool:
+    def remove_peripheral(self, chosen_peripheral: Module) -> None:
         '''
         Removes a peripheral from the controller.
-        Returns True if the peripheral is removed successfully, False otherwise.
 
         Needs to check if the peripheral is successfully removed.
         '''
-        if chosen_peripheral in self.peripherals:
-            try:
-                if chosen_peripheral.disconnect():
-                    self.peripherals.remove(chosen_peripheral)
-                    return True
-                else:
-                    logger.error(f"Error disconnecting peripheral: {chosen_peripheral.name}")
-                    return False
-            except DisconnectError:
-                logger.error(f"Error disconnecting peripheral: {chosen_peripheral.name}")
-                return False
-            except Exception:
-                logger.error(f"Error removing peripheral: {chosen_peripheral.name}")
-                return False
+        if not chosen_peripheral in self.peripheral_list:
+            raise PeripheralNotConnectedError(f"Peripheral {chosen_peripheral.name} not found.")
 
-        return False
+        try:
+            if not chosen_peripheral.disconnect():
+                raise PeripheralNotConnectedError(f"Error disconnecting peripheral: {chosen_peripheral.name}")
+
+            self.peripheral_list.remove(chosen_peripheral)
+        except PeripheralNotConnectedError:
+            raise PeripheralNotConnectedError(f"Error disconnecting peripheral: {chosen_peripheral.name}")
+        except PeripheralNotConnectedError:
+            raise PeripheralNotConnectedError(f"Peripheral {chosen_peripheral.name} not found.")
+
+    
     
